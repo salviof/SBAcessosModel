@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>br.org.coletivojava.FW.modulos</groupId>
+    <groupId>br.org.coletivoJava.fw.modulos</groupId>
     <artifactId>SBAcessosModel</artifactId>
-    <version>1.0RC-SNAPSHOT</version>
+    <version>1.0.0-RC-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -19,14 +19,14 @@
         <dependency>
             <groupId>br.org.coletivoJava.fw</groupId>
             <artifactId>SBTestes</artifactId>
-            <version>1.0RC-SNAPSHOT</version>
+            <version>1.0.0-RC-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>br.org.coletivoJava.fw</groupId>
             <artifactId>SBPersistencia</artifactId>
-            <version>1.0RC-SNAPSHOT</version>
+            <version>1.0.0-RC-SNAPSHOT</version>
         </dependency>
 
 
