@@ -25,7 +25,7 @@ public class TesteAcessosModelPadrao extends TesteJunitSBPersistencia {
     }
 
     public void teste() {
-        EntityManager em = getEmTeste();
+        EntityManager em = getEMTeste();
 
     }
 

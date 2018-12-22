@@ -147,6 +147,11 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     }
 
     @Override
+    public ItfAcaoControllerEntidade getAcaoSalvarNovo() {
+        return ItfAcaoGerenciarEntidade.super.getAcaoSalvarNovo(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public ItfAcaoController getAcaoAlterarStatus() {
         return ItfAcaoGerenciarEntidade.super.getAcaoAlterarStatus(); //To change body of generated methods, choose Tools | Templates.
     }

@@ -47,7 +47,7 @@ public class GrupoUsuarioSBTest extends TesteJunitSBPersistencia {
     @Test
     public void testeEntityManager() {
         try {
-            EntityManager em = getEmTeste();
+            EntityManager em = getEMTeste();
 
             UtilSBAcessosModel.criarNovosAcessosNoBanco(em);
             ControllerAppAbstratoSBCore.reloadAcessos();

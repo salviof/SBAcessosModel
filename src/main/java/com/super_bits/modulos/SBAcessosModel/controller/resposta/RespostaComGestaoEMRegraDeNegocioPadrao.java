@@ -8,12 +8,19 @@ package com.super_bits.modulos.SBAcessosModel.controller.resposta;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.logsRegraDeNegocio.LogsAcoesExecutadas;
 import com.super_bits.modulosSB.Persistencia.dao.ErroEmBancoDeDados;
+import com.super_bits.modulosSB.Persistencia.dao.FabTipoErroBancoDeDados;
 import com.super_bits.modulosSB.Persistencia.dao.ItfRespostaComExecucaoDeRegraDeNegocio;
 import com.super_bits.modulosSB.Persistencia.dao.RespostaComGestaoEntityManager;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
+import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
@@ -57,10 +64,45 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                 return null;
             }
         }
+        EstruturaDeEntidade est = MapaObjetosProjetoAtual.getEstruturaObjeto(pObjeto.getClass());
+        if (est != null) {
+            est.getCalculos().stream().forEach(calc -> {
+                try {
+                    pObjeto.getCampoInstanciadoByNomeOuAnotacao(calc.getNomeDeclarado()).getValor();
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro atualizando informação de calculo" + calc.getNome(), t);
+                }
 
-        ItfBeanSimples objetoCriado = (ItfBeanSimples) super.atualizarEntidade(pObjeto);
-        if (objetoCriado != null) {
-            if (umNovoRegistro) {
+            });
+        } else {
+            throw new UnsupportedOperationException("Imposível localizar o objeto de referencia para" + pObjeto);
+        }
+        if (umNovoRegistro) {
+
+            String imagemPequeno = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_PEQUENA, SBCore.getCentralDeSessao().getSessaoAtual());;
+            String imagemMedio = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual());;
+            String imagemGrande = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_GRANDE, SBCore.getCentralDeSessao().getSessaoAtual());;
+
+            ItfBeanSimples objetoCriado = (ItfBeanSimples) super.atualizarEntidade(pObjeto);
+            if (objetoCriado != null) {
+                if (UtilSBCoreArquivos.isArquivoExiste(imagemPequeno)) {
+                    if (UtilSBCoreArquivos.copiarArquivos(imagemPequeno, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
+                        UtilSBCoreArquivos.removerArquivoLocal(imagemPequeno);
+                    }
+                }
+                if (UtilSBCoreArquivos.isArquivoExiste(imagemMedio)) {
+                    if (UtilSBCoreArquivos.copiarArquivos(imagemMedio, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
+                        UtilSBCoreArquivos.removerArquivoLocal(imagemMedio);
+                    } else {
+                        throw new UnsupportedOperationException("Erro salvando imagem de referencia");
+                    }
+                }
+                if (UtilSBCoreArquivos.isArquivoExiste(imagemGrande)) {
+                    if (UtilSBCoreArquivos.copiarArquivos(imagemGrande, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
+                        UtilSBCoreArquivos.removerArquivoLocal(imagemGrande);
+                    }
+                }
+
                 for (ItfCampoInstanciado campo : pObjeto.getCamposInstanciados()) {
                     if (campo != null) {
                         if (campo.isUmCampoArquivoEntidade()) {
@@ -75,9 +117,11 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                     }
                 }
             }
+            return (I) objetoCriado;
+        } else {
+            return (I) super.atualizarEntidade(pObjeto);
         }
 
-        return (I) objetoCriado;
     }
 
     /**
