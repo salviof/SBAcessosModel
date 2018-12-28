@@ -28,7 +28,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Transient;
-import org.coletivojava.fw.api.objetoNativo.view.componente.ComponenteVisualSB;
 
 /**
  *

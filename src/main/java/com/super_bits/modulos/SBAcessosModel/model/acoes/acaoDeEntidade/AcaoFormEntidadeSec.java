@@ -28,7 +28,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Transient;
-import org.coletivojava.fw.api.objetoNativo.view.componente.ComponenteVisualSB;
+import org.coletivojava.fw.api.objetoNativo.view.componente.ComponenteVisualBase;
 
 /**
  *
@@ -188,8 +188,8 @@ public class AcaoFormEntidadeSec extends AcaoSecundaria implements ItfAcaoFormul
     }
 
     @Override
-    public ComponenteVisualSB getComponenteFormularioPadrao() {
-        return (ComponenteVisualSB) getTipoAcaoGenerica().getComponentePadrao().getRegistro();
+    public ComponenteVisualBase getComponenteFormularioPadrao() {
+        return (ComponenteVisualBase) getTipoAcaoGenerica().getComponentePadrao().getRegistro();
     }
 
 }
