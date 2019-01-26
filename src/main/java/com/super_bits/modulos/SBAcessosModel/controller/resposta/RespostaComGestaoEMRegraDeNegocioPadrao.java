@@ -8,15 +8,12 @@ package com.super_bits.modulos.SBAcessosModel.controller.resposta;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.logsRegraDeNegocio.LogsAcoesExecutadas;
 import com.super_bits.modulosSB.Persistencia.dao.ErroEmBancoDeDados;
-import com.super_bits.modulosSB.Persistencia.dao.FabTipoErroBancoDeDados;
 import com.super_bits.modulosSB.Persistencia.dao.ItfRespostaComExecucaoDeRegraDeNegocio;
 import com.super_bits.modulosSB.Persistencia.dao.RespostaComGestaoEntityManager;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UTilSBCoreInputs;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
-import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaCampo;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
@@ -38,7 +35,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         System.out.println("Falta implementar Validação de Atributos via InfoCampo e Validate");
 
         pEntidade.getCamposInstaciadosInvalidos().forEach((campo) -> {
-            UtilSBCoreValidacao.validaSintaxeENulo(campo, campo.getFabricaTipoAtributo());
+            UtilSBCoreValidacao.validacoesBasicas(campo, campo.getFabricaTipoAtributo());
         });
         return true;
     }
