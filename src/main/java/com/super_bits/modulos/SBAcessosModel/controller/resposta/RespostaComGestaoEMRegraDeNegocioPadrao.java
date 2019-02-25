@@ -14,6 +14,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNegocio;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
@@ -133,6 +134,8 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             executarAcoesIniciais();
             try {
                 regraDeNegocio();
+            } catch (ErroRegraDeNegocio er) {
+                addErro(er.getMessage());
             } catch (Throwable t) {
                 if (isSucesso()) {
                     addErro("Erro indeterminado tentando " + getAcaoVinculada().getNomeAcao());
