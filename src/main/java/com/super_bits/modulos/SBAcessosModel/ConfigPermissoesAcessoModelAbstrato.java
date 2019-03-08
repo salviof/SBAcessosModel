@@ -154,7 +154,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                         return new UsuarioSistemaRoot();
                     }
                     UsuarioSB usuario
-                            = (UsuarioSB) UtilSBPersistencia.getRegistroByJPQL("from UsuarioSB where email='" + pEmail + "'", getEm());
+                            = (UsuarioSB) UtilSBPersistencia.getRegistroByJPQL("from UsuarioSB where email like'" + pEmail + "'", getEm());
                     if (usuario == null) {
                         return null;
                     }
