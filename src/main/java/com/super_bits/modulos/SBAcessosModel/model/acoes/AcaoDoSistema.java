@@ -73,7 +73,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     private String cor;
     private String descricao;
     private boolean precisaPermissao;
-    @ManyToOne(targetEntity = ModuloAcaoSistema.class, cascade = CascadeType.PERSIST)
+    @ManyToOne(targetEntity = ModuloAcaoSistema.class, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private ModuloAcaoSistema modulo;
 
     private String idDescritivoJira;

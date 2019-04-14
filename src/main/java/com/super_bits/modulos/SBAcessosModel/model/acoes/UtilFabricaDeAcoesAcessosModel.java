@@ -685,7 +685,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 novaAcao.getComoFormulario().setEstadoFormulario(pTipoAcaoGenerica.getEstadoFormularioPadrao());
             }
             configurarAnotacoesAcao((AcaoDoSistema) novaAcao);
-            return novaAcao;
+             return novaAcao;
         } catch (Throwable t) {
 
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando ação automática por nome: " + t.getMessage() + pAcao.toString(), t);
