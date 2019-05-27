@@ -7,7 +7,6 @@ package com.super_bits.modulos.SBAcessosModel.controller;
 
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistemaNativo;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreGeradorDeID;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoDaFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
@@ -29,7 +28,7 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
 
     @Override
     public ModuloAcaoSistema getModulo() {
-       
+
         ModuloAcaoSistemaNativo modulo = new ModuloAcaoSistemaNativo();
         modulo.setUmModuloNativo(true);
         modulo.setEnumVinculado(this);
@@ -75,9 +74,8 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
                 throw new AssertionError(this.name());
 
         }
-        
-       
-       modulo.setId(UtilSBCoreGeradorDeIDSimples.gerarIdUnicoObejtoVinculadoAFabrica(modulo));
+
+        modulo.setId(UtilSBCoreGeradorDeIDSimples.gerarIdUnicoObejtoVinculadoAFabrica(modulo));
 
         return modulo;
     }
