@@ -81,7 +81,7 @@ public class AssuntoFaleConosco extends EntidadeNormal {
         this.ativo = ativo;
     }
 
-    public String getAssunto() {
+    public String getNome() {
         return assunto;
     }
 

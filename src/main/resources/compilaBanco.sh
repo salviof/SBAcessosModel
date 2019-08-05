@@ -1,2 +1,3 @@
+#!/bin/bash
 source ./SBProjeto.prop
-mysqldump -u root  $NOME_BANCO > bancoHomologacao.sql
+mysqldump -u root -psenhaDev#123  $NOME_BANCO > bancoHomologacao.sql

@@ -44,9 +44,9 @@ import javax.validation.constraints.NotNull;
  * @author Salvio
  */
 @Entity
+@InfoObjetoSB(tags = {"Usuário"}, plural = "Usuários", icone = "fa fa-user")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoUsuario")
-@InfoObjetoSB(tags = {"Usuário"}, plural = "Usuários")
 @EntityListeners(ListenerEntidadePadrao.class)
 public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializable {
 
