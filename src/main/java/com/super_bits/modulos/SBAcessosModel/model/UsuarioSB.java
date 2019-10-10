@@ -58,7 +58,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @NotNull
     private String nome;
 
-    @Column(length = 120, unique = true)
+    @Column(length = 255, unique = true)
     @NotNull
     @InfoCampo(tipo = FabTipoAtributoObjeto.EMAIL, label = "Email", descricao = "Email que o usuário irá utilizar para acessar o sistema")
     private String email;
