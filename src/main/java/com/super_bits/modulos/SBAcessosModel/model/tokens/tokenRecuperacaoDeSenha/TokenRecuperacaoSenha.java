@@ -19,4 +19,6 @@ import javax.persistence.Entity;
 @InfoObjetoSB(plural = "Tokens de recuperação de senha", tags = "Token Recuperação de senha", icone = "fa fa-key")
 public class TokenRecuperacaoSenha extends TokenAcesso {
 
+    private String emailUsuario;
+
 }

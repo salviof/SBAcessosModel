@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.tokens;
 
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.token.ItfTokenRecuperacaoEmail;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
@@ -30,7 +31,7 @@ import javax.persistence.TemporalType;
 @InfoObjetoSB(plural = "Tokens Acesso", tags = {"Token de Acesso"}, descricao = "Tokens de acesso", icone = "fa fa-key")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoToken")
-public class TokenAcesso extends ItemSimples {
+public class TokenAcesso extends ItemSimples implements ItfTokenRecuperacaoEmail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,34 +59,42 @@ public class TokenAcesso extends ItemSimples {
         this.id = id;
     }
 
+    @Override
     public String getCodigo() {
         return codigo;
     }
 
+    @Override
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
 
+    @Override
     public void setEmail(String email) {
         this.email = email;
     }
 
+    @Override
     public Date getValidade() {
         return validade;
     }
 
+    @Override
     public void setValidade(Date validade) {
         this.validade = validade;
     }
 
+    @Override
     public Date getDataHoraCriacao() {
         return dataHoraCriacao;
     }
 
+    @Override
     public void setDataHoraCriacao(Date dataHoraCriacao) {
         this.dataHoraCriacao = dataHoraCriacao;
     }
