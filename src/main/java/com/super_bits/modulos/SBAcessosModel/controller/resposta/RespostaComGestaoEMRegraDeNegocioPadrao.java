@@ -10,6 +10,9 @@ import com.super_bits.modulos.SBAcessosModel.model.logsRegraDeNegocio.LogsAcoesE
 import com.super_bits.modulosSB.Persistencia.dao.ErroEmBancoDeDados;
 import com.super_bits.modulosSB.Persistencia.dao.ItfRespostaComExecucaoDeRegraDeNegocio;
 import com.super_bits.modulosSB.Persistencia.dao.RespostaComGestaoEntityManager;
+import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Bairro;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Cidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
@@ -20,6 +23,10 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoA
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfBairro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfCidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfUnidadeFederativa;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
 /**
@@ -75,6 +82,31 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         } else {
             throw new UnsupportedOperationException("Imposível localizar o objeto de referencia para" + pObjeto);
         }
+        //TODO rever esta abordagem, Tavez seja melhor usar com o AssitenteDeLocalizacaoInput
+        if (pObjeto.isTemCampoAnotado(FabTipoAtributoObjeto.LC_LOCALIZACAO)) {
+            ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
+            Bairro b = (Bairro) cpLocalizacao.getComoCampoLocalizacao().getBairro();
+            ItfCidade c = (ItfCidade) cpLocalizacao.getComoCampoLocalizacao().getCidade();
+            if (b != null) {
+                b.configIDPeloNome();
+                Bairro bload = UtilSBPersistencia.loadEntidade(b, getEm());
+                if (bload != null) {
+                    ItfLocal local = (ItfLocal) cpLocalizacao.getValor();
+                    local.setBairro(bload);
+                }
+            }
+            if (c != null) {
+                c.configIDPeloNome();
+                ItfCidade cload = UtilSBPersistencia.loadEntidade(c, getEm());
+
+                if (cload != null) {
+                    ItfLocal local = (ItfLocal) cpLocalizacao.getValor();
+                    local.getBairro().setCidade(cload);
+
+                }
+            }
+        }
+
         if (umNovoRegistro) {
 
             String imagemPequeno = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_PEQUENA, SBCore.getCentralDeSessao().getSessaoAtual());;
