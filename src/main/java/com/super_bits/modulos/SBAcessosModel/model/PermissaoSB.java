@@ -46,10 +46,7 @@ import org.hibernate.annotations.GenericGenerator;
 public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serializable {
 
     @Id
-    @GenericGenerator(
-            name = "geradorIdPermissao",
-            strategy = "com.super_bits.modulos.SBAcessosModel.model.GeradorIdPermissao"
-    )
+    @GenericGenerator(name = "geradorIdPermissao", strategy = "com.super_bits.modulos.SBAcessosModel.model.GeradorIdPermissao")
     @GeneratedValue(generator = "geradorIdPermissao")
     private int id;
 
