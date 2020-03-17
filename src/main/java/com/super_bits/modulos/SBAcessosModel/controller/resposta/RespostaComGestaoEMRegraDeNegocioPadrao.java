@@ -50,6 +50,24 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         return super.removerEntidade(pObjeto);
     }
 
+    public void atualizarValoresDinamicos(ItfBeanSimples pObjeto) {
+        EstruturaDeEntidade est = MapaObjetosProjetoAtual.getEstruturaObjeto(pObjeto.getClass());
+        if (est != null) {
+            est.getCalculos().stream().forEach(calc -> {
+                try {
+                    if (calc.isAtualizarValorLogicoAoPersistir()) {
+                        pObjeto.getCampoInstanciadoByNomeOuAnotacao(calc.getNomeDeclarado()).getValor();
+                    }
+                } catch (Throwable t) {
+                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro atualizando informação de calculo" + est.getNomeEntidade() + "." + calc.getNome(), t);
+                }
+
+            });
+        } else {
+            throw new UnsupportedOperationException("Imposível localizar o objeto de referencia para" + pObjeto);
+        }
+    }
+
     public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto) {
         boolean umNovoRegistro = false;
         if (!isSucesso()) {
@@ -66,19 +84,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                 return null;
             }
         }
-        EstruturaDeEntidade est = MapaObjetosProjetoAtual.getEstruturaObjeto(pObjeto.getClass());
-        if (est != null) {
-            est.getCalculos().stream().forEach(calc -> {
-                try {
-                    pObjeto.getCampoInstanciadoByNomeOuAnotacao(calc.getNomeDeclarado()).getValor();
-                } catch (Throwable t) {
-                    SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro atualizando informação de calculo" + calc.getNome(), t);
-                }
-
-            });
-        } else {
-            throw new UnsupportedOperationException("Imposível localizar o objeto de referencia para" + pObjeto);
-        }
+        atualizarValoresDinamicos(pObjeto);
         //TODO rever esta abordagem, Tavez seja melhor usar com o AssitenteDeLocalizacaoInput
         if (pObjeto.isTemCampoAnotado(FabTipoAtributoObjeto.LC_LOCALIZACAO)) {
             ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
