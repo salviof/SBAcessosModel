@@ -69,6 +69,10 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
     }
 
     public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto) {
+        return atualizarEntidade(pObjeto, true);
+    }
+
+    public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto, boolean validarTodosOsCampos) {
         boolean umNovoRegistro = false;
         if (!isSucesso()) {
             return null;
@@ -78,10 +82,12 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         }
 
         if (pObjeto instanceof ItfBeanSimples) {
-            String mensagem = UtilSBCoreValidacao.getPrimeiraInconsistenciaDeValidacao((ItfBeanSimples) pObjeto);
-            if (mensagem != null) {
-                addErro(mensagem);
-                return null;
+            if (validarTodosOsCampos) {
+                String mensagem = UtilSBCoreValidacao.getPrimeiraInconsistenciaDeValidacao((ItfBeanSimples) pObjeto);
+                if (mensagem != null) {
+                    addErro(mensagem);
+                    return null;
+                }
             }
         }
         atualizarValoresDinamicos(pObjeto);

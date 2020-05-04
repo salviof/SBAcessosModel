@@ -258,8 +258,10 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
             List<ItfAcaoSecundaria> acoesVinc = getAcoesVinculadas();
             for (ItfAcaoDoSistema acao : acoesVinc) {
                 String nomeUrlDaAcao = UtilSBCoreStringFiltros.gerarUrlAmigavel(acao.getNomeAcao().toLowerCase());
+
                 if (nomeUrlDaAcao
-                        .contains(UtilSBCoreStringFiltros.gerarUrlAmigavel(pString.toLowerCase()))) {
+                        .equals(UtilSBCoreStringFiltros.gerarUrlAmigavel(pString.toLowerCase()))) {
+                    //equals ou .endsWith se confiar na programação holística
                     return acao;
                 }
             }
