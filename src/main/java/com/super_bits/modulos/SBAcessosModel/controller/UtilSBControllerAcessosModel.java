@@ -34,6 +34,10 @@ import org.hibernate.Session;
 public class UtilSBControllerAcessosModel {
 
     public static boolean criarPermissoesDeAcao() {
+        return criarPermissoesDeAcao(true);
+    }
+
+    public static boolean criarPermissoesDeAcao(boolean recriarPermissaoExistente) {
         EntityManager em = null;
         List<Integer> permissoesPersistidas = new ArrayList<>();
         try {
@@ -43,6 +47,9 @@ public class UtilSBControllerAcessosModel {
             sessaoSQLHibernate.clear();
             sessaoSQLHibernate.setCacheMode(CacheMode.REFRESH);
             sessaoSQLHibernate.setFlushMode(FlushModeType.COMMIT);
+            if (!recriarPermissaoExistente) {
+                UtilSBPersistencia.getListaTodos(PermissaoSB.class, em).stream().map(perm -> perm.getId()).forEach(permissoesPersistidas::add);
+            }
 
             MapaAcoesSistema.getListaTodasGestao().stream().filter((acao)
                     -> (acao.isPrecisaPermissao() || acao.isPossuiSubAcaoComPermissao())).forEach((acao) -> {
@@ -72,7 +79,16 @@ public class UtilSBControllerAcessosModel {
                             if (UtilSBPersistencia.mergeRegistro(novaPermissao, em) == null) {
                                 throw new UnsupportedOperationException("Erro persistindo permissão em banco de dados");
                             }
+                            if (ac.isTemAcaoPrincipal()) {
+                                if (UtilSBPersistencia.mergeRegistro(ac.getAcaoDeGestaoEntidade(), em) == null) {
+                                    throw new UnsupportedOperationException("Erro persistindo permissão em banco de dados");
+                                }
+                                if (UtilSBPersistencia.mergeRegistro(ac, em) == null) {
+                                    throw new UnsupportedOperationException("Erro persistindo permissão em banco de dados");
+                                }
+                            }
                             System.out.println(novaPermissao.getId());
+
                             permissoesPersistidas.add(novaPermissao.getId());
                             UtilSBPersistencia.finalizarTransacao(em);
 
