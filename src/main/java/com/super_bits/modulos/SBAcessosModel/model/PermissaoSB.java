@@ -63,28 +63,24 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     @Transient
     private List<ItfGrupoUsuario> listaTodosGruposUsuarios;
 
-    //TODO CONSERTAR NOMES DAS COLUNAS INVERTIDOS -> Depende do gerador de script de migration para atualização de versão
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Permitido_Usuarios",
             joinColumns = @JoinColumn(name = "acesso_id"),
             inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     private List<UsuarioSB> usuariosPermitidos;
 
-    //TODO CONSERTAR NOMES DAS COLUNAS INVERTIDOS -> Depende do gerador de script de migration para atualização de versão
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Negado_Usuarios",
             joinColumns = @JoinColumn(name = "acesso_id"),
             inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     private List<UsuarioSB> usuariosNegados;
 
-    //TODO CONSERTAR NOMES DAS COLUNAS INVERTIDOS -> Depende do gerador de script de migration para atualização de versão
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "Permitido_Grupos",
             joinColumns = @JoinColumn(name = "acesso_id"),
             inverseJoinColumns = @JoinColumn(name = "grupo_id"))
     private List<GrupoUsuarioSB> gruposPermitidos;
 
-    //TODO CONSERTAR NOMES DAS COLUNAS INVERTIDOS -> Depende do gerador de script de migration para atualização de versão
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Negado_Grupos",
             joinColumns = @JoinColumn(name = "acesso_id"),

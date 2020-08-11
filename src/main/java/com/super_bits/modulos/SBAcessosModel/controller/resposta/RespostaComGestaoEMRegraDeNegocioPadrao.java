@@ -16,6 +16,7 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNegocio;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
@@ -146,7 +147,8 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                     if (campo != null) {
                         if (campo.isUmCampoArquivoEntidade()) {
                             if (campo.getComoArquivoDeEntidade().getIntputTemporario() != null) {
-                                SBCore.getCentralDeArquivos().salvarArquivo(
+                                ItfCentralDeArquivos servicoArquivosDeEntidade = SBCore.getServicoArquivosDeEntidade();
+                                servicoArquivosDeEntidade.salvarArquivo(
                                         objetoCriado,
                                         campo.getComoArquivoDeEntidade().getIntputTemporario(),
                                         campo.getNomeCamponaClasse(), campo.getValor().toString()
