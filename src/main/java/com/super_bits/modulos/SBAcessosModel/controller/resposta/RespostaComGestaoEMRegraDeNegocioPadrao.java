@@ -137,6 +137,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                         throw new UnsupportedOperationException("Erro salvando imagem de referencia");
                     }
                 }
+
                 if (UtilSBCoreArquivos.isArquivoExiste(imagemGrande)) {
                     if (UtilSBCoreArquivos.copiarArquivos(imagemGrande, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
                         UtilSBCoreArquivos.removerArquivoLocal(imagemGrande);

@@ -39,9 +39,18 @@ public class UtilSBControllerAcessosModel {
 
     public static boolean criarPermissoesDeAcao(boolean recriarPermissaoExistente) {
         EntityManager em = null;
-        List<Integer> permissoesPersistidas = new ArrayList<>();
+
         try {
-            em = UtilSBPersistencia.getNovoEM();
+            em = UtilSBPersistencia.getEntyManagerPadraoNovo();
+
+            List<Integer> permissoesPersistidas;
+            permissoesPersistidas = new ArrayList<>();
+            if (!recriarPermissaoExistente) {
+
+                List<PermissaoSB> permissoesExistente = UtilSBPersistencia.getListaTodos(PermissaoSB.class, em);
+                permissoesExistente.stream().map(pm -> pm.getId()).forEach(permissoesPersistidas::add);
+
+            }
 
             Session sessaoSQLHibernate = em.unwrap(Session.class);
             sessaoSQLHibernate.clear();
@@ -50,7 +59,7 @@ public class UtilSBControllerAcessosModel {
             if (!recriarPermissaoExistente) {
                 UtilSBPersistencia.getListaTodos(PermissaoSB.class, em).stream().map(perm -> perm.getId()).forEach(permissoesPersistidas::add);
             }
-
+            //Persistindo possíveis permissões de Gestão
             MapaAcoesSistema.getListaTodasGestao().stream().filter((acao)
                     -> (acao.isPrecisaPermissao() || acao.isPossuiSubAcaoComPermissao())).forEach((acao) -> {
                 PermissaoSB novaPermissao = new PermissaoSB(acao.getEnumAcaoDoSistema());
@@ -63,7 +72,7 @@ public class UtilSBControllerAcessosModel {
                     permissoesPersistidas.add(novaPermissao.getId());
                 }
             });
-
+            //Persistindo SubAções
             for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
                 AcaoDoSistema ac = (AcaoDoSistema) acao;
                 if (ac.isPrecisaPermissao()) {
