@@ -24,7 +24,11 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
     PAGINAS_DO_SISTEMA,
     DOCUMENTOS_INTRANET_GESTAO,
     DOCUMENTOS_INTRANET_EXTERNO,
-    ADMIN_TOOLS;
+    ADMIN_TOOLS,
+    AGENDA,
+    COMERCIO_SERVICOS,
+    COMERCIO_PRODUTOS,
+    LEAD;
 
     @Override
     public ModuloAcaoSistema getModulo() {
@@ -70,6 +74,30 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
                 modulo.setIconeDaClasse("fa fa-suitcase");
 
                 break;
+            case AGENDA:
+                modulo.setNome("Agendamento");
+                modulo.setDescricao("Sistema core para gestão de Agendamento de atividades e Reservas");
+                modulo.setUmModuloNativo(true);
+                modulo.setIconeDaClasse("fa fa-calendar-check-o");
+                break;
+            case COMERCIO_SERVICOS:
+                modulo.setNome("Comercio Serviços");
+                modulo.setDescricao("Sistema core para gestão de serviços");
+                modulo.setUmModuloNativo(true);
+                modulo.setIconeDaClasse("fa fa-suitcase");
+                break;
+            case COMERCIO_PRODUTOS:
+                modulo.setNome("Comercio Produtos");
+                modulo.setDescricao("Sistema core para gestão de produtos");
+                modulo.setUmModuloNativo(true);
+                modulo.setIconeDaClasse("fa fa-cube");
+                break;
+            case LEAD:
+                modulo.setNome("Marketing, Lead");
+                modulo.setDescricao("Sistema Core para gestão de Leads");
+                modulo.setUmModuloNativo(true);
+                modulo.setIconeDaClasse("fa fa-address-book-o");
+                break;
             default:
                 throw new AssertionError(this.name());
 
@@ -100,6 +128,14 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
                 break;
             case ADMIN_TOOLS:
                 return FabMenuAdmin.ROOT;
+            case AGENDA:
+                break;
+            case COMERCIO_SERVICOS:
+                break;
+            case COMERCIO_PRODUTOS:
+                break;
+            case LEAD:
+                break;
 
             default:
                 throw new AssertionError(this.name());
