@@ -25,6 +25,10 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocalidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.validador.ErroValidacao;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 
 /**
@@ -82,6 +86,38 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             umNovoRegistro = true;
         }
 
+        if (pObjeto.isTemCampoAnotado(FabTipoAtributoObjeto.LC_LOCALIZACAO)) {
+            ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
+            if (!cpLocalizacao.isUmCampoNaoInstanciado() && cpLocalizacao.getValor() != null) {
+                if (UtilSBCoreValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(), cpLocalizacao.getValorComoItemSimples().getId() == 0, false) != null) {
+                    cpLocalizacao.setValor(null);
+                } else {
+
+                    Bairro b = (Bairro) cpLocalizacao.getComoCampoLocalizacao().getBairro();
+                    ItfCidade c = (ItfCidade) cpLocalizacao.getComoCampoLocalizacao().getCidade();
+                    if (b != null) {
+                        b.configIDPeloNome();
+                        Bairro bload = UtilSBPersistencia.loadEntidade(b, getEm());
+                        if (bload != null) {
+                            ItfLocal local = (ItfLocal) cpLocalizacao.getValor();
+                            local.setBairro(bload);
+                        }
+                    }
+                    if (c != null) {
+                        c.configIDPeloNome();
+                        ItfCidade cload = UtilSBPersistencia.loadEntidade(c, getEm());
+
+                        if (cload != null) {
+                            ItfLocal local = (ItfLocal) cpLocalizacao.getValor();
+                            local.getBairro().setCidade(cload);
+
+                        }
+                    }
+                }
+            }
+
+        }
+
         if (pObjeto instanceof ItfBeanSimples) {
             if (validarTodosOsCampos) {
                 String mensagem = UtilSBCoreValidacao.getPrimeiraInconsistenciaDeValidacao((ItfBeanSimples) pObjeto);
@@ -93,29 +129,6 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         }
         atualizarValoresDinamicos(pObjeto);
         //TODO rever esta abordagem, Tavez seja melhor usar com o AssitenteDeLocalizacaoInput
-        if (pObjeto.isTemCampoAnotado(FabTipoAtributoObjeto.LC_LOCALIZACAO)) {
-            ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
-            Bairro b = (Bairro) cpLocalizacao.getComoCampoLocalizacao().getBairro();
-            ItfCidade c = (ItfCidade) cpLocalizacao.getComoCampoLocalizacao().getCidade();
-            if (b != null) {
-                b.configIDPeloNome();
-                Bairro bload = UtilSBPersistencia.loadEntidade(b, getEm());
-                if (bload != null) {
-                    ItfLocal local = (ItfLocal) cpLocalizacao.getValor();
-                    local.setBairro(bload);
-                }
-            }
-            if (c != null) {
-                c.configIDPeloNome();
-                ItfCidade cload = UtilSBPersistencia.loadEntidade(c, getEm());
-
-                if (cload != null) {
-                    ItfLocal local = (ItfLocal) cpLocalizacao.getValor();
-                    local.getBairro().setCidade(cload);
-
-                }
-            }
-        }
 
         if (umNovoRegistro) {
 
