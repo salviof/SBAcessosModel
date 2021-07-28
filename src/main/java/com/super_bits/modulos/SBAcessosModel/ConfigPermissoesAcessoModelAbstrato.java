@@ -402,4 +402,9 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
         return UtilSBPersistencia.mergeRegistro(recuperacaoDeSenha);
     }
 
+    @Override
+    public void persitirMergePermissoes() {
+        persistirPermissoesNoBanco();
+    }
+
 }

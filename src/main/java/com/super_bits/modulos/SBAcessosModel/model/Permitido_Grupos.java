@@ -83,4 +83,10 @@ public class Permitido_Grupos extends EntidadeSimples {
         return id;
     }
 
+    @Override
+    public String toString() {
+        defineIdPermitidoGrupo();
+        return String.valueOf(id);
+    }
+
 }

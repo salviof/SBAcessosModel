@@ -164,7 +164,9 @@ public class UtilSBControllerAcessosModel {
                     if (permissao == null) {
                         throw new UnsupportedOperationException("Erro adionando permissao ao grupo");
                     }
-                    grupoAtualizado.getPermissoesConcedidas().add(permissao);
+                    if (!grupoAtualizado.getPermissoesConcedidas().contains(permissao)) {
+                        grupoAtualizado.getPermissoesConcedidas().add(permissao);
+                    }
                     atualizarEntidade(grupoAtualizado);
                 } catch (ErroEmBancoDeDados pErro) {
                     SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro atualizção permissao do grupo", pErro);

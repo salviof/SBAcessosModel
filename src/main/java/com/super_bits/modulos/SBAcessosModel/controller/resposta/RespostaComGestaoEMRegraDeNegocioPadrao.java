@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Ba
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNegocio;
@@ -89,7 +90,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         if (pObjeto.isTemCampoAnotado(FabTipoAtributoObjeto.LC_LOCALIZACAO)) {
             ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
             if (!cpLocalizacao.isUmCampoNaoInstanciado() && cpLocalizacao.getValor() != null) {
-                if (UtilSBCoreValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(), cpLocalizacao.getValorComoItemSimples().getId() == 0, false) != null) {
+                if (!UtilSBCoreValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(), cpLocalizacao.getValorComoItemSimples().getId() == 0, false).isEmpty()) {
                     cpLocalizacao.setValor(null);
                 } else {
 
@@ -113,6 +114,9 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
                         }
                     }
+                    //       ItfLocal localizacaoAtualizada = (ItfLocal) cpLocalizacao.getValor();
+                    //       localizacaoAtualizada = UtilSBPersistencia.mergeRegistro(cpLocalizacao.getValor(), getEm());
+                    //        cpLocalizacao.setValor(localizacaoAtualizada);
                 }
             }
 
@@ -250,6 +254,11 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
     @Override
     public void executarAcoesIniciais() throws ErroEmBancoDeDados {
         super.executarAcoesIniciais(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ItfRespostaAcaoDoSistema setProximoFormulario(ItfAcaoFormulario pFormulario) {
+        return (ItfRespostaAcaoDoSistema) super.setProximoFormulario(pFormulario);
     }
 
 }
