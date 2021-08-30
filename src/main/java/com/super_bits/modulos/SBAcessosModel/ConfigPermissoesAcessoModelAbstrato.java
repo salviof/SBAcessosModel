@@ -7,14 +7,19 @@ import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.tokens.tokenLoginDinamico.TokenAcessoDinamico;
 import com.super_bits.modulos.SBAcessosModel.model.tokens.tokenRecuperacaoDeSenha.TokenRecuperacaoSenha;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.ExecucaoConsultaComGestaoEntityManager;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
+import com.super_bits.modulosSB.Persistencia.dao.consultaDinamica.ConsultaDinamicaDeEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCriptrografia;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreListasObjeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreObjetoSB;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreAbstrato;
@@ -22,10 +27,14 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAc
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.token.ItfTokenAcessoDinamico;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.token.ItfTokenRecuperacaoEmail;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
+import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNegocio;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import java.util.ArrayList;
@@ -400,6 +409,81 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
         recuperacaoDeSenha.setEmail(pUsuario.getEmail());
         recuperacaoDeSenha.setValidade(UtilSBCoreDataHora.incrementaMinutos(new Date(), pMinutosValidade));
         return UtilSBPersistencia.mergeRegistro(recuperacaoDeSenha);
+    }
+
+    @Override
+    public ItfTokenAcessoDinamico gerarTokenDinamico(ItfFabricaAcoes pAcao, ItfBeanSimplesSomenteLeitura pItem, String pEmail) {
+
+        EntityManager entityGerarToken = UtilSBPersistencia.getEntyManagerPadraoNovo();
+        try {
+            try {
+                ConsultaDinamicaDeEntidade consultaToken
+                        = new ConsultaDinamicaDeEntidade(TokenAcessoDinamico.class, entityGerarToken);
+
+                consultaToken.addcondicaoCampoIgualA("slugAcaoFormulario", pAcao.getRegistro().getNomeUnico());
+                consultaToken.addcondicaoCampoIgualA("codigoEntidade", String.valueOf(pItem.getId()));
+
+                List<TokenAcessoDinamico> tokens = consultaToken.resultadoRegistros();
+                if (!tokens.isEmpty()) {
+                    UtilSBCoreListasObjeto.ordernarPorCampoReverso(tokens, "dataHoraCriacao");
+                    TokenAcessoDinamico ultimoToken = tokens.get(0);
+                    Date agora = new Date();
+                    Date validade = ultimoToken.getValidade();
+                    if (validade.getTime() > agora.getTime()) {
+                        return ultimoToken;
+                    }
+                }
+                TokenAcessoDinamico token = new TokenAcessoDinamico();
+                token.setSlugAcaoFormulario(pAcao.getRegistro().getNomeUnico());
+                token.setCodigoEntidade(String.valueOf(pItem.getId()));
+                token.setCodigo(UUID.randomUUID().toString().replace("-", "_"));
+                token.setDataHoraCriacao(new Date());
+                token.setEmail(pEmail);
+                token.setValidade(UtilSBCoreDataHora.incrementaDias(new Date(), 4));
+                token.setEntidadeDoAcesso(MapaObjetosProjetoAtual.getClasseDoObjetoByNome(pItem.getClass().getSimpleName()).getSimpleName());
+                token = UtilSBPersistencia.mergeRegistro(token);
+                return token;
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro registrando token dinamico" + pAcao + " " + pItem + " " + pEmail + " " + t.getMessage(), t);
+            }
+
+        } finally {
+            UtilSBPersistencia.fecharEM(entityGerarToken);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean isTokenDinamicoExiste(ItfFabricaAcoes pAcao, ItfBeanSimplesSomenteLeitura pItem, String pEmail) {
+        EntityManager entityGerarToken = UtilSBPersistencia.getEntyManagerPadraoNovo();
+        try {
+            try {
+                ConsultaDinamicaDeEntidade consultaToken
+                        = new ConsultaDinamicaDeEntidade(TokenAcessoDinamico.class, entityGerarToken);
+
+                consultaToken.addcondicaoCampoIgualA("slugAcaoFormulario", pAcao.getRegistro().getNomeUnico());
+                consultaToken.addcondicaoCampoIgualA("codigoEntidade", String.valueOf(pItem.getId()));
+
+                List<TokenAcessoDinamico> tokens = consultaToken.resultadoRegistros();
+                if (!tokens.isEmpty()) {
+                    UtilSBCoreListasObjeto.ordernarPorCampoReverso(tokens, "dataHoraCriacao");
+                    TokenAcessoDinamico ultimoToken = tokens.get(0);
+                    Date agora = new Date();
+                    Date validade = ultimoToken.getValidade();
+                    if (validade.getTime() > agora.getTime()) {
+                        return true;
+                    }
+                }
+                return false;
+            } catch (Throwable t) {
+                SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro registrando token dinamico" + pAcao + " " + pItem + " " + pEmail + " " + t.getMessage(), t);
+            }
+
+        } finally {
+            UtilSBPersistencia.fecharEM(entityGerarToken);
+        }
+        return false;
+
     }
 
     @Override
