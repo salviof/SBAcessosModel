@@ -74,11 +74,11 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         }
     }
 
-    public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto) {
+    public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
         return atualizarEntidade(pObjeto, true);
     }
 
-    public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto, boolean validarTodosOsCampos) {
+    public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto, boolean validarTodosOsCampos) throws ErroRegraDeNegocio {
         boolean umNovoRegistro = false;
         if (!isSucesso()) {
             return null;
@@ -126,8 +126,8 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             if (validarTodosOsCampos) {
                 String mensagem = UtilSBCoreValidacao.getPrimeiraInconsistenciaDeValidacao((ItfBeanSimples) pObjeto);
                 if (mensagem != null) {
-                    addErro(mensagem);
-                    return null;
+                    throw new ErroRegraDeNegocio(mensagem);
+
                 }
             }
         }
@@ -151,7 +151,8 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                     if (UtilSBCoreArquivos.copiarArquivos(imagemMedio, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
                         UtilSBCoreArquivos.removerArquivoLocal(imagemMedio);
                     } else {
-                        throw new UnsupportedOperationException("Erro salvando imagem de referencia");
+                        throw new ErroRegraDeNegocio("Erro salvando imagem de referencia");
+
                     }
                 }
 
@@ -178,7 +179,12 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             }
             return (I) objetoCriado;
         } else {
-            return (I) super.atualizarEntidade(pObjeto);
+            ItfBeanSimples entidadeAtualizada = super.atualizarEntidade(pObjeto);
+            if (entidadeAtualizada == null) {
+                throw new ErroRegraDeNegocio("Os dados foram considerado inconsistentes ");
+            } else {
+                return (I) entidadeAtualizada;
+            }
         }
 
     }
