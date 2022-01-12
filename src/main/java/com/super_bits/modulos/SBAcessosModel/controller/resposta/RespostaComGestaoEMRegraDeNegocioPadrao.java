@@ -74,6 +74,18 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         }
     }
 
+    public <I extends ItfBeanSimples> I persistirEntidadeNova(final ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
+        if (pObjeto.getId() != 0) {
+            throw new ErroRegraDeNegocio("Utilize persistir entidade modo merge para persisitir uma entidade que já existe");
+        }
+        return atualizarEntidade(pObjeto, true);
+    }
+
+    public <I extends ItfBeanSimples> I persistirEntidadeModoMerge(final ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
+        return atualizarEntidade(pObjeto, true);
+    }
+
+    @Deprecated
     public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
         return atualizarEntidade(pObjeto, true);
     }

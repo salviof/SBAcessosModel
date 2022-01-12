@@ -17,6 +17,9 @@ public class JpaConversorAcaoDoSistema implements AttributeConverter<ItfFabricaA
 
     @Override
     public String convertToDatabaseColumn(ItfFabricaAcoes attribute) {
+        if (attribute == null) {
+            throw new UnsupportedOperationException("A fabrica de ações não pode ser nula para conversão compatível com persistencia");
+        }
         return attribute.getNomeUnico();
     }
 
