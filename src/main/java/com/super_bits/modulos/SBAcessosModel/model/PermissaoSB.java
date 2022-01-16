@@ -182,7 +182,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     @Override
     public List<ItfUsuario> getUsuariosDisponiveis() {
         try {
-            listaTodosUsuarios = (List<ItfUsuario>) UtilSBPersistencia.getListaTodos(UsuarioSB.class
+            listaTodosUsuarios = (List) UtilSBPersistencia.getListaTodos(UsuarioSB.class
             );
 
             List<ItfUsuario> usuariosDisponiveis = new ArrayList<>();
@@ -220,7 +220,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     @Override
     public List<ItfGrupoUsuario> getGruposDisponiveis() {
         try {
-            listaTodosGruposUsuarios = (List<ItfGrupoUsuario>) UtilSBPersistencia.getListaTodos(GrupoUsuarioSB.class
+            listaTodosGruposUsuarios = (List) UtilSBPersistencia.getListaTodos(GrupoUsuarioSB.class
             );
 
             List<ItfGrupoUsuario> grupoUsuariosDisponiveis = new ArrayList<>();

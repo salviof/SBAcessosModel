@@ -280,7 +280,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     @Override
     public List<ItfUsuario> configuraUsuarios() {
 
-        List<ItfUsuario> resposta = (List<ItfUsuario>) UtilSBPersistencia.getListaTodos(UsuarioSB.class
+        List<ItfUsuario> resposta = (List) UtilSBPersistencia.getListaTodos(UsuarioSB.class
         );
 
         return resposta;
