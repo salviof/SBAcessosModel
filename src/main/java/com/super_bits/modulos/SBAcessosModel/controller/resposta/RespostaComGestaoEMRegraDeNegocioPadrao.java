@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Ba
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerAutoExecucao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
@@ -27,6 +28,9 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basic
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
+import br.org.coletivojava.fw.utils.agendador.UtilSBAgendadorTarefas;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -149,6 +153,9 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             String imagemGrande = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_GRANDE, SBCore.getCentralDeSessao().getSessaoAtual());;
 
             ItfBeanSimples objetoCriado = (ItfBeanSimples) super.atualizarEntidade(pObjeto);
+            if (objetoCriado == null) {
+                throw new ErroRegraDeNegocio("Falha salvando objeto");
+            }
             if (objetoCriado != null) {
                 if (UtilSBCoreArquivos.isArquivoExiste(imagemPequeno)) {
                     if (UtilSBCoreArquivos.copiarArquivos(imagemPequeno, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
@@ -197,6 +204,16 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
     }
 
+    public ItfBeanSimples atualizarEntidadeConfigRetorno(ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
+
+        ItfBeanSimples registroAtualizado = atualizarEntidade((ItfBeanSimples) pObjeto, false);
+        if (registroAtualizado != null) {
+            setRetorno(registroAtualizado);
+        }
+        return registroAtualizado;
+
+    }
+
     /**
      *
      * @param pResp
@@ -239,6 +256,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
     public void executarAcoesFinais() throws ErroEmBancoDeDados {
         if (!executouAcoesFinais) {
             executouAcoesFinais = true;
+
             if (isSucesso()) {
                 if (getAcaoVinculada().getComoController().isTemLogExecucao()) {
 
@@ -273,6 +291,12 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
     @Override
     public ItfRespostaAcaoDoSistema setProximoFormulario(ItfAcaoFormulario pFormulario) {
         return (ItfRespostaAcaoDoSistema) super.setProximoFormulario(pFormulario);
+    }
+
+    protected void assertValorPositivo(String pMensagem, boolean pValor) throws ErroRegraDeNegocio {
+        if (!pValor) {
+            throw new ErroRegraDeNegocio(pMensagem);
+        }
     }
 
 }

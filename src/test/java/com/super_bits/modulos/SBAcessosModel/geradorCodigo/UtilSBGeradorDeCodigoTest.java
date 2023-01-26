@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
-import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadrao;
+import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadraoTest;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 
@@ -19,7 +19,7 @@ import org.junit.Test;
  *
  * @author desenvolvedor
  */
-public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadrao {
+public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadraoTest {
 
     List<ItfAcaoDoSistema> ACOES_PARA_TESTE = new ArrayList<>();
     List<EstruturaDeEntidade> LISTA_ESTRUTURA_DE_ENTIDADE = new ArrayList<>();

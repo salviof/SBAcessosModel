@@ -16,11 +16,12 @@ import javax.persistence.Transient;
 
 /**
  *
- * Uma ação de entidade é uma ação relacionada a alguma entidade, em geral a
- * entidade determina o dominio da ação ou seja, o endereço onde esta ação
- * ficará disponível
+ * Uma ação de entidade, é uma ação relacionada a alguma entidade, nos casos
+ * mais simples a entidade determina o dominio da ação.
  *
- * Ex: http://minhaAplicacao.com.br/Entidade/acaoDaEntidade
+ * Ex: http://minhaAplicacao.com.br/EntidadeCliente/ac-nome_acaoDaEntidade ou
+ * http://minhaAplicacao.com.br/GestaoDeDominioDaEntidadeCliente/ac-nome_acaoDaEntidade
+ * ou
  *
  * Todas as ações que são relativas a alteração de uma entidade específica devem
  * extender esta ação.
@@ -36,7 +37,6 @@ public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
 
     @Transient
     private Class classeRelacionada;
-    private String nomeDominio;
 
     @Deprecated
     public AcaoDeEntidade() {

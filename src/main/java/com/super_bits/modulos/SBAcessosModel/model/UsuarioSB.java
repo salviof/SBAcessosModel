@@ -11,6 +11,7 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.ListenerEntidadePadrao;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.LocalizacaoPostavel;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampoVerdadeiroOuFalso;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
@@ -92,6 +93,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private Date dataCadastro;//TODO REMOVER DUPLICADO
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do usuário (ativo/inativo)", somenteLeitura = true)
+    @InfoCampoVerdadeiroOuFalso()
     private boolean ativo = Boolean.TRUE;
 
     @ManyToOne(targetEntity = GrupoUsuarioSB.class, fetch = FetchType.EAGER, optional = false)

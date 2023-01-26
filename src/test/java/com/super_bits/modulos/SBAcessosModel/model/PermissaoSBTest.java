@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import aux.ConfiguradorCoreSBAcessosModelTestes;
+import config.ConfiguradorCoreSBAcessosModelTestes;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import config.ConfigPersistenciaTestesAcesso;

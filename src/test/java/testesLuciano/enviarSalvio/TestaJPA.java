@@ -1,6 +1,6 @@
 package testesLuciano.enviarSalvio;
 
-import aux.ConfiguradorCoreSBAcessosModelTestes;
+import config.ConfiguradorCoreSBAcessosModelTestes;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;

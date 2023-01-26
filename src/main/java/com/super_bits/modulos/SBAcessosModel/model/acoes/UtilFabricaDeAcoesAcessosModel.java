@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringBuscaTrecho;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreSystemOut;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerAutoExecucao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.estadoFormulario.FabEstadoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
@@ -24,6 +25,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidadeSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilFabricaDeAcoesBasico;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.acoesAutomatizadas.FabTipoAutoExecucaoAcao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormCamposAtualizaComponentePeloId;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormCamposAtualizaForm;
@@ -211,6 +213,10 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
     }
 
+    public static void configurarAutoExecucao() {
+
+    }
+
     private static void configuraAnotacao(AcaoDoSistema pAcao, InfoTipoAcaoController pAnotacaoController, Class pEntidadeVinculada) {
         try {
             configurarValorBasicoAcaoAnotacao(pAcao, pAnotacaoController.nomeAcao(), pAnotacaoController.descricao(), pAnotacaoController.precisaPermissao(), pEntidadeVinculada);
@@ -223,9 +229,16 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             pAcaoController.setTipoComunicacao(pAnotacaoController.comunicacao().getRegistro());
             pAcaoController.setXhtmlModalVinculado(pAnotacaoController.xhtmlModalConfirmacaoPersonalizado());
             pAcaoController.setPrecisaJustificativa(pAnotacaoController.precisaJustificativa());
+            if (!pAnotacaoController.autoExecucao().equals(FabTipoAutoExecucaoAcao.DESATIVADO)) {
+                if (!(pAcao instanceof ItfAcaoControllerAutoExecucao)) {
+                    throw new UnsupportedOperationException("Erro de nomeclatura, definindo ação de autoexecução, ao nome da ação deve conter o SLUG: AUTO_EXEC em :" + pAcao.getEnumAcaoDoSistema().getNomeUnico());
+                }
+                ItfAcaoControllerAutoExecucao acaoAutoexecucao = (ItfAcaoControllerAutoExecucao) pAcao;
+                acaoAutoexecucao.setTipoAutoExecucao(pAnotacaoController.autoExecucao());
+            }
             if (pEntidadeVinculada != null) {
                 if (pAcaoController instanceof ItfAcaoEntidade) {
-                    pAcao.getComoControllerEntidade().setClasseRelacionada(pEntidadeVinculada);
+                    pAcao.getComoAcaoDeEntidade().setClasseRelacionada(pEntidadeVinculada);
                 }
             }
 
@@ -309,6 +322,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         }
     }
 
+    @Deprecated
     private static void configurarValorJiraConfluenceAnotacao(AcaoDoSistema pAcaoDoSistema, String pCodigoJira) {
         if (pCodigoJira != null && pCodigoJira.length() > 2) {
             pAcaoDoSistema.setIdDescritivoJira(pCodigoJira);
@@ -670,6 +684,12 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                             + " " + nomeDoObjeto);
 
                     break;
+                case CONTROLLER_AUTO_EXECUCAO:
+                    novaAcao = new AcaoControllerAutoExecucao(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
+                    novaAcao.setNome(
+                            UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
+                            + " " + nomeDoObjeto);
+                    break;
 
                 default:
                     throw new AssertionError("Este tipo de ação não parece ser uma ação secundária" + pTipoAcaoGenerica.name());
@@ -685,7 +705,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 novaAcao.getComoFormulario().setEstadoFormulario(pTipoAcaoGenerica.getEstadoFormularioPadrao());
             }
             configurarAnotacoesAcao((AcaoDoSistema) novaAcao);
-             return novaAcao;
+            return novaAcao;
         } catch (Throwable t) {
 
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro instanciando ação automática por nome: " + t.getMessage() + pAcao.toString(), t);

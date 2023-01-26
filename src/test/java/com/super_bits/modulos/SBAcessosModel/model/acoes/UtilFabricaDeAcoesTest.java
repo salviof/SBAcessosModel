@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import aux.ConfiguradorCoreSBAcessosModelTestes;
+import config.ConfiguradorCoreSBAcessosModelTestes;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormEntidadeSec;
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;

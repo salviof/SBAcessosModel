@@ -2,7 +2,7 @@
  *  Desenvolvido pela equipe Super-Bits.com CNPJ 20.019.971/0001-90
 
  */
-package aux;
+package config;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
@@ -22,7 +22,7 @@ public class ConfiguradorCoreSBAcessosModelTestes extends ConfiguradorCoreDeProj
     @Override
     public void defineFabricasDeACao(ItfConfiguracaoCoreCustomizavel pConfig) {
         pConfig.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
-        //pConfig.setFabricaDeAcoes(new Class[]{FabAcaoSeguranca.class});
+        pConfig.setFabricaDeAcoes(new Class[]{FabAcoesSBAcessosModelTestes.class});
         pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
 
     }

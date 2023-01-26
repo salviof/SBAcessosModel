@@ -7,6 +7,4 @@ ENDERECO_WEB=http://salviof.github.io/SuperBits_FrameWork
 NOME_CLIENTE=${projetoSB.cliente}
 GRUPO_PROJETO=${projetoSB.grupoProjeto}
 NOME_BANCO=${projetoSB.nomeBanco}
-DIRETORIO_BASE=${projetoSB.diretorioBase}
-
-
+DIRETORIO_BASE=
