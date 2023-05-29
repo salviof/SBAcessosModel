@@ -79,7 +79,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     private String complemento;
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.LC_LOCALIZACAO, label = "localização", descricao = "Localização do usuário", obrigatorio = false)
-    @ManyToOne(targetEntity = LocalizacaoPostavel.class, optional = true)
+    @ManyToOne(targetEntity = LocalizacaoPostavel.class, optional = true, cascade = CascadeType.ALL)
     private LocalizacaoPostavel localizacao;
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.TELEFONE_CELULAR, label = "Celular", descricao = "Telefone celular de contato do usuário")

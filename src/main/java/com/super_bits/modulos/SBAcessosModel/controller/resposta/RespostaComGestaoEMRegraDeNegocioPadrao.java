@@ -29,6 +29,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basic
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import br.org.coletivojava.fw.utils.agendador.UtilSBAgendadorTarefas;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -102,8 +103,10 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         if (pObjeto.isTemCampoAnotado(FabTipoAtributoObjeto.LC_LOCALIZACAO)) {
             ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
             if (!cpLocalizacao.isUmCampoNaoInstanciado() && cpLocalizacao.getValor() != null) {
-                if (!UtilSBCoreValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(), cpLocalizacao.getValorComoItemSimples().getId() == 0, false).isEmpty()) {
-                    cpLocalizacao.setValor(null);
+                List<String> mensagensValidaca = UtilSBCoreValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(), cpLocalizacao.getValorComoItemSimples().getId() == 0, false);
+                if (!mensagensValidaca.isEmpty()) {
+                    throw new ErroRegraDeNegocio("Endereço inválido: " + mensagensValidaca.get(0));
+
                 } else {
 
                     Bairro b = (Bairro) cpLocalizacao.getComoCampoLocalizacao().getBairro();
@@ -126,9 +129,9 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
                         }
                     }
-                    //       ItfLocal localizacaoAtualizada = (ItfLocal) cpLocalizacao.getValor();
-                    //       localizacaoAtualizada = UtilSBPersistencia.mergeRegistro(cpLocalizacao.getValor(), getEm());
-                    //        cpLocalizacao.setValor(localizacaoAtualizada);
+                    //  ItfLocal localizacaoAtualizada = (ItfLocal) cpLocalizacao.getValor();
+                    //  localizacaoAtualizada = UtilSBPersistencia.mergeRegistro(cpLocalizacao.getValor(), getEm());
+                    //  cpLocalizacao.setValor(localizacaoAtualizada);
                 }
             }
 
@@ -206,7 +209,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
     public ItfBeanSimples atualizarEntidadeConfigRetorno(ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
 
-        ItfBeanSimples registroAtualizado = atualizarEntidade((ItfBeanSimples) pObjeto, false);
+        ItfBeanSimples registroAtualizado = atualizarEntidade((ItfBeanSimples) pObjeto, true);
         if (registroAtualizado != null) {
             setRetorno(registroAtualizado);
         }
