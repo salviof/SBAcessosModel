@@ -15,7 +15,6 @@ import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Ba
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerAutoExecucao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
@@ -28,10 +27,8 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basic
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfCidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
-import br.org.coletivojava.fw.utils.agendador.UtilSBAgendadorTarefas;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -58,7 +55,8 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
     }
 
     public void atualizarValoresDinamicos(ItfBeanSimples pObjeto) {
-        EstruturaDeEntidade est = MapaObjetosProjetoAtual.getEstruturaObjeto(pObjeto.getClass());
+
+        EstruturaDeEntidade est = MapaObjetosProjetoAtual.getEstruturaObjeto(UtilSBCoreReflexaoObjeto.getClassExtraindoProxy(pObjeto.getClass().getSimpleName()));
         if (est != null) {
             est.getCalculos().stream().forEach(calc -> {
                 try {

@@ -5,8 +5,6 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.ListenerEntidadePadrao;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.LocalizacaoPostavel;
@@ -88,8 +86,9 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @Column(nullable = false, updatable = false, insertable = false)
     private String tipoUsuario;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_DESCRITIVO, label = "Data Cadastro", descricao = "Data de cadastramento do usuário")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.DATA, label = "Data Cadastro", descricao = "Data de cadastramento do usuário")
     @Temporal(TemporalType.DATE)
+    @Deprecated
     private Date dataCadastro;//TODO REMOVER DUPLICADO
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do usuário (ativo/inativo)", somenteLeitura = true)
@@ -101,7 +100,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @InfoCampo(tipo = FabTipoAtributoObjeto.OBJETO_DE_UMA_LISTA, label = "Grupo", descricao = "Grupo de usuário que irá permitir acesso as funcionalidades")
     private GrupoUsuarioSB grupo;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.OBJETO_DE_UMA_LISTA, label = "Grupos Adicionais", descricao = "Grupos do usuário")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.LISTA_OBJETOS_PUBLICOS, label = "Grupos Adicionais", descricao = "Grupos do usuário")
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuarios")
     private List<GrupoUsuarioSB> gruposAdicionais;
 
@@ -237,6 +236,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     }
 
     @Override
+    @Deprecated
     public Date getDataCadastro() {
         return dataCadastro;
     }
