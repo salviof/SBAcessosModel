@@ -161,6 +161,9 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     @Override
     public ItfUsuario getUsuarioByEmail(String pEmail) {
         ItfUsuario usuarioEncontrado;
+        if (pEmail == null || !pEmail.contains("@")) {
+            return null;
+        }
         usuarioEncontrado = (ItfUsuario) new ExecucaoConsultaComGestaoEntityManager() {
             @Override
             public Object regraDeNegocioRetornandoResultado() {
@@ -422,7 +425,8 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
 
                 consultaToken.addcondicaoCampoIgualA("slugAcaoFormulario", pAcao.getRegistro().getNomeUnico());
                 consultaToken.addcondicaoCampoIgualA("codigoEntidade", String.valueOf(pItem.getId()));
-
+                consultaToken.addcondicaoCampoIgualA("nomeEntidadeDoAcesso", UtilSBCoreReflexaoObjeto.getClassExtraindoProxy(pItem.getClass().getSimpleName()).getSimpleName());
+                consultaToken.addcondicaoCampoIgualA("email", pEmail);
                 List<TokenAcessoDinamico> tokens = consultaToken.resultadoRegistros();
                 if (!tokens.isEmpty()) {
                     UtilSBCoreListasObjeto.ordernarPorCampoReverso(tokens, "dataHoraCriacao");
@@ -489,6 +493,11 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     @Override
     public void persitirMergePermissoes() {
         persistirPermissoesNoBanco();
+    }
+
+    @Override
+    public boolean isObjetoPermitidoUsuario(ItfUsuario pUsuario, ItfBeanSimplesSomenteLeitura pObjeto) {
+        return true;
     }
 
 }

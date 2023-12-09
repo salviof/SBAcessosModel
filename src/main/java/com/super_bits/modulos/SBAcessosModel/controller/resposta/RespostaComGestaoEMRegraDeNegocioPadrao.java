@@ -205,7 +205,20 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
     }
 
+    /**
+     *
+     * @param pObjeto
+     * @return
+     * @throws ErroRegraDeNegocio
+     * @deprecated Utilize atualizarEntidadeSetRetorno
+     */
+    @Deprecated
     public ItfBeanSimples atualizarEntidadeConfigRetorno(ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
+        return atualizarEntidadeSetRetorno(pObjeto);
+
+    }
+
+    public ItfBeanSimples atualizarEntidadeSetRetorno(ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
 
         ItfBeanSimples registroAtualizado = atualizarEntidade((ItfBeanSimples) pObjeto, true);
         if (registroAtualizado != null) {
