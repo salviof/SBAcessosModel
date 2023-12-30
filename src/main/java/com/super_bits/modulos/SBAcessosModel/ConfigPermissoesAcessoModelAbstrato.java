@@ -426,7 +426,9 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                 consultaToken.addcondicaoCampoIgualA("slugAcaoFormulario", pAcao.getRegistro().getNomeUnico());
                 consultaToken.addcondicaoCampoIgualA("codigoEntidade", String.valueOf(pItem.getId()));
                 consultaToken.addcondicaoCampoIgualA("nomeEntidadeDoAcesso", UtilSBCoreReflexaoObjeto.getClassExtraindoProxy(pItem.getClass().getSimpleName()).getSimpleName());
-                consultaToken.addcondicaoCampoIgualA("email", pEmail);
+                if (pEmail != null) {
+                    consultaToken.addcondicaoCampoIgualA("email", pEmail);
+                }
                 List<TokenAcessoDinamico> tokens = consultaToken.resultadoRegistros();
                 if (!tokens.isEmpty()) {
                     UtilSBCoreListasObjeto.ordernarPorCampoReverso(tokens, "dataHoraCriacao");
