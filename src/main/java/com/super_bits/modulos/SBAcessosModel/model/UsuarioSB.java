@@ -16,6 +16,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basic
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocalPostagem;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.contato.ItfBeanContatoSimples;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +50,7 @@ import javax.validation.constraints.NotNull;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoUsuario")
 @EntityListeners(ListenerEntidadePadrao.class)
-public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializable {
+public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanContatoSimples, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -333,6 +334,11 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, Serializabl
     @Override
     public void instanciarNovoEndereco() {
         localizacao = new LocalizacaoPostavel();
+    }
+
+    @Override
+    public String getTelefonePrincipal() {
+        return getTelefone();
     }
 
 }
