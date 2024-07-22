@@ -62,7 +62,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanCont
 
     @Column(length = 255, unique = true)
     @NotNull
-    @InfoCampo(tipo = FabTipoAtributoObjeto.EMAIL, label = "Email", descricao = "Email que o usuário irá utilizar para acessar o sistema")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.EMAIL, label = "Email")
     private String email;
 
     @NotNull
@@ -70,7 +70,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanCont
     @InfoCampo(label = "Usuário")
     private String apelido;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.SENHA, label = "Senha", descricao = "Senha que o usuário irá utilizar para acessar o sistema")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.SENHA, label = "Senha")
     @Column(length = 256)
     @NotNull
     private String senha;
