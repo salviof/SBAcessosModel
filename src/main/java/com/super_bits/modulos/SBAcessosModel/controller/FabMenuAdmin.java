@@ -10,6 +10,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icone
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfMenuSB;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.SessaoMenuSB;
+import java.util.ArrayList;
 import java.util.List;
 import org.coletivojava.fw.api.objetoNativo.view.menu.MenuSBFW;
 
@@ -23,18 +24,12 @@ public enum FabMenuAdmin implements ItfFabricaMenu {
 
     @Override
     public List<ItfMenuSB> getTodosMenus() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<>();
     }
 
     @Override
     public MenuSBFW getMenuPrincipal() {
         MenuSBFW menu = new MenuSBFW();
-        SessaoMenuSB sessao = new SessaoMenuSB("Admin", FabIconeFontAwesome.SISTEMA_ENGRENAGEM.getIcone().getTagHtml());
-
-        sessao.addAcao(FabAcaoProjetoSB.PROJETO_MB_GERENCIAR.getRegistro());
-        sessao.addAcao(FabAcaoProjetoSB.PROJETO_FRM_VISAO_GERAL.getRegistro());
-        sessao.addAcao(FabAcaoProjetoSB.PROJETO_FRM_VISUALIZAR_ACOES.getRegistro());
-        sessao.addAcao(FabAcaoProjetoSB.PROJETO_FRM_VISUALIZAR_BANCO_DE_DADOS.getRegistro());
 
         return menu;
     }

@@ -609,6 +609,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                             UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
                             + " " + nomeDoObjeto);
                     novaAcaoRefForm.setXhtml(FORMULARIO_PERSONALIZADO.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
+
                     break;
 
                 case CONTROLLER_SALVAR_EDICAO:
