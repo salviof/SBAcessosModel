@@ -128,6 +128,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
 
     @Override
     public ItfAcaoFormularioEntidade getAcaoFormularioListarPadrao() {
+
         return ItfAcaoGerenciarEntidade.super.getAcaoFormularioListarPadrao(); //To change body of generated methods, choose Tools | Templates.
     }
 

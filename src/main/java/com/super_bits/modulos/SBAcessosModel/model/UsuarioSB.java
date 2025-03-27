@@ -37,6 +37,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -90,6 +91,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanCont
     @InfoCampo(tipo = FabTipoAtributoObjeto.DATA, label = "Data Cadastro", descricao = "Data de cadastramento do usuário")
     @Temporal(TemporalType.DATE)
     @Deprecated
+    @Transient
     private Date dataCadastro;//TODO REMOVER DUPLICADO
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do usuário (ativo/inativo)", somenteLeitura = true)
