@@ -35,15 +35,15 @@ public class Ips extends EntidadeNormal {
 
     @Column(length = 15, nullable = false)
     @NotNull
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME, label = "Inicial", descricao = "Inicio da faixa de ip's autorizados")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME, label = "Inicial", descricao = "Inicio da faixa de ip's autorizados")
     private String inicialFaixa;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_DESCRITIVO, label = "Final", descricao = "Final da faixa de ip's autorizados")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.DESCRITIVO, label = "Final", descricao = "Final da faixa de ip's autorizados")
     @Column(length = 15, nullable = false)
     @NotNull
     private String finalFaixa;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_DESCRITIVO, label = "DNS", descricao = "DNS para validação")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.DESCRITIVO, label = "DNS", descricao = "DNS para validação")
     @NotNull
     private String dns;
 

@@ -36,7 +36,7 @@ public class Permitido_Grupos extends EntidadeSimples {
     private int id;
 
     @Transient
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String nome;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = GrupoUsuarioSB.class)

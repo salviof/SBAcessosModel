@@ -6,7 +6,7 @@ public class CompradorTest2 extends EntidadeContatoCorporativo {
 @GeneratedValue(strategy = GenerationType.AUTO)
 private int id;
 
-@InfoCampo(tipo = FabCampos.AAA_DESCRITIVO, label = "nome descritivo", descricao = "Descreve o nome da entidade")
+@InfoCampo(tipo = FabCampos.DESCRITIVO, label = "nome descritivo", descricao = "Descreve o nome da entidade")
 @Column(length = 0, nullable = false)
 private String nome;
 

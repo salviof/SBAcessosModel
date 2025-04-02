@@ -58,9 +58,9 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     )
     @GeneratedValue(generator = "geradorIdModulo")
     private int id;
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String nome;
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_DESCRITIVO)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.DESCRITIVO)
     private String descricao;
 
     @Temporal(TemporalType.DATE)

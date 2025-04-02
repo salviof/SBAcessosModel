@@ -53,7 +53,7 @@ public class FaleConosco extends EntidadeNormal {
     @Temporal(TemporalType.DATE)
     private Date dataResposta;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String remetente;
     @Column(nullable = false, updatable = false, insertable = false)
     private String tipoFaleConosco;
@@ -64,7 +64,7 @@ public class FaleConosco extends EntidadeNormal {
     @InfoCampo(tipo = FabTipoAtributoObjeto.EMAIL)
     private String emailDestinatario;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_DESCRITIVO)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.DESCRITIVO)
     @ManyToOne(targetEntity = AssuntoFaleConosco.class)
     @NotNull
     private AssuntoFaleConosco assunto;

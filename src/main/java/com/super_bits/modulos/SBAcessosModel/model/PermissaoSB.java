@@ -50,7 +50,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     @GeneratedValue(generator = "geradorIdPermissao")
     private int id;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String nomeAcesso;
 
     private int idacaoDoSistema;

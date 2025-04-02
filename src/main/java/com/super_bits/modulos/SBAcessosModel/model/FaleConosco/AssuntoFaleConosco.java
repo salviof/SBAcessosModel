@@ -38,7 +38,7 @@ public class AssuntoFaleConosco extends EntidadeNormal {
 
     @NotNull
     @Column(length = 200, nullable = false)
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME, label = "assunto", descricao = "Assunto que será cadastrado para ser mostrado no fale conosco")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME, label = "assunto", descricao = "Assunto que será cadastrado para ser mostrado no fale conosco")
     private String assunto;
 
     @Temporal(javax.persistence.TemporalType.DATE)

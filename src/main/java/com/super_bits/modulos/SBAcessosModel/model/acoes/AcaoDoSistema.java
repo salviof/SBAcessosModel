@@ -67,7 +67,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     )
     @GeneratedValue(generator = "geradorIdAcao")
     protected int id;
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     protected String nomeAcao;
     private String iconeAcao;
     private String cor;

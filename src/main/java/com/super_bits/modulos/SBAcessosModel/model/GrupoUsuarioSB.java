@@ -56,11 +56,11 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuaioEdi
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME, label = "Nome", obrigatorio = true)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME, label = "Nome", obrigatorio = true)
     @NotNull
     @Column(unique = true)
     private String nome;
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_DESCRITIVO, label = "Descrição", obrigatorio = true)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.DESCRITIVO, label = "Descrição", obrigatorio = true)
     @NotNull
     private String descricao;
     @Column(nullable = false, updatable = false, insertable = false)

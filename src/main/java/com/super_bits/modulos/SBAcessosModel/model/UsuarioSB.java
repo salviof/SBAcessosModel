@@ -57,7 +57,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanCont
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME, label = "Nome", descricao = "Nome do Usuário")
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME, label = "Nome", descricao = "Nome do Usuário")
     @NotNull
     private String nome;
 

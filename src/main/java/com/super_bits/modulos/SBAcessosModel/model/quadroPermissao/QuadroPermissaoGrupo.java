@@ -31,7 +31,7 @@ public class QuadroPermissaoGrupo extends ItemSimples implements ItfBeanComIcone
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
     private int id;
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String descricao;
     @InfoCampo(tipo = FabTipoAtributoObjeto.ICONE)
     private String icone;

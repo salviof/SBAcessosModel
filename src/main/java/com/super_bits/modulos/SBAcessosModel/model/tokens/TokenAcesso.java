@@ -36,7 +36,7 @@ public class TokenAcesso extends ItemSimples implements ItfTokenRecuperacaoEmail
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String codigo;
     @InfoCampo(tipo = FabTipoAtributoObjeto.EMAIL)
     private String email;

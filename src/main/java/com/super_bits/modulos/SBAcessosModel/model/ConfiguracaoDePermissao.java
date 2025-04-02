@@ -24,7 +24,7 @@ public class ConfiguracaoDePermissao extends EntidadeSimples {
     @Id
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
     private int id;
-    @InfoCampo(tipo = FabTipoAtributoObjeto.AAA_NOME)
+    @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String nomeConfig;
     private String ultimaVersaoBanco;
     private boolean permitirCriacaoDeGrupos;
