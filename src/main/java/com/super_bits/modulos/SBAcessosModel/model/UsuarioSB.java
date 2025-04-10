@@ -55,7 +55,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanCont
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.NOME, label = "Nome", descricao = "Nome do Usuário")
     @NotNull
@@ -229,12 +229,12 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanCont
     }
 
     @Override
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(int pId) {
+    public void setId(Long pId) {
         id = pId;
     }
 

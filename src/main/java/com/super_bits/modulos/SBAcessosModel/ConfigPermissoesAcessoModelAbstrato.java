@@ -124,7 +124,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                     String msg2 = t.getMessage();
                     String nomeEntidadeNaoEncontrada = "Não detedminada";
                     try {
-                        int id = Integer.valueOf(UtilSBCoreStringFiltros.getNumericosDaString(msg));
+                        Long id = Long.valueOf(UtilSBCoreStringFiltros.getNumericosDaString(msg));
 
                         ItfAcaoDoSistema acaoEnt = MapaAcoesSistema.getAcaoDoSistemaById(id);
                         if (acaoEnt == null) {
@@ -194,7 +194,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
         try {
             ConfiguracaoDePermissao configPermissao = null;
             if (SBCore.isEmModoDesenvolvimento()) {
-                configPermissao = (ConfiguracaoDePermissao) UtilSBPersistencia.getRegistroByID(ConfiguracaoDePermissao.class, 0);
+                configPermissao = (ConfiguracaoDePermissao) UtilSBPersistencia.getRegistroByID(ConfiguracaoDePermissao.class, 0l);
                 if (configPermissao == null) {
                     return true;
                 }
@@ -225,7 +225,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                     PERMISSOES_CRIADAS = UtilSBControllerAcessosModel.criarPermissoesDeAcao();
                     if (PERMISSOES_CRIADAS) {
 
-                        ConfiguracaoDePermissao permissaoAtual = (ConfiguracaoDePermissao) UtilSBPersistencia.getRegistroByID(ConfiguracaoDePermissao.class, 0);
+                        ConfiguracaoDePermissao permissaoAtual = (ConfiguracaoDePermissao) UtilSBPersistencia.getRegistroByID(ConfiguracaoDePermissao.class, 0l);
                         if (permissaoAtual == null) {
                             permissaoAtual = new ConfiguracaoDePermissao();
                         }

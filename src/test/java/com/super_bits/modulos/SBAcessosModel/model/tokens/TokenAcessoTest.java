@@ -45,8 +45,8 @@ public class TokenAcessoTest {
     public void testGetId() {
         System.out.println("getId");
         TokenAcesso instance = new TokenAcesso();
-        int expResult = 0;
-        int result = instance.getId();
+        Long expResult = 0l;
+        Long result = instance.getId();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -58,7 +58,7 @@ public class TokenAcessoTest {
     @Test
     public void testSetId() {
         System.out.println("setId");
-        int id = 0;
+        Long id = 0l;
         TokenAcesso instance = new TokenAcesso();
         instance.setId(id);
         // TODO review the generated test code and remove the default call to fail.

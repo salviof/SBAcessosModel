@@ -31,7 +31,7 @@ public class Ips extends EntidadeNormal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @Column(length = 15, nullable = false)
     @NotNull
@@ -67,12 +67,12 @@ public class Ips extends EntidadeNormal {
     private UsuarioSB usuarioInsercao;
 
     @Override
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

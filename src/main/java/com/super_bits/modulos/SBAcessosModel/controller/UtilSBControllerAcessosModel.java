@@ -43,7 +43,7 @@ public class UtilSBControllerAcessosModel {
         try {
             em = UtilSBPersistencia.getEntyManagerPadraoNovo();
 
-            List<Integer> permissoesPersistidas;
+            List<Long> permissoesPersistidas;
             permissoesPersistidas = new ArrayList<>();
             if (!recriarPermissaoExistente) {
 
@@ -63,7 +63,7 @@ public class UtilSBControllerAcessosModel {
             MapaAcoesSistema.getListaTodasGestao().stream().filter((acao)
                     -> (acao.isPrecisaPermissao() || acao.isPossuiSubAcaoComPermissao())).forEach((acao) -> {
                 PermissaoSB novaPermissao = new PermissaoSB(acao.getEnumAcaoDoSistema());
-                int idPemirssao = novaPermissao.getId();
+                Long idPemirssao = novaPermissao.getId();
                 if (!permissoesPersistidas.contains(idPemirssao)) {
                     if (UtilSBPersistencia.mergeRegistro(novaPermissao) == null) {
                         throw new UnsupportedOperationException("Erro persistindo permissão em banco de dados");
@@ -78,7 +78,7 @@ public class UtilSBControllerAcessosModel {
                 if (ac.isPrecisaPermissao()) {
                     //Verificando se a permissao já existe
                     PermissaoSB novaPermissao = new PermissaoSB(ac);
-                    int idPemirssao = novaPermissao.getId();
+                    Long idPemirssao = novaPermissao.getId();
 
                     if (!permissoesPersistidas.contains(idPemirssao)) {
                         System.out.println("permissao" + idPemirssao + "não foi encontrada, executando merge");
@@ -135,7 +135,7 @@ public class UtilSBControllerAcessosModel {
 
     public static UsuarioSB getUsuarioLogado(EntityManager pEm) {
 
-        int idUsuarioLogado = SBCore.getControleDeSessao().getSessaoAtual().getUsuario().getId();
+        Long idUsuarioLogado = SBCore.getControleDeSessao().getSessaoAtual().getUsuario().getId();
         if (idUsuarioLogado == 0) {
             throw new UnsupportedOperationException("Não foi possível identficar o usuario");
         }

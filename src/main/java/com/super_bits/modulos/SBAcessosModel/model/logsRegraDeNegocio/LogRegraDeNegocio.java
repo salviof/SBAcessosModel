@@ -25,7 +25,7 @@ public class LogRegraDeNegocio extends EntidadeSimples {
 
     @Id
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
-    private int id;
+    private Long id;
     private String nomeClasse;
 
     @ManyToOne(targetEntity = UsuarioSB.class, cascade = CascadeType.ALL)
@@ -34,12 +34,12 @@ public class LogRegraDeNegocio extends EntidadeSimples {
     private String descritivo;
 
     @Override
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

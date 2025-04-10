@@ -66,7 +66,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
             strategy = "com.super_bits.modulos.SBAcessosModel.model.acoes.GeradorIdAcao"
     )
     @GeneratedValue(generator = "geradorIdAcao")
-    protected int id;
+    protected Long id;
     @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     protected String nomeAcao;
     private String iconeAcao;
@@ -232,7 +232,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public void setId(int pId) {
+    public void setId(Long pId) {
         id = pId;
     }
 

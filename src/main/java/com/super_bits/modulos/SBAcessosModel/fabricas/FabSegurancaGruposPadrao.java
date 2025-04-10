@@ -19,7 +19,7 @@ public enum FabSegurancaGruposPadrao implements ItfFabrica {
     @Override
     public GrupoUsuarioSB getRegistro() {
         GrupoUsuarioSB novoGrupo = new GrupoUsuarioSB();
-        novoGrupo.setId(this.ordinal());
+        novoGrupo.setId((long) this.ordinal());
         novoGrupo.setNome(this.name());
         switch (this) {
             case GRUPO_ADMINISTRADOR:

@@ -30,7 +30,7 @@ import java.util.List;
 public class QuadroPermissaoGrupo extends ItemSimples implements ItfBeanComIcone {
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
-    private int id;
+    private Long id;
     @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String descricao;
     @InfoCampo(tipo = FabTipoAtributoObjeto.ICONE)
@@ -104,7 +104,7 @@ public class QuadroPermissaoGrupo extends ItemSimples implements ItfBeanComIcone
         return descricao;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 

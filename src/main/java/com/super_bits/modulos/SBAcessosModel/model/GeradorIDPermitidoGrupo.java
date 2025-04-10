@@ -26,7 +26,7 @@ public class GeradorIDPermitidoGrupo implements IdentifierGenerator {
     public Serializable gerar(Object obj) {
         try {
             Permitido_Grupos permissaoGrupo = ((Permitido_Grupos) obj);
-            Integer idMerg = permissaoGrupo.getAcesso().getId() + permissaoGrupo.getGrupo().getId();
+            Long idMerg = permissaoGrupo.getAcesso().getId() + permissaoGrupo.getGrupo().getId();
 
             return idMerg.hashCode();
 

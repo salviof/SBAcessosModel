@@ -25,9 +25,9 @@ public class GeradorInteiroRandomico implements IdentifierGenerator {
             EntidadeSimples entidade = ((EntidadeSimples) pObj);
             boolean numeroGerado = false;
             EntityManager em = UtilSBPersistencia.getEntyManagerPadraoNovo();
-            int codigo = entidade.getId();
+            Long codigo = entidade.getId();
             while (!numeroGerado) {
-                int novoCodigo = UtilSBCoreNumeros.getNumeroRandomico(1000, Integer.MAX_VALUE);
+                Long novoCodigo = (long) UtilSBCoreNumeros.getNumeroRandomico(1000, Integer.MAX_VALUE);
                 Class classeEntidade = entidade.getClass();
                 EntidadeSimples entidadeExistente = (EntidadeSimples) UtilSBPersistencia.getRegistroByID(classeEntidade, novoCodigo, em);
                 if (entidadeExistente == null) {

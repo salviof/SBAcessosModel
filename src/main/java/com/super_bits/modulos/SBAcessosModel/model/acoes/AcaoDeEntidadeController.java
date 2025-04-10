@@ -59,7 +59,7 @@ public class AcaoDeEntidadeController extends AcaoSecundaria implements ItfAcaoC
     }
 
     @Override
-    public int getIdMetodo() {
+    public Long getIdMetodo() {
         return acaoControllerVinculado.getIdMetodo();
     }
 
@@ -164,7 +164,7 @@ public class AcaoDeEntidadeController extends AcaoSecundaria implements ItfAcaoC
     }
 
     @Override
-    public int getId() {
+    public Long getId() {
         return acaoControllerVinculado.getId(); //To change body of generated methods, choose Tools | Templates.
     }
 

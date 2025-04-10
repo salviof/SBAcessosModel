@@ -19,12 +19,12 @@ public enum FabTipoIp implements ItfFabrica {
         TipoIp tipoEntrega = new TipoIp();
         switch (this) {
             case FAIXAIP:
-                tipoEntrega.setId(1);
+                tipoEntrega.setId(1l);
                 tipoEntrega.setNome("FaixaIP");
 
                 break;
             case DNS:
-                tipoEntrega.setId(2);
+                tipoEntrega.setId(2l);
                 tipoEntrega.setNome("DNS");
 
                 break;

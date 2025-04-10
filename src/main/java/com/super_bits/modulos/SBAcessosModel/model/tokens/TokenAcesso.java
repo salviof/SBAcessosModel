@@ -35,7 +35,7 @@ public class TokenAcesso extends ItemSimples implements ItfTokenRecuperacaoEmail
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String codigo;
     @InfoCampo(tipo = FabTipoAtributoObjeto.EMAIL)
@@ -50,12 +50,12 @@ public class TokenAcesso extends ItemSimples implements ItfTokenRecuperacaoEmail
     private Date dataHoraCriacao;
 
     @Override
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

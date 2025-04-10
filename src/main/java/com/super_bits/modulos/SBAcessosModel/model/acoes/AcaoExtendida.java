@@ -106,7 +106,7 @@ public class AcaoExtendida implements ItfAcaoDoSistema {
     }
 
     @Override
-    public void setId(int pId) {
+    public void setId(Long pId) {
 
         acaoOrigem.setId(pId);
 
@@ -314,7 +314,7 @@ public class AcaoExtendida implements ItfAcaoDoSistema {
     }
 
     @Override
-    public int getId() {
+    public Long getId() {
         return acaoOrigem.getId();
     }
 
@@ -324,7 +324,7 @@ public class AcaoExtendida implements ItfAcaoDoSistema {
     }
 
     @Override
-    public int configIDPeloNome() {
+    public Long configIDPeloNome() {
         return acaoOrigem.configIDPeloNome();
     }
 

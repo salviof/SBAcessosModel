@@ -30,7 +30,7 @@ public class AssuntoFaleConosco extends EntidadeNormal {
     @Id
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID, label = "ID", descricao = "Identificação do assunto")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.REG_ATIVO_INATIVO, label = "Status", descricao = "Status do assunto(ativo/inativo)")
     @NotNull
@@ -62,12 +62,12 @@ public class AssuntoFaleConosco extends EntidadeNormal {
     private String tipoAssunto;
 
     @Override
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

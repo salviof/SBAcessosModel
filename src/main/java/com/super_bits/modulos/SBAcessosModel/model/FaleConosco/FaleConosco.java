@@ -43,7 +43,7 @@ public class FaleConosco extends EntidadeNormal {
     @Id
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @Temporal(TemporalType.DATE)
     @InfoCampo(tipo = FabTipoAtributoObjeto.REG_DATAINSERCAO, label = "Data Do Contato")
@@ -100,12 +100,12 @@ public class FaleConosco extends EntidadeNormal {
     }
 
     @Override
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -36,7 +36,7 @@ import javax.persistence.Transient;
 @InfoObjetoSB(tags = {"Ação da cadamada de controller "}, plural = "Ações Controllers")
 public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
 
-    private int idMetodo;
+    private Long idMetodo;
     private boolean temLogExecucao;
 
     private boolean precisaComunicacao;
@@ -62,7 +62,7 @@ public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
     }
 
     @Override
-    public int getIdMetodo() {
+    public Long getIdMetodo() {
         return idMetodo;
     }
 

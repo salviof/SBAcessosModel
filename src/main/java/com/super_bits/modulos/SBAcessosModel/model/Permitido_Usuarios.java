@@ -28,7 +28,7 @@ public class Permitido_Usuarios extends EntidadeGenerica implements Serializable
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = UsuarioSB.class)
     private UsuarioSB usuario;
@@ -36,11 +36,11 @@ public class Permitido_Usuarios extends EntidadeGenerica implements Serializable
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = PermissaoSB.class)
     private PermissaoSB acesso;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

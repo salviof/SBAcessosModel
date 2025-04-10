@@ -48,12 +48,12 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     @Id
     @GenericGenerator(name = "geradorIdPermissao", strategy = "com.super_bits.modulos.SBAcessosModel.model.GeradorIdPermissao")
     @GeneratedValue(generator = "geradorIdPermissao")
-    private int id;
+    private Long id;
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String nomeAcesso;
 
-    private int idacaoDoSistema;
+    private Long idacaoDoSistema;
 
     private TIPO_AUTENTICACAO tipoAutenticacao;
 
@@ -88,7 +88,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     private List<GrupoUsuarioSB> gruposNegados;
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.QUANTIDADE)
-    private int idAcaoGestao;
+    private Long idAcaoGestao;
 
     @Deprecated
     public PermissaoSB() {
@@ -136,7 +136,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     }
 
     @Override
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -255,16 +255,16 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
         return (AcaoDoSistema) MapaAcoesSistema.getAcaoDoSistemaById(idacaoDoSistema);
     }
 
-    public int getIdAcaoGestao() {
+    public Long getIdAcaoGestao() {
         return idAcaoGestao;
     }
 
-    public void setIdAcaoGestao(int idAcaoGestao) {
+    public void setIdAcaoGestao(Long idAcaoGestao) {
         this.idAcaoGestao = idAcaoGestao;
     }
 
     @Override
-    public void setId(int pID) {
+    public void setId(Long pID) {
         id = pID;
     }
 

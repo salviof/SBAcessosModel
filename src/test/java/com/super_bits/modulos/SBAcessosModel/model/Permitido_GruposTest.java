@@ -46,17 +46,17 @@ public class Permitido_GruposTest extends TesteJunitSBPersistencia {
             usuario3.setGrupo(grupo1);
             usuario4.setGrupo(grupo2);
 
-            usuario1.setId(1);
-            usuario2.setId(2);
-            usuario3.setId(3);
-            usuario4.setId(4);
+            usuario1.setId(1l);
+            usuario2.setId(2l);
+            usuario3.setId(3l);
+            usuario4.setId(4l);
 
             usuario1.ajustaConfiguracoes();
             usuario2.ajustaConfiguracoes();
             usuario3.ajustaConfiguracoes();
             usuario4.ajustaConfiguracoes();
-            grupo1.setId(1);
-            grupo2.setId(2);
+            grupo1.setId(1l);
+            grupo2.setId(2l);
             grupo1.setNome("Grupo 1");
             grupo2.setNome("Grupo 2");
 
@@ -77,14 +77,14 @@ public class Permitido_GruposTest extends TesteJunitSBPersistencia {
     public void testarPermissoes() {
         try {
             PermissaoSB permissaoTeste = new PermissaoSB();
-            permissaoTeste.setId(11);
+            permissaoTeste.setId(11l);
             permissaoTeste.addGrupoPermitido(grupo1);
             permissaoTeste.addGrupoPermitido(grupo2);
-            permissaoTeste.setId(11);
+            permissaoTeste.setId(11l);
             permissaoTeste = (PermissaoSB) UtilSBPersistencia.mergeRegistro(permissaoTeste, getEMTeste());
             permissaoTeste.getGruposPermitidos().remove(0);
             UtilSBPersistencia.mergeRegistro(permissaoTeste, getEMTeste());
-            permissaoTeste = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, 11);
+            permissaoTeste = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class, 11l);
             assertTrue("A permissão não foi removida", permissaoTeste.getGruposDisponiveis().size() == 1);
         } catch (Throwable t) {
             lancarErroJUnit(t);

@@ -57,7 +57,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
             strategy = "com.super_bits.modulosSB.Persistencia.geradorDeId.GeradorIDObjVinculadoEnum"
     )
     @GeneratedValue(generator = "geradorIdModulo")
-    private int id;
+    private Long id;
     @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
     private String nome;
     @InfoCampo(tipo = FabTipoAtributoObjeto.DESCRITIVO)
@@ -82,12 +82,12 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     }
 
     @Override
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
     @Override
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

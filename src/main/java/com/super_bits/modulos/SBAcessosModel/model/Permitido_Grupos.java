@@ -33,7 +33,7 @@ public class Permitido_Grupos extends EntidadeSimples {
     )
     @GeneratedValue(generator = "geradorIdPermitidoGrupo")
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
-    private int id;
+    private Long id;
 
     @Transient
     @InfoCampo(tipo = FabTipoAtributoObjeto.NOME)
@@ -45,11 +45,11 @@ public class Permitido_Grupos extends EntidadeSimples {
     @ManyToOne(fetch = FetchType.EAGER, targetEntity = PermissaoSB.class)
     private PermissaoSB acesso;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -77,9 +77,9 @@ public class Permitido_Grupos extends EntidadeSimples {
         return nome;
     }
 
-    public int defineIdPermitidoGrupo() {
+    public Long defineIdPermitidoGrupo() {
         GeradorIDPermitidoGrupo gerador = new GeradorIDPermitidoGrupo();
-        id = (int) gerador.gerar(this);
+        id = (long) gerador.gerar(this);
         return id;
     }
 

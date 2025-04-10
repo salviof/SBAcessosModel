@@ -23,7 +23,7 @@ public class GeradorIdPermissao implements IdentifierGenerator {
     public Serializable generate(SharedSessionContractImplementor ssci, Object obj) throws HibernateException {
         try {
             PermissaoSB permissao = ((PermissaoSB) obj);
-            int id = UtilSBController.gerarIDAcaoDoSistema(permissao.getAcao().getEnumAcaoDoSistema());
+            Long id = UtilSBController.gerarIDAcaoDoSistema(permissao.getAcao().getEnumAcaoDoSistema());
 
             return id;
 
