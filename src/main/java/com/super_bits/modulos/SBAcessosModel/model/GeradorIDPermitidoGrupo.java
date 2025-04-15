@@ -28,13 +28,13 @@ public class GeradorIDPermitidoGrupo implements IdentifierGenerator {
             Permitido_Grupos permissaoGrupo = ((Permitido_Grupos) obj);
             Long idMerg = permissaoGrupo.getAcesso().getId() + permissaoGrupo.getGrupo().getId();
 
-            return idMerg.hashCode();
+            return (long) idMerg.hashCode();
 
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro determinando id para permissao", t);
         }
 
-        return 0;
+        return 0l;
     }
 
 }

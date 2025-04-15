@@ -121,6 +121,7 @@ public class UtilSBControllerAcessosModel {
             }
             UtilSBPersistencia.iniciarTransacao(em);
             ConfiguracaoDePermissao config = new ConfiguracaoDePermissao();
+            config.setId(0l);
             config.setUltimaVersaoBanco(SBPersistencia.getDevOps().getHashBancoGerado());
             UtilSBPersistencia.mergeRegistro(config, em);
             return UtilSBPersistencia.finalizarTransacao(em);
