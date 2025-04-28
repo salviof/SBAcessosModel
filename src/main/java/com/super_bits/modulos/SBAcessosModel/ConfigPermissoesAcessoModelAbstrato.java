@@ -229,10 +229,12 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                         if (permissaoAtual == null) {
                             permissaoAtual = new ConfiguracaoDePermissao();
                         }
-                        if (!permissaoAtual.getUltimaVersaoBanco().equals(SBPersistencia.getDevOps().getHashBancoGerado())) {
-                            permissaoAtual.setUltimaVersaoBanco(SBPersistencia.getDevOps().getHashBancoGerado());
-                            if (UtilSBPersistencia.mergeRegistro(permissaoAtual) == null) {
-                                throw new UnsupportedOperationException("Erro Persistindo nova versão do banco em tabela de configuracao");
+                        if (permissaoAtual.getUltimaVersaoBanco() != null) {
+                            if (!permissaoAtual.getUltimaVersaoBanco().equals(SBPersistencia.getDevOps().getHashBancoGerado())) {
+                                permissaoAtual.setUltimaVersaoBanco(SBPersistencia.getDevOps().getHashBancoGerado());
+                                if (UtilSBPersistencia.mergeRegistro(permissaoAtual) == null) {
+                                    throw new UnsupportedOperationException("Erro Persistindo nova versão do banco em tabela de configuracao");
+                                }
                             }
                         }
 
