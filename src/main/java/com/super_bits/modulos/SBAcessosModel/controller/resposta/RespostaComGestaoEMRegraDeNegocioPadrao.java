@@ -246,6 +246,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         try {
             executarAcoesIniciais();
             try {
+                lancarErroAPartirDaResposta(getResposta());
                 regraDeNegocio();
             } catch (ErroRegraDeNegocio er) {
                 addErro(er.getMessage());
