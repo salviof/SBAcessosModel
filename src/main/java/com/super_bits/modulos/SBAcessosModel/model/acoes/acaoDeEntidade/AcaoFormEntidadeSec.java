@@ -7,6 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringNomeArquivosEDiretorios;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfParametroRequisicaoInstanciado;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.estadoFormulario.FabEstadoFormulario;
@@ -36,7 +37,7 @@ import org.coletivojava.fw.api.objetoNativo.view.componente.ComponenteVisualBase
  */
 @Entity
 @InfoObjetoSB(tags = {"Ação de formulário para entidade"}, plural = "Ações de entidade")
-public class AcaoFormEntidadeSec extends AcaoSecundaria implements ItfAcaoFormularioEntidadeSecundaria, ItfAcaoFormularioEntidade {
+public class AcaoFormEntidadeSec extends AcaoSecundaria implements ItfAcaoFormularioEntidadeSecundaria {
 
     private String xhtml = AcaoFormulario.VARIAVEIS_ACAO_DO_SISTEMA.VIEW_NAO_IMPLEMENTADA.toString();
     @Transient
@@ -189,6 +190,7 @@ public class AcaoFormEntidadeSec extends AcaoSecundaria implements ItfAcaoFormul
 
     @Override
     public ComponenteVisualBase getComponenteFormularioPadrao() {
+
         return (ComponenteVisualBase) getTipoAcaoGenerica().getComponentePadrao().getRegistro();
     }
 
