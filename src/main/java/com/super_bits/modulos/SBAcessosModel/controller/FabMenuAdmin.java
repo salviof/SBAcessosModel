@@ -9,7 +9,7 @@ import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfMenuSB;
-import com.super_bits.modulosSB.SBCore.modulos.view.menu.SessaoMenuSB;
+import org.coletivojava.fw.api.objetoNativo.view.menu.SessaoMenuSB;
 import java.util.ArrayList;
 import java.util.List;
 import org.coletivojava.fw.api.objetoNativo.view.menu.MenuSBFW;
