@@ -50,7 +50,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoGrupoUsuario")
-@InfoObjetoSB(tags = {"Grupos de Usuário"}, plural = "Grupos de Usuários", icone = "fa fa-users")
+@InfoObjetoSB(tags = {"Grupos de Usuário"}, plural = "Grupos de Usuários", icone = "fa fa-users", permitidoAlterarObjetoDaFabrica = false)
 public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuaioEditavel {
 
     @Id
