@@ -61,7 +61,7 @@ public enum FabAcaoPaginasDoSistema implements ItfFabricaAcoes {
     PAGINA_NATIVA_MODAL_COMUNICACAO_ACAO_TRANSIENT_MB,
     @InfoTipoAcaoGestaoEntidade(iconeFonteAnsowame = FabIconeFontAwesome.SISTEMA_CARTAO_DE_ACESSO, precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_OAUTH_LOGIN)
     PAGINA_NATIVA_LOGIN_OAUTH_MB,
-    @InfoTipoAcaoGestaoEntidade(iconeFonteAnsowame = FabIconeFontAwesome.SISTEMA_ENGRENAGEM, precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_API_RESTFUL_CONTROLLER)
+    @InfoTipoAcaoGestaoEntidade(iconeFonteAnsowame = FabIconeFontAwesome.SISTEMA_ENGRENAGEM, precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_API_RESTFUL)
     PAGINA_NATIVA_RESTFUL_RESP_MB_GESTAO,
     @InfoTipoAcaoGestaoEntidade(iconeFonteAnsowame = FabIconeFontAwesome.SISTEMA_ENGRENAGEM, precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_API_JSON_WEB_VIEW)
     PAGINA_NATIVA_JSON_WEBVIEW_MB_GESTAO,
@@ -103,7 +103,7 @@ public enum FabAcaoPaginasDoSistema implements ItfFabricaAcoes {
 
     public final static String FORMULARIO_OAUTH_LOGIN = "/resources/oauth/login.xhtml";
 
-    public final static String FORMULARIO_API_RESTFUL_CONTROLLER = "/resources/restful/respostaController.xhtml";
+    public final static String FORMULARIO_API_RESTFUL = "/resources/restful/respostaRestfull.xhtml";
 
     public final static String FORMULARIO_ACESSO_NEGADO_SUB_FORM = "/resources/SBComp/SBSystemPages/acessoNegadoSubForm.xhtml";
 
