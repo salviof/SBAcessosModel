@@ -431,6 +431,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                 if (pEmail != null) {
                     consultaToken.addcondicaoCampoIgualA("email", pEmail);
                 }
+                consultaToken.addCondicaoDataHoraMaiorOuIgualA("validade", new Date());
                 List<TokenAcessoDinamico> tokens = consultaToken.resultadoRegistros();
                 if (!tokens.isEmpty()) {
                     UtilSBCoreListasObjeto.ordernarPorCampoReverso(tokens, "dataHoraCriacao");
