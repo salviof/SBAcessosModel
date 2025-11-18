@@ -9,14 +9,14 @@ import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.EntidadeSimples;
 
 /**
  *
  * @author desenvolvedor
  */
 @InfoObjetoSB(tags = {"Projeto Atual"}, plural = "Projetos Atuais")
-public class ProjetoAtual extends ItemSimples {
+public class ProjetoAtual extends EntidadeSimples {
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
     private Long id;

@@ -455,7 +455,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                         }
                     }
                 } else if (campo.getDeclaredAnnotations().length > 0) {
-                    throw new UnsupportedOperationException("Erro  anotação ou nome de ação incompatível em " + pAcao.getNomeUnico() + textoAnotacoes);
+                    throw new UnsupportedOperationException("Erro  anotação ou nome de ação incompatível em "
+                            + pAcao.getNomeUnico() + textoAnotacoes);
                 }
                 break;
 

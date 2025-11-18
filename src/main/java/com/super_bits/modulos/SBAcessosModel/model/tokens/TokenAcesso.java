@@ -9,7 +9,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.EntidadeSimples;
 import java.util.Date;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -31,7 +31,7 @@ import javax.persistence.TemporalType;
 @InfoObjetoSB(plural = "Tokens Acesso", tags = {"Token de Acesso"}, descricao = "Tokens de acesso", icone = "fa fa-key")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoToken")
-public class TokenAcesso extends ItemSimples implements ItfTokenRecuperacaoEmail {
+public class TokenAcesso extends EntidadeSimples implements ItfTokenRecuperacaoEmail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

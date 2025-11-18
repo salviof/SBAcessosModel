@@ -101,8 +101,8 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
             if (!cpLocalizacao.isUmCampoNaoInstanciado() && cpLocalizacao.getValor() != null) {
                 List<String> mensagensValidaca = UtilSBCoreValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(),
-                        cpLocalizacao.getValorComoItemSimples().getId() == null
-                        || cpLocalizacao.getValorComoItemSimples().getId() == null, false);
+                        cpLocalizacao.getValorComoEntidadeSimples().getId() == null
+                        || cpLocalizacao.getValorComoEntidadeSimples().getId() == null, false);
                 if (!mensagensValidaca.isEmpty()) {
                     throw new ErroRegraDeNegocio("Endereço inválido: " + mensagensValidaca.get(0));
 

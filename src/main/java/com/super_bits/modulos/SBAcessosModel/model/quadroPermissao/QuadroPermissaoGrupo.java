@@ -15,7 +15,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.EntidadeSimples;
 import java.util.ArrayList;
 import java.util.List;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoTemIcone;
@@ -27,7 +27,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoA
  */
 @InfoObjetoSB(tags = {"Quadro de Permissão do Grupo"}, descricao = "Exibe as informações de permissão do grupo", plural = "Permissoes do grupo")
 
-public class QuadroPermissaoGrupo extends ItemSimples implements ComoTemIcone {
+public class QuadroPermissaoGrupo extends EntidadeSimples implements ComoTemIcone {
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
     private Long id;
