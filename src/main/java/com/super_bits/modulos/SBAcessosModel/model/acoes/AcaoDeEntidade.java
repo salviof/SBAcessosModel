@@ -9,7 +9,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -43,12 +43,12 @@ public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
         super();
     }
 
-    public AcaoDeEntidade(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ItfFabricaAcoes pFabricaAcao) {
+    public AcaoDeEntidade(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ComoFabricaAcoes pFabricaAcao) {
         super(pTipoAcao, pFabricaAcao);
         this.classeRelacionada = classeRelacionada;
     }
 
-    public AcaoDeEntidade(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ItfFabricaAcoes pFabricaAcao, FabTipoAcaoSistemaGenerica pFabricaAcaoGenerica) {
+    public AcaoDeEntidade(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ComoFabricaAcoes pFabricaAcao, FabTipoAcaoSistemaGenerica pFabricaAcaoGenerica) {
         super(pTipoAcao, pFabricaAcao, pFabricaAcaoGenerica);
         this.classeRelacionada = classeRelacionada;
     }

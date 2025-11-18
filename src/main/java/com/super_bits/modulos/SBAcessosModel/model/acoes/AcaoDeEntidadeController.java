@@ -4,16 +4,16 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfParametroAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoParametroAcaoController;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfTipoComunicacao;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
 import java.lang.reflect.Method;
@@ -34,8 +34,8 @@ import javax.persistence.Transient;
  */
 @Entity
 @InfoObjetoSB(tags = {"Ação de controller relacionada a entidade"}, plural = "Ações de controller relacionada")
-public class AcaoDeEntidadeController extends AcaoSecundaria implements ItfAcaoController,
-        ItfAcaoSecundaria, ItfAcaoControllerEntidade {
+public class AcaoDeEntidadeController extends AcaoSecundaria implements ComoAcaoController,
+        ComoAcaoSecundaria, ComoAcaoControllerEntidade {
 
     @Transient
     private ItfAcaoGerenciarEntidade acaoPrincipal;
@@ -50,7 +50,7 @@ public class AcaoDeEntidadeController extends AcaoSecundaria implements ItfAcaoC
     }
 
     public AcaoDeEntidadeController(ItfAcaoGerenciarEntidade pAcaoPrincipal,
-            FabTipoAcaoSistemaGenerica pAcaoGenerica, ItfFabricaAcoes pFabAcao) {
+            FabTipoAcaoSistemaGenerica pAcaoGenerica, ComoFabricaAcoes pFabAcao) {
 
         super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_CONTROLLER, pFabAcao, pAcaoGenerica);
         setAcaoPrincipal(pAcaoPrincipal);
@@ -74,7 +74,7 @@ public class AcaoDeEntidadeController extends AcaoSecundaria implements ItfAcaoC
     }
 
     @Override
-    public List<ItfParametroAcaoController> getParametros() {
+    public List<ComoParametroAcaoController> getParametros() {
         return acaoControllerVinculado.getParametros();
     }
 

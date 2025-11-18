@@ -7,13 +7,13 @@ package com.super_bits.modulos.SBAcessosModel.fabricas;
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 
 /**
  *
  * @author desenvolvedor
  */
-public interface ItfFabricaDeAcoesPersistencia extends ItfFabricaAcoes {
+public interface ComoFabricaDeAcoesPersistencia extends ComoFabricaAcoes {
 
     @Override
     public default AcaoDoSistema getRegistro() {

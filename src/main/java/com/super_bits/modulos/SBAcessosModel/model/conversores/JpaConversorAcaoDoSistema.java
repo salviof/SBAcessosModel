@@ -6,17 +6,17 @@
 package com.super_bits.modulos.SBAcessosModel.model.conversores;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import javax.persistence.AttributeConverter;
 
 /**
  *
  * @author desenvolvedor
  */
-public class JpaConversorAcaoDoSistema implements AttributeConverter<ItfFabricaAcoes, String> {
+public class JpaConversorAcaoDoSistema implements AttributeConverter<ComoFabricaAcoes, String> {
 
     @Override
-    public String convertToDatabaseColumn(ItfFabricaAcoes attribute) {
+    public String convertToDatabaseColumn(ComoFabricaAcoes attribute) {
         if (attribute == null) {
             throw new UnsupportedOperationException("A fabrica de ações não pode ser nula para conversão compatível com persistencia");
         }
@@ -24,7 +24,7 @@ public class JpaConversorAcaoDoSistema implements AttributeConverter<ItfFabricaA
     }
 
     @Override
-    public ItfFabricaAcoes convertToEntityAttribute(String dbData) {
+    public ComoFabricaAcoes convertToEntityAttribute(String dbData) {
         return MapaAcoesSistema.getAcaoDoSistemaByNomeUnico(dbData).getEnumAcaoDoSistema();
     }
 

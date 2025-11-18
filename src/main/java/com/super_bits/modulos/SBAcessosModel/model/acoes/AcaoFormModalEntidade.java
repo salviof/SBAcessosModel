@@ -7,7 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormEntidadeSec;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import javax.persistence.Entity;
 
@@ -26,7 +26,7 @@ public class AcaoFormModalEntidade extends AcaoFormEntidadeSec {
         super();
     }
 
-    public AcaoFormModalEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes enumAcao) {
+    public AcaoFormModalEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ComoFabricaAcoes enumAcao) {
         super(pAcaoPrincipal, enumAcao, FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL);
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_MODAL;
 

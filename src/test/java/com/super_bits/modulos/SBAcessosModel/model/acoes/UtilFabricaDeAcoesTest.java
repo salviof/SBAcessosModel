@@ -10,13 +10,13 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoForm
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -33,7 +33,7 @@ public class UtilFabricaDeAcoesTest {
     @Test
     public void testGetAcaoPrincipalDoDominio() {
 
-        ItfFabricaAcoes acaoRetronada = null;
+        ComoFabricaAcoes acaoRetronada = null;
         acaoRetronada = UtilFabricaDeAcoesAcessosModel.getAcaoPrincipalDoDominio(FabTEste.OBJETO_CTR_ALTERAR_STATUS);
         assertEquals("A ação managede bean do dominio Obejto não foi retornada corretamente", FabTEste.OBJETO_MB_GERENCIAR, acaoRetronada);
         acaoRetronada = UtilFabricaDeAcoesAcessosModel.getAcaoPrincipalDoDominio(FabTEste.OBJETO_FRM_NOVO);
@@ -53,34 +53,34 @@ public class UtilFabricaDeAcoesTest {
     @Test
     public void testGetNovaAcao() {
 
-        ItfAcaoDoSistema acaoGerada = (ItfAcaoDoSistema) FabTEste.OBJETO_CTR_ALTERAR_STATUS.getRegistro();
+        ComoAcaoDoSistema acaoGerada = (ComoAcaoDoSistema) FabTEste.OBJETO_CTR_ALTERAR_STATUS.getRegistro();
 
         assertNotNull("Gerou ação com Ação generica nula", acaoGerada.getTipoAcaoGenerica());
         assertEquals("O tipo generico não parece ser o tipo esperado pela nomeclatura", acaoGerada.getTipoAcaoGenerica(), FabTipoAcaoSistemaGenerica.CONTROLLER_ATIVAR_DESATIVAR);
         assertEquals(acaoGerada.getClass().getName(), AcaoDeEntidadeController.class.getName());
 
-        acaoGerada = (ItfAcaoDoSistema) FabTEste.OBJETO_FRM_NOVO.getRegistro();
+        acaoGerada = (ComoAcaoDoSistema) FabTEste.OBJETO_FRM_NOVO.getRegistro();
 
         assertEquals("O tipo generico não parece ser o tipo esperado pela nomeclatura", acaoGerada.getTipoAcaoGenerica(), FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO);
         assertEquals(acaoGerada.getClass().getName(), AcaoFormEntidadeSec.class.getName());
 
-        acaoGerada = (ItfAcaoDoSistema) FabTEste.OBJETO_MB_GERENCIAR.getRegistro();
+        acaoGerada = (ComoAcaoDoSistema) FabTEste.OBJETO_MB_GERENCIAR.getRegistro();
 
         FabTipoAcaoSistemaGenerica gerenciar = acaoGerada.getTipoAcaoGenerica();
         assertEquals("O tipo generico não parece ser o tipo esperado pela nomeclatura", acaoGerada.getTipoAcaoGenerica(), FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO);
         assertEquals(acaoGerada.getClass().getName(), AcaoGestaoEntidade.class.getName());
 
-        acaoGerada = (ItfAcaoDoSistema) FabTEste.USUARIO_TESTE_FRM_EDITAR.getRegistro();
+        acaoGerada = (ComoAcaoDoSistema) FabTEste.USUARIO_TESTE_FRM_EDITAR.getRegistro();
 
         assertEquals("O tipo generico não parece ser o tipo esperado pela nomeclatura", acaoGerada.getTipoAcaoGenerica(), FabTipoAcaoSistemaGenerica.FORMULARIO_EDITAR);
         assertEquals(acaoGerada.getClass().getName(), AcaoFormEntidadeSec.class.getName());
 
-        acaoGerada = (ItfAcaoDoSistema) FabTEste.USUARIO_TESTE_FRM_NOVO.getRegistro();
+        acaoGerada = (ComoAcaoDoSistema) FabTEste.USUARIO_TESTE_FRM_NOVO.getRegistro();
 
         assertEquals("O tipo generico não parece ser o tipo esperado pela nomeclatura", acaoGerada.getTipoAcaoGenerica(), FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO);
         assertEquals(acaoGerada.getClass().getName(), AcaoFormEntidadeSec.class.getName());
 
-        acaoGerada = (ItfAcaoDoSistema) FabTEste.USUARIO_TESTE_MB_GERENCIAR.getRegistro();
+        acaoGerada = (ComoAcaoDoSistema) FabTEste.USUARIO_TESTE_MB_GERENCIAR.getRegistro();
 
         assertEquals("O tipo generico não parece ser o tipo esperado pela nomeclatura", acaoGerada.getTipoAcaoGenerica(), FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO);
         assertEquals(acaoGerada.getClass().getName(), AcaoGestaoEntidade.class.getName());

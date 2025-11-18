@@ -15,28 +15,21 @@ import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.consultaDinamica.ConsultaDinamicaDeEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreCriptrografia;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreListasObjeto;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreObjetoSB;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreAbstrato;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.token.ItfTokenAcessoDinamico;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.token.ItfTokenRecuperacaoEmail;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
-import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNegocio;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.ItensGenericos.basico.UsuarioSistemaRoot;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -46,6 +39,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimplesSomenteLeitura;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /*
 
@@ -58,7 +55,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
 
     private static boolean ACOES_DO_SISTEMA_CRIADAS = false;
     private static boolean PERMISSOES_CRIADAS = false;
-    private final List<ItfFabricaAcoes> acoesPerisistidas = new ArrayList();
+    private final List<ComoFabricaAcoes> acoesPerisistidas = new ArrayList();
 
     public ConfigPermissoesAcessoModelAbstrato(Class[] pClassesControllers) {
         super(pClassesControllers);
@@ -126,7 +123,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                     try {
                         Long id = Long.valueOf(UtilSBCoreStringFiltros.getNumericosDaString(msg));
 
-                        ItfAcaoDoSistema acaoEnt = MapaAcoesSistema.getAcaoDoSistemaById(id);
+                        ComoAcaoDoSistema acaoEnt = MapaAcoesSistema.getAcaoDoSistemaById(id);
                         if (acaoEnt == null) {
                             id = id - id * 2;
                             acaoEnt = MapaAcoesSistema.getAcaoDoSistemaById(id);
@@ -159,12 +156,12 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     }
 
     @Override
-    public ItfUsuario getUsuarioByEmail(String pEmail) {
-        ItfUsuario usuarioEncontrado;
+    public ComoUsuario getUsuarioByEmail(String pEmail) {
+        ComoUsuario usuarioEncontrado;
         if (pEmail == null || !pEmail.contains("@")) {
             return null;
         }
-        usuarioEncontrado = (ItfUsuario) new ExecucaoConsultaComGestaoEntityManager() {
+        usuarioEncontrado = (ComoUsuario) new ExecucaoConsultaComGestaoEntityManager() {
             @Override
             public Object regraDeNegocioRetornandoResultado() {
                 try {
@@ -283,9 +280,9 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     }
 
     @Override
-    public List<ItfUsuario> configuraUsuarios() {
+    public List<ComoUsuario> configuraUsuarios() {
 
-        List<ItfUsuario> resposta = (List) UtilSBPersistencia.getListaTodos(UsuarioSB.class
+        List<ComoUsuario> resposta = (List) UtilSBPersistencia.getListaTodos(UsuarioSB.class
         );
 
         return resposta;
@@ -308,7 +305,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                     public Object regraDeNegocioRetornandoResultado() {
                         List<AcaoDoSistema> resposta = new ArrayList<>();
 
-                        for (ItfAcaoDoSistema acao : pModulo.getAcoes()) {
+                        for (ComoAcaoDoSistema acao : pModulo.getAcoes()) {
                             PermissaoSB permissao = (PermissaoSB) UtilSBPersistencia.getRegistroByID(PermissaoSB.class,
                                     acao.getId(), getEm());
                             //TODO sobrescrever metodo permissao no modulo SBPErmissao utilizando loadBY
@@ -328,17 +325,17 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     }
 
     @Override
-    public boolean isAcaoPermitidaUsuario(ItfUsuario pUsuario, ItfAcaoDoSistema acao) {
+    public boolean isAcaoPermitidaUsuario(ComoUsuario pUsuario, ComoAcaoDoSistema acao) {
         return isPermitidoUsuario(pUsuario, new PermissaoSB((AcaoDoSistema) acao));
     }
 
     @Override
-    public boolean isAcaoPermitidaUsuarioLogado(ItfAcaoDoSistema acao) {
+    public boolean isAcaoPermitidaUsuarioLogado(ComoAcaoDoSistema acao) {
         return isPermitidoUsuario(SBCore.getUsuarioLogado(), new PermissaoSB((AcaoDoSistema) acao));
     }
 
     @Override
-    public boolean isPermitidoUsuario(ItfUsuario pUsuario, ItfPermissao pPermissao) {
+    public boolean isPermitidoUsuario(ComoUsuario pUsuario, ItfPermissao pPermissao) {
         EntityManager em = null;
         try {
             if (!PERMISSOES_CRIADAS) {
@@ -360,15 +357,15 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                 throw new UnsupportedOperationException("Nenhuma permissao foi encontrada para" + pPermissao);
             }
 
-            for (ItfUsuario usuario : pAcesso.getUsuariosNegados()) {
+            for (ComoUsuario usuario : pAcesso.getUsuariosNegados()) {
                 if (usuario.getId() == pUsuario.getId()) {
                     System.out.println("Acesso negado de:" + pUsuario.getNome() + "registro usuario encontrado:" + usuario.getId());
                     return false;
                 }
             }
-            for (ItfGrupoUsuario grupo : pAcesso.getGruposNegados()) {
+            for (ComoGrupoUsuario grupo : pAcesso.getGruposNegados()) {
 
-                for (ItfUsuario user : grupo.getUsuarios()) {
+                for (ComoUsuario user : grupo.getUsuarios()) {
                     if (pUsuario.getGrupo().getId() == pUsuario.getGrupo().getId()) {
                         return false;
                     }
@@ -379,19 +376,19 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
             }
 
             System.out.println("Listando permitidos");
-            for (ItfUsuario usuario : pAcesso.getUsuariosPermitidos()) {
+            for (ComoUsuario usuario : pAcesso.getUsuariosPermitidos()) {
                 System.out.println("permitido:" + usuario.getNome() + pAcesso.getAcao());
                 if (usuario.getId() == pUsuario.getId()) {
                     return true;
                 }
             }
 
-            for (ItfGrupoUsuario grupo : pAcesso.getGruposPermitidos()) {
+            for (ComoGrupoUsuario grupo : pAcesso.getGruposPermitidos()) {
                 if (pUsuario.getGrupo().getId() == grupo.getId()) {
                     return true;
                 }
 
-                for (ItfUsuario user : grupo.getUsuarios()) {
+                for (ComoUsuario user : grupo.getUsuarios()) {
                     if (user.getId() == pUsuario.getId()) {
                         return true;
                     }
@@ -408,7 +405,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     }
 
     @Override
-    public ItfTokenRecuperacaoEmail gerarTokenRecuperacaoDeSenha(ItfUsuario pUsuario, int pMinutosValidade) {
+    public ItfTokenRecuperacaoEmail gerarTokenRecuperacaoDeSenha(ComoUsuario pUsuario, int pMinutosValidade) {
         TokenRecuperacaoSenha recuperacaoDeSenha = new TokenRecuperacaoSenha();
         recuperacaoDeSenha.setCodigo(UUID.randomUUID().toString().replace("-", "_"));
         recuperacaoDeSenha.setEmail(pUsuario.getEmail());
@@ -417,7 +414,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     }
 
     @Override
-    public ItfTokenAcessoDinamico gerarTokenDinamico(ItfFabricaAcoes pAcao, ItfBeanSimplesSomenteLeitura pItem, String pEmail) {
+    public ItfTokenAcessoDinamico gerarTokenDinamico(ComoFabricaAcoes pAcao, ComoEntidadeSimplesSomenteLeitura pItem, String pEmail) {
 
         EntityManager entityGerarToken = UtilSBPersistencia.getEntyManagerPadraoNovo();
         try {
@@ -463,7 +460,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     }
 
     @Override
-    public boolean isTokenDinamicoExiste(ItfFabricaAcoes pAcao, ItfBeanSimplesSomenteLeitura pItem, String pEmail) {
+    public boolean isTokenDinamicoExiste(ComoFabricaAcoes pAcao, ComoEntidadeSimplesSomenteLeitura pItem, String pEmail) {
         EntityManager entityGerarToken = UtilSBPersistencia.getEntyManagerPadraoNovo();
         try {
             try {
@@ -501,7 +498,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     }
 
     @Override
-    public boolean isObjetoPermitidoUsuario(ItfUsuario pUsuario, ItfBeanSimplesSomenteLeitura pObjeto) {
+    public boolean isObjetoPermitidoUsuario(ComoUsuario pUsuario, ComoEntidadeSimplesSomenteLeitura pObjeto) {
         return true;
     }
 

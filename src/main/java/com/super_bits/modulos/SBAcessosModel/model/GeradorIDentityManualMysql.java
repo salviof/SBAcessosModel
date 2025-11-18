@@ -6,13 +6,13 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
 import java.io.Serializable;
 import java.util.List;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimplesSomenteLeitura;
 
 /**
  *
@@ -24,7 +24,7 @@ public class GeradorIDentityManualMysql implements IdentifierGenerator {
     public Serializable generate(SharedSessionContractImplementor sessao, Object obj) throws HibernateException {
         try {
 
-            ItfBeanSimplesSomenteLeitura item = (ItfBeanSimplesSomenteLeitura) obj;
+            ComoEntidadeSimplesSomenteLeitura item = (ComoEntidadeSimplesSomenteLeitura) obj;
             List<Object> resultado = sessao.createNativeQuery("select id from " + item.getClass().getSimpleName() + " order by id desc limit 1 ").getResultList();
             if (resultado == null || resultado.isEmpty()) {
                 return 1;

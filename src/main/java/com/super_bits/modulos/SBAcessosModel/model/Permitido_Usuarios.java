@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeGenerica;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeORMGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -24,7 +24,7 @@ import javax.persistence.UniqueConstraint;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"usuario_id", "acesso_id"}))
 @Entity
 @InfoObjetoSB(tags = {"Permissão por Usuários"}, plural = "Permissões por usuário")
-public class Permitido_Usuarios extends EntidadeGenerica implements Serializable {
+public class Permitido_Usuarios extends EntidadeORMGenerica implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

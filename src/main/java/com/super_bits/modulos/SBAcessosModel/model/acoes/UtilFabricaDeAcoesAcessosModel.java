@@ -14,11 +14,10 @@ import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringBuscaTrecho;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreSystemOut;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerAutoExecucao;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerAutoExecucao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.estadoFormulario.FabEstadoFormulario;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ComoFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
@@ -53,7 +52,7 @@ import static com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTip
 import static com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO;
 import static com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica.SELECAO_DE_ACAO;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroCaminhoCampoNaoExiste;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCaminhoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
@@ -61,8 +60,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabGrupo
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.ItfCampoExibicaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.ItfGrupoCampos;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanNormal;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -72,13 +70,16 @@ import java.util.Map;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import org.coletivojava.fw.utilCoreBase.UtilSBCoreStringEnumECaixaAlta;
 
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeNormal;
+
 /**
  *
  * @author desenvolvedor
  */
 public abstract class UtilFabricaDeAcoesAcessosModel {
 
-    public static void configFormulario(ItfAcaoDoSistema acao, String formulario) {
+    public static void configFormulario(ComoAcaoDoSistema acao, String formulario) {
         try {
             ItfAcaoFormulario acaoformulario = (ItfAcaoFormulario) acao;
             acaoformulario.setXhtml(formulario);
@@ -95,9 +96,9 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
      * @param pAcao
      * @return
      */
-    public static ModuloAcaoSistema getModuloByFabrica(ItfFabricaAcoes pAcao) {
+    public static ModuloAcaoSistema getModuloByFabrica(ComoFabricaAcoes pAcao) {
         try {
-            ItfFabricaModulo fabModulo = (ItfFabricaModulo) UtilSBCoreReflexao.getFabricaDaClasseByAnotacao(pAcao.getClass(), "modulo", true);
+            ComoFabricaModulo fabModulo = (ComoFabricaModulo) UtilSBCoreReflexao.getFabricaDaClasseByAnotacao(pAcao.getClass(), "modulo", true);
 
             ModuloAcaoSistema moduloDaAcao = (ModuloAcaoSistema) fabModulo.getModulo();
 
@@ -113,10 +114,10 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         return null;
     }
 
-    public static List<ItfFabricaAcoes> getSubAcoesDaAcaoPrincipal(ItfFabricaAcoes pAcaoPrincipal) {
-        List<ItfFabricaAcoes> acoes = new ArrayList<>();
+    public static List<ComoFabricaAcoes> getSubAcoesDaAcaoPrincipal(ComoFabricaAcoes pAcaoPrincipal) {
+        List<ComoFabricaAcoes> acoes = new ArrayList<>();
         String nomeDominio = UtilFabricaDeAcoesBasico.getNomeDominio(pAcaoPrincipal);
-        for (ItfFabricaAcoes acao : pAcaoPrincipal.getClass().getEnumConstants()) {
+        for (ComoFabricaAcoes acao : pAcaoPrincipal.getClass().getEnumConstants()) {
 
             // Verificando se a ação inicia igual
             if (isPetenceAMesmaGestao(pAcaoPrincipal, acao)) {
@@ -132,7 +133,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
     }
 
-    public static boolean isPetenceAMesmaGestao(ItfFabricaAcoes pAcao1, ItfFabricaAcoes pAcao2) {
+    public static boolean isPetenceAMesmaGestao(ComoFabricaAcoes pAcao1, ComoFabricaAcoes pAcao2) {
         try {
             String nome1 = pAcao1.getClass().getSimpleName() + UtilFabricaDeAcoesBasico.getNomeDominio(pAcao1);
             String nome2 = pAcao2.getClass().getSimpleName() + UtilFabricaDeAcoesBasico.getNomeDominio(pAcao2);
@@ -161,20 +162,20 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
      * @param pFabrica Fabrica de ação referencia
      * @return o Tipo de ação generica de acordo com a fabrica referenia enviada
      */
-    public static FabTipoAcaoSistemaGenerica getTipoAcaoByNome(ItfFabricaAcoes pFabrica) {
+    public static FabTipoAcaoSistemaGenerica getTipoAcaoByNome(ComoFabricaAcoes pFabrica) {
 
         return FabTipoAcaoSistemaGenerica.getAcaoGenericaByNome(pFabrica.toString());
 
     }
 
-    public static ItfFabricaAcoes getAcaoPrincipalDoDominio(ItfFabricaAcoes pAcao) {
+    public static ComoFabricaAcoes getAcaoPrincipalDoDominio(ComoFabricaAcoes pAcao) {
         try {
 
             if (pAcao.toString().contains("_MB")) {
                 return null;
             }
             // Metodo um Para determinar Ação de Gestão: Mesma Classe de Dominio na mesma fabrica de ação
-            for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
+            for (ComoFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
                 // verifica se a classe de dominio é a mesma da ação enviada
 
                 if (isPetenceAMesmaGestao(pAcao, acao)) {
@@ -188,8 +189,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
             // Metodo 2 Mesmo inicio de nome
             //criando mapa de nomes
-            Map<String, ItfFabricaAcoes> mapaDeAcoes = new HashMap<>();
-            for (ItfFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
+            Map<String, ComoFabricaAcoes> mapaDeAcoes = new HashMap<>();
+            for (ComoFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
                 String inicioDoNome = UtilSBCoreStringBuscaTrecho.getStringAteEncontrarIsto(acao.toString(), "_MB");
                 if (inicioDoNome != null) {
                     mapaDeAcoes.put(inicioDoNome, acao);
@@ -223,17 +224,17 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             configurarValorIconeAnotacao(pAcao, pAnotacaoController.icone(), pAnotacaoController.iconeFonteAnsowame(), null);
             configurarValorFormularioAnotacao(pAcao, pAnotacaoController.xhtmlDaAcao());
             configurarValorJiraConfluenceAnotacao(pAcao, pAnotacaoController.codigoJira());
-            ItfAcaoController pAcaoController = (ItfAcaoController) pAcao;
+            ComoAcaoController pAcaoController = (ComoAcaoController) pAcao;
             pAcaoController.setCampoJustificativa(pAnotacaoController.campoJustificativa());
             pAcaoController.setTextoComunicacaoPersonalizadado(pAnotacaoController.fraseComunicação());
             pAcaoController.setTipoComunicacao(pAnotacaoController.comunicacao().getRegistro());
             pAcaoController.setXhtmlModalVinculado(pAnotacaoController.xhtmlModalConfirmacaoPersonalizado());
             pAcaoController.setPrecisaJustificativa(pAnotacaoController.precisaJustificativa());
             if (!pAnotacaoController.autoExecucao().equals(FabTipoAutoExecucaoAcao.DESATIVADO)) {
-                if (!(pAcao instanceof ItfAcaoControllerAutoExecucao)) {
+                if (!(pAcao instanceof ComoAcaoControllerAutoExecucao)) {
                     throw new UnsupportedOperationException("Erro de nomeclatura, definindo ação de autoexecução, ao nome da ação deve conter o SLUG: AUTO_EXEC em :" + pAcao.getEnumAcaoDoSistema().getNomeUnico());
                 }
-                ItfAcaoControllerAutoExecucao acaoAutoexecucao = (ItfAcaoControllerAutoExecucao) pAcao;
+                ComoAcaoControllerAutoExecucao acaoAutoexecucao = (ComoAcaoControllerAutoExecucao) pAcao;
                 acaoAutoexecucao.setTipoAutoExecucao(pAnotacaoController.autoExecucao());
             }
             if (pEntidadeVinculada != null) {
@@ -435,9 +436,9 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                                     Object objetoDominio = entidadeVinculada.newInstance();
                                     GrupoCampos gp = null;
 
-                                    if (objetoDominio instanceof ItfBeanNormal) {
+                                    if (objetoDominio instanceof ComoEntidadeNormal) {
                                         gp = FabGruposPadrao.GRUPO_PADRAO_ITEM_NORMAL.getGrupoCampoIgnorandoCamposNaoEncontrados(entidadeDaAcao);
-                                    } else if (objetoDominio instanceof ItfBeanSimples) {
+                                    } else if (objetoDominio instanceof ComoEntidadeSimples) {
                                         gp = (GrupoCampos) FabGruposPadrao.GRUPO_PADRAO_ITEM_SIMPLES.getGrupoCampo(entidadeDaAcao);
                                     }
                                     if (gp != null) {
@@ -494,7 +495,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
     }
 
-    public static ItfAcaoDoSistema getNovaAcao(ItfFabricaAcoes pAcao) {
+    public static ComoAcaoDoSistema getNovaAcao(ComoFabricaAcoes pAcao) {
         return getNovaAcao(pAcao, true);
     }
 
@@ -505,8 +506,8 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
      * @param pBuscarNoCache
      * @return
      */
-    public static ItfAcaoDoSistema getNovaAcao(
-            ItfFabricaAcoes pAcao, boolean pBuscarNoCache) {
+    public static ComoAcaoDoSistema getNovaAcao(
+            ComoFabricaAcoes pAcao, boolean pBuscarNoCache) {
         if (pBuscarNoCache) {
             // Verificando se a ação já foi criada
             if (MapaAcoesSistema.isMapaCriado()) {
@@ -520,7 +521,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         }
         FabTipoAcaoSistemaGenerica pTipoAcaoGenerica = getTipoAcaoByNome(pAcao);
 
-        ItfFabricaAcoes fabricaDadoPrincipal = getAcaoPrincipalDoDominio(pAcao);
+        ComoFabricaAcoes fabricaDadoPrincipal = getAcaoPrincipalDoDominio(pAcao);
         ItfAcaoGerenciarEntidade pAcaoPrincipal = null;
         try {
             if (fabricaDadoPrincipal != null) {
@@ -543,7 +544,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             AcaoGestaoEntidade acaoPrincipal;
             // Setar o id do metodo aqui??? #Todo pensar nessa ideia,
             // afinal deve ser negado o direito de exeutar o código do sistema antes de criar os métodos do controller?
-            ItfAcaoController novaAcaoRefController;
+            ComoAcaoController novaAcaoRefController;
             switch (pTipoAcaoGenerica) {
                 case FORMULARIO_NOVO_REGISTRO:
                     novaAcao = new AcaoFormEntidadeSec(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
@@ -617,21 +618,21 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar edição do(a) " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-save");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    novaAcaoRefController = (ComoAcaoController) novaAcao;
                     break;
                 case CONTROLLER_SALVAR_NOVO:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-save");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    novaAcaoRefController = (ComoAcaoController) novaAcao;
                     break;
                 case CONTROLLER_SALVAR_MODO_MERGE:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.setNome("Salvar " + nomeDoObjeto);
                     novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-save");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    novaAcaoRefController = (ComoAcaoController) novaAcao;
 
                     break;
                 case CONTROLLER_ATIVAR_DESATIVAR:
@@ -640,21 +641,21 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcao.setNome("Alterar status " + nomeDoObjeto);
                     novaAcao.setDescricao("Alterar status do " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-retweet");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    novaAcaoRefController = (ComoAcaoController) novaAcao;
                     break;
                 case CONTROLLER_ATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.setNome("Ativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Ativar " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-check");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    novaAcaoRefController = (ComoAcaoController) novaAcao;
                     break;
                 case CONTROLLER_DESATIVAR:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.setNome("Desativar " + nomeDoObjeto);
                     novaAcao.setDescricao("Desativar " + nomeDoObjeto);
                     novaAcao.setIconeAcao("fa fa-close");
-                    novaAcaoRefController = (ItfAcaoController) novaAcao;
+                    novaAcaoRefController = (ComoAcaoController) novaAcao;
 
                     break;
 

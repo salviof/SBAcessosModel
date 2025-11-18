@@ -9,10 +9,10 @@ import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -21,7 +21,7 @@ import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
  * @author desenvolvedor
  */
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.ADMIN_TOOLS)
-public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
+public enum FabAcaoDemonstracaoSB implements ComoFabricaAcoes {
 
     DEMONSTRACAO_MB_COMPONENTE,
     @InfoTipoAcaoGestaoEntidade(icone = "fa fa-sitemap",
@@ -34,7 +34,7 @@ public enum FabAcaoDemonstracaoSB implements ItfFabricaAcoes {
     TESTES_CAMPO_MB;
 
     @Override
-    public ItfAcaoDoSistema getRegistro() {
+    public ComoAcaoDoSistema getRegistro() {
         AcaoDoSistema acao = (AcaoDoSistema) UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
         switch (this) {
 

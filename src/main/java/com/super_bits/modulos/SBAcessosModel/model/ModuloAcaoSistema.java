@@ -5,20 +5,15 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ComoFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanEstatico;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +30,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import org.hibernate.annotations.GenericGenerator;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoTemFabricaEstatica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -49,7 +47,7 @@ import org.hibernate.annotations.GenericGenerator;
 @InfoObjetoSB(tags = {"Modulo do Sistema"}, plural = "Modulos do Sistema")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoModulo")
-public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoSistema, ItfBeanEstatico {
+public class ModuloAcaoSistema extends EntidadeSimplesORM implements ItfModuloAcaoSistema, ComoTemFabricaEstatica {
 
     @Id
     @GenericGenerator(
@@ -116,7 +114,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
      * @return
      */
     @Override
-    public List<ItfAcaoDoSistema> getAcoes() {
+    public List<ComoAcaoDoSistema> getAcoes() {
 
         return new ArrayList<>();
     }
@@ -146,10 +144,10 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     }
 
     @Override
-    public List<ItfAcaoDoSistema> getAcoesGestaoMB() {
-        List<ItfAcaoDoSistema> listaacaoGestao = new ArrayList<>();
+    public List<ComoAcaoDoSistema> getAcoesGestaoMB() {
+        List<ComoAcaoDoSistema> listaacaoGestao = new ArrayList<>();
 
-        for (ItfAcaoDoSistema acao : getAcoes()) {
+        for (ComoAcaoDoSistema acao : getAcoes()) {
             if (acao.isUmaAcaoGestaoDominio()) {
                 listaacaoGestao.add((AcaoDoSistema) acao);
             }
@@ -184,7 +182,7 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     }
 
     @Override
-    public void setEnumVinculado(ItfFabrica pFabrica) {
+    public void setEnumVinculado(ComoFabrica pFabrica) {
         if (isTemCampoAnotado(FabTipoAtributoObjeto.ENUM_FABRICA)) {
             setValorByTipoCampoEsperado(FabTipoAtributoObjeto.ENUM_FABRICA, pFabrica);
         }
@@ -192,14 +190,14 @@ public class ModuloAcaoSistema extends EntidadeSimples implements ItfModuloAcaoS
     }
 
     @Override
-    public ItfFabrica getFabricaObjeto() {
+    public ComoFabrica getFabricaObjeto() {
         return getEnumVinculado();
     }
 
     @Override
-    public ItfFabricaModulo getEnumVinculado() {
+    public ComoFabricaModulo getEnumVinculado() {
         if (isTemCampoAnotado(FabTipoAtributoObjeto.ENUM_FABRICA)) {
-            return (ItfFabricaModulo) getValorByTipoCampoEsperado(FabTipoAtributoObjeto.ENUM_FABRICA);
+            return (ComoFabricaModulo) getValorByTipoCampoEsperado(FabTipoAtributoObjeto.ENUM_FABRICA);
         } else {
             if (!SBCore.isEmModoProducao()) {
                 return FabModulosSistemaSB.ADMIN_TOOLS;

@@ -5,11 +5,10 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +23,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @InfoObjetoSB(tags = {"Permissão por Grupos"}, plural = "Permissões por Grupo")
-public class Permitido_Grupos extends EntidadeSimples {
+public class Permitido_Grupos extends EntidadeSimplesORM {
 
     @Id
     @GenericGenerator(

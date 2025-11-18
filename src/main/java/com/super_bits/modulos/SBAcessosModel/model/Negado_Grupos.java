@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeGenerica;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeORMGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -21,7 +21,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @InfoObjetoSB(tags = "Grupos com acesso negado", plural = "Grupos com acesso negado")
-public class Negado_Grupos extends EntidadeGenerica implements Serializable {
+public class Negado_Grupos extends EntidadeORMGenerica implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

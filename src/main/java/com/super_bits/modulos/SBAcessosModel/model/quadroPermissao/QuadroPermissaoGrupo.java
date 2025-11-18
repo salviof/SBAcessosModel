@@ -10,16 +10,16 @@ import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulosSB.Persistencia.dao.ExecucaoConsultaComGestaoEntityManager;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanComIcone;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ItemSimples;
 import java.util.ArrayList;
 import java.util.List;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoTemIcone;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -27,7 +27,7 @@ import java.util.List;
  */
 @InfoObjetoSB(tags = {"Quadro de Permissão do Grupo"}, descricao = "Exibe as informações de permissão do grupo", plural = "Permissoes do grupo")
 
-public class QuadroPermissaoGrupo extends ItemSimples implements ItfBeanComIcone {
+public class QuadroPermissaoGrupo extends ItemSimples implements ComoTemIcone {
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)
     private Long id;
@@ -35,9 +35,9 @@ public class QuadroPermissaoGrupo extends ItemSimples implements ItfBeanComIcone
     private String descricao;
     @InfoCampo(tipo = FabTipoAtributoObjeto.ICONE)
     private String icone;
-    private final List<ItfAcaoDoSistema> acoesDisponiveis;
+    private final List<ComoAcaoDoSistema> acoesDisponiveis;
     private final ItfAcaoGerenciarEntidade acaoGestao;
-    private List<ItfAcaoDoSistema> acoesPermitidas;
+    private List<ComoAcaoDoSistema> acoesPermitidas;
     private GrupoUsuarioSB grupoUsuario;
 
     public QuadroPermissaoGrupo(GrupoUsuarioSB pGrupo, ItfAcaoGerenciarEntidade pAcaoGestao) {
@@ -88,7 +88,7 @@ public class QuadroPermissaoGrupo extends ItemSimples implements ItfBeanComIcone
         return super.getClassePontoIdentificador(); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public List<ItfAcaoDoSistema> getAcoesDisponiveis() {
+    public List<ComoAcaoDoSistema> getAcoesDisponiveis() {
         return acoesDisponiveis;
     }
 
@@ -96,7 +96,7 @@ public class QuadroPermissaoGrupo extends ItemSimples implements ItfBeanComIcone
         return acaoGestao;
     }
 
-    public List<ItfAcaoDoSistema> getAcoesPermitidas() {
+    public List<ComoAcaoDoSistema> getAcoesPermitidas() {
         return acoesPermitidas;
     }
 
@@ -108,7 +108,7 @@ public class QuadroPermissaoGrupo extends ItemSimples implements ItfBeanComIcone
         return id;
     }
 
-    public void setAcoesPermitidas(List<ItfAcaoDoSistema> acoesPermitidas) {
+    public void setAcoesPermitidas(List<ComoAcaoDoSistema> acoesPermitidas) {
         this.acoesPermitidas = acoesPermitidas;
     }
 

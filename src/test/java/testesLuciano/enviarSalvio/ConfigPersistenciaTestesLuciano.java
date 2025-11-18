@@ -7,7 +7,7 @@ package testesLuciano.enviarSalvio;
 
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
 
 /**
  *
@@ -53,7 +53,7 @@ public class ConfigPersistenciaTestesLuciano implements ItfConfigSBPersistencia 
     }
 
     @Override
-    public Class<? extends ItfFabrica>[] fabricasRegistrosIniciais() {
+    public Class<? extends ComoFabrica>[] fabricasRegistrosIniciais() {
         return null;
     }
 

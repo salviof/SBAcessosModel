@@ -7,15 +7,15 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ComoFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoDaFabrica;
-import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
 
 /**
  *
  * @author desenvolvedor
  */
-public enum FabModulosTestes implements ItfFabricaModulo {
+public enum FabModulosTestes implements ComoFabricaModulo {
     @InfoObjetoDaFabrica(nomeObjeto = "Modulo teste")
     MODULO_TESTE;
 
@@ -28,7 +28,7 @@ public enum FabModulosTestes implements ItfFabricaModulo {
     }
 
     @Override
-    public ItfFabricaMenu getMenuPadrao() {
+    public ComoFabricaMenu getMenuPadrao() {
         return null;
     }
 

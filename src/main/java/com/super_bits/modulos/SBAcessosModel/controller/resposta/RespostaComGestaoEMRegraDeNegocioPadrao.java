@@ -23,12 +23,12 @@ import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEn
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfCidade;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
 import java.util.List;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ComoCidade;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ComoLocal;
 
 /**
  *
@@ -37,10 +37,10 @@ import java.util.List;
  */
 public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaComGestaoEntityManager implements ItfRespostaComExecucaoDeRegraDeNegocio {
 
-    private final ItfBeanSimples entidadePrincipalAssociada;
+    private final ComoEntidadeSimples entidadePrincipalAssociada;
     private boolean executouAcoesFinais = false;
 
-    public boolean validarAtributos(ItfBeanSimples pEntidade) {
+    public boolean validarAtributos(ComoEntidadeSimples pEntidade) {
         System.out.println("Falta implementar Validação de Atributos via InfoCampo e Validate");
 
         pEntidade.getCamposInstaciadosInvalidos().forEach((campo) -> {
@@ -50,11 +50,11 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
     }
 
     @Override
-    public boolean removerEntidade(final ItfBeanSimples pObjeto) {
+    public boolean removerEntidade(final ComoEntidadeSimples pObjeto) {
         return super.removerEntidade(pObjeto);
     }
 
-    public void atualizarValoresDinamicos(ItfBeanSimples pObjeto) {
+    public void atualizarValoresDinamicos(ComoEntidadeSimples pObjeto) {
 
         EstruturaDeEntidade est = MapaObjetosProjetoAtual.getEstruturaObjeto(UtilSBCoreReflexaoObjeto.getClassExtraindoProxy(pObjeto.getClass().getSimpleName()));
         if (est != null) {
@@ -73,22 +73,22 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         }
     }
 
-    public <I extends ItfBeanSimples> I persistirEntidadeNova(final ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
+    public <I extends ComoEntidadeSimples> I persistirEntidadeNova(final ComoEntidadeSimples pObjeto) throws ErroRegraDeNegocio {
         if (pObjeto.getId() != 0) {
             throw new ErroRegraDeNegocio("Utilize persistir entidade modo merge para persisitir uma entidade que já existe");
         }
         return atualizarEntidade(pObjeto, true);
     }
 
-    public <I extends ItfBeanSimples> I persistirEntidadeModoMerge(final ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
+    public <I extends ComoEntidadeSimples> I persistirEntidadeModoMerge(final ComoEntidadeSimples pObjeto) throws ErroRegraDeNegocio {
         return atualizarEntidade(pObjeto, true);
     }
 
-    public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
+    public <I extends ComoEntidadeSimples> I atualizarEntidade(final ComoEntidadeSimples pObjeto) throws ErroRegraDeNegocio {
         return atualizarEntidade(pObjeto, true);
     }
 
-    public <I extends ItfBeanSimples> I atualizarEntidade(final ItfBeanSimples pObjeto, boolean validarTodosOsCampos) throws ErroRegraDeNegocio {
+    public <I extends ComoEntidadeSimples> I atualizarEntidade(final ComoEntidadeSimples pObjeto, boolean validarTodosOsCampos) throws ErroRegraDeNegocio {
         boolean umNovoRegistro = false;
         if (!isSucesso()) {
             return null;
@@ -109,26 +109,26 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                 } else {
 
                     Bairro b = (Bairro) cpLocalizacao.getComoCampoLocalizacao().getBairro();
-                    ItfCidade c = (ItfCidade) cpLocalizacao.getComoCampoLocalizacao().getCidade();
+                    ComoCidade c = (ComoCidade) cpLocalizacao.getComoCampoLocalizacao().getCidade();
                     if (b != null) {
                         b.configIDPeloNome();
                         Bairro bload = UtilSBPersistencia.loadEntidade(b, getEm());
                         if (bload != null) {
-                            ItfLocal local = (ItfLocal) cpLocalizacao.getValor();
+                            ComoLocal local = (ComoLocal) cpLocalizacao.getValor();
                             local.setBairro(bload);
                         }
                     }
                     if (c != null) {
                         c.configIDPeloNome();
-                        ItfCidade cload = UtilSBPersistencia.loadEntidade(c, getEm());
+                        ComoCidade cload = UtilSBPersistencia.loadEntidade(c, getEm());
 
                         if (cload != null) {
-                            ItfLocal local = (ItfLocal) cpLocalizacao.getValor();
+                            ComoLocal local = (ComoLocal) cpLocalizacao.getValor();
                             local.getBairro().setCidade(cload);
 
                         }
                     }
-                    //  ItfLocal localizacaoAtualizada = (ItfLocal) cpLocalizacao.getValor();
+                    //  ComoLocal localizacaoAtualizada = (ComoLocal) cpLocalizacao.getValor();
                     //  localizacaoAtualizada = UtilSBPersistencia.mergeRegistro(cpLocalizacao.getValor(), getEm());
                     //  cpLocalizacao.setValor(localizacaoAtualizada);
                 }
@@ -136,9 +136,9 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
         }
 
-        if (pObjeto instanceof ItfBeanSimples) {
+        if (pObjeto instanceof ComoEntidadeSimples) {
             if (validarTodosOsCampos) {
-                String mensagem = UtilSBCoreValidacao.getPrimeiraInconsistenciaDeValidacao((ItfBeanSimples) pObjeto);
+                String mensagem = UtilSBCoreValidacao.getPrimeiraInconsistenciaDeValidacao((ComoEntidadeSimples) pObjeto);
                 if (mensagem != null) {
                     throw new ErroRegraDeNegocio(mensagem);
 
@@ -154,7 +154,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             String imagemMedio = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual());;
             String imagemGrande = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_GRANDE, SBCore.getCentralDeSessao().getSessaoAtual());;
 
-            ItfBeanSimples objetoCriado = (ItfBeanSimples) super.atualizarEntidade(pObjeto);
+            ComoEntidadeSimples objetoCriado = (ComoEntidadeSimples) super.atualizarEntidade(pObjeto);
             if (objetoCriado == null) {
                 throw new ErroRegraDeNegocio("Falha salvando objeto");
             }
@@ -196,7 +196,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             }
             return (I) objetoCriado;
         } else {
-            ItfBeanSimples entidadeAtualizada = super.atualizarEntidade(pObjeto);
+            ComoEntidadeSimples entidadeAtualizada = super.atualizarEntidade(pObjeto);
             if (entidadeAtualizada == null) {
                 throw new ErroRegraDeNegocio("Os dados foram considerado inconsistentes ");
             } else {
@@ -214,7 +214,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
      * @deprecated Utilize atualizarEntidadeSetRetorno
      */
     @Deprecated
-    public ItfBeanSimples atualizarEntidadeConfigRetorno(ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
+    public ComoEntidadeSimples atualizarEntidadeConfigRetorno(ComoEntidadeSimples pObjeto) throws ErroRegraDeNegocio {
         return atualizarEntidadeSetRetorno(pObjeto);
 
     }
@@ -225,9 +225,9 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
      * @return Objeto Gerenciado pelo entityManager via Merg
      * @throws ErroRegraDeNegocio
      */
-    public ItfBeanSimples atualizarEntidadeSetRetorno(ItfBeanSimples pObjeto) throws ErroRegraDeNegocio {
+    public ComoEntidadeSimples atualizarEntidadeSetRetorno(ComoEntidadeSimples pObjeto) throws ErroRegraDeNegocio {
 
-        ItfBeanSimples registroAtualizado = atualizarEntidade((ItfBeanSimples) pObjeto, true);
+        ComoEntidadeSimples registroAtualizado = atualizarEntidade((ComoEntidadeSimples) pObjeto, true);
         if (registroAtualizado != null) {
             setRetorno(registroAtualizado);
         }
@@ -240,7 +240,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
      * @param pResp
      * @param pEntidadePrincipalAssociada
      */
-    public RespostaComGestaoEMRegraDeNegocioPadrao(ItfRespostaAcaoDoSistema pResp, ItfBeanSimples pEntidadePrincipalAssociada) {
+    public RespostaComGestaoEMRegraDeNegocioPadrao(ItfRespostaAcaoDoSistema pResp, ComoEntidadeSimples pEntidadePrincipalAssociada) {
         super(pResp, false);
         entidadePrincipalAssociada = pEntidadePrincipalAssociada;
         try {

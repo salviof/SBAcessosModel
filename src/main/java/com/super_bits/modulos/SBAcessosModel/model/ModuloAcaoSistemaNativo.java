@@ -6,14 +6,14 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ComoFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
 
 /**
  *
@@ -28,12 +28,12 @@ public class ModuloAcaoSistemaNativo extends ModuloAcaoSistema {
     private FabModulosSistemaSB enumVinculado;
 
     @Override
-    public ItfFabricaModulo getEnumVinculado() {
+    public ComoFabricaModulo getEnumVinculado() {
         return enumVinculado;
     }
 
     @Override
-    public void setEnumVinculado(ItfFabrica pFabrica) {
+    public void setEnumVinculado(ComoFabrica pFabrica) {
         enumVinculado = (FabModulosSistemaSB) pFabrica;
     }
 

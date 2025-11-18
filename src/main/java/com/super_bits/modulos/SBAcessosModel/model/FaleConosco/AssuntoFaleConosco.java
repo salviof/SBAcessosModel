@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.FaleConosco;
 
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeORMNormal;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @InfoObjetoSB(tags = {"Assunto"}, plural = "Assuntos")
 @DiscriminatorColumn(name = "tipoAssunto")
-public class AssuntoFaleConosco extends EntidadeNormal {
+public class AssuntoFaleConosco extends EntidadeORMNormal {
 
     @Id
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID, label = "ID", descricao = "Identificação do assunto")

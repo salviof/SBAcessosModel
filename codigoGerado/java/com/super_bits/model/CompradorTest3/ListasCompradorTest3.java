@@ -5,7 +5,7 @@ LISTA_PEDIDOS_CAMPANHA;
 
 
     @Override
-    public List getLista(ItfBeanSimples entidade) {
+    public List getLista(ComoEntidadeSimples entidade) {
 
     }
 

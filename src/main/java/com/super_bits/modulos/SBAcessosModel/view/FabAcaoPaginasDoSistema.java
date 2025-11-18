@@ -10,12 +10,12 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.tokens.TokenAcesso;
 import com.super_bits.modulos.SBAcessosModel.model.tokens.tokenLoginDinamico.TokenAcessoDinamico;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -28,7 +28,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icone
  * @author Sálvio Furbino
  */
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.PAGINAS_DO_SISTEMA)
-public enum FabAcaoPaginasDoSistema implements ItfFabricaAcoes {
+public enum FabAcaoPaginasDoSistema implements ComoFabricaAcoes {
 
     @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_HOME, icone = "fa fa-heart-o", precisaPermissao = false)
     PAGINA_NATIVA_HOME_MB_PADRAO,
@@ -47,6 +47,8 @@ public enum FabAcaoPaginasDoSistema implements ItfFabricaAcoes {
     PAGINA_NATIVA_RECUPERACAO_SENHA_MB,
     @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_ACESSO_DINAMICO_VIA_TOKEN, entidade = TokenAcessoDinamico.class)
     PAGINA_NATIVA_TOKEN_DINAMICO_MB,
+    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_ACESSO_DINAMICO_VIA_TOKEN, entidade = TokenAcessoDinamico.class)
+    PAGINA_NATIVA_TOKEN_DINAMICO_FRM_REDIRECIONAMENTO,
     @InfoTipoAcaoFormulario(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_RECUPERACAO_DE_SENHA_GERAR_SENHA)
     PAGINA_NATIVA_RECUPERACAO_SENHA_FRM_GERAR_NOVA_SENHA,
     @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_ERRO_CRITICO)
@@ -109,6 +111,7 @@ public enum FabAcaoPaginasDoSistema implements ItfFabricaAcoes {
 
     public final static String FORMULARIO_RECUPERACAO_DE_SENHA = "/resources/SBComp/SBSystemPages/recSenhaGestao.xhtml";
     public final static String FORMULARIO_ACESSO_DINAMICO_VIA_TOKEN = "/resources/SBComp/SBSystemPages/acessoTokenExclusivoDinamico.xhtml";
+    public final static String FORMULARIO_ACESSO_DINAMICO_REDIRECT = "/resources/SBComp/SBSystemPages/acessoTokenExclusivoRedirect.xhtml";
     public final static String FORMULARIO_RECUPERACAO_DE_SENHA_GERAR_SENHA = "/resources/SBComp/SBSystemPages/recSenhaGerar.xhtml";
     public final static String FORMULARIO_LOGIN = "/resources/SBComp/SBSystemPages/login.xhtml";
     public final static String FORMULARIO_SESSAO_EXPIROU = "/resources/SBComp/SBSystemPages/viewExpirou.xhtml";
@@ -128,8 +131,8 @@ public enum FabAcaoPaginasDoSistema implements ItfFabricaAcoes {
     }
 
     @Override
-    public ItfAcaoDoSistema getRegistro() {
-        ItfAcaoDoSistema acao = (ItfAcaoDoSistema) UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
+    public ComoAcaoDoSistema getRegistro() {
+        ComoAcaoDoSistema acao = (ComoAcaoDoSistema) UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
         return acao;
     }
 

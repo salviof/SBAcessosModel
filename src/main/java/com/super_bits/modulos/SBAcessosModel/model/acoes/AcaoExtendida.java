@@ -7,49 +7,49 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.Mensagens.ItfMensagem;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.ItfCaminhoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.ItfCaminhoCampoInvalido;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfAssistenteDeLocalizacao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.TipoOrganizacaoDadosEndereco;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.List;
 import org.coletivojava.fw.api.tratamentoErros.ErroPreparandoObjeto;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
  * @author desenvolvedor
  */
-public class AcaoExtendida implements ItfAcaoDoSistema {
+public class AcaoExtendida implements ComoAcaoDoSistema {
 
-    private final ItfAcaoDoSistema acaoOrigem;
+    private final ComoAcaoDoSistema acaoOrigem;
 
     private String nomeInicialAcao;
     private String nomeAlternativo;
 
-    public AcaoExtendida(ItfAcaoDoSistema pAcaoDoSistema) {
+    public AcaoExtendida(ComoAcaoDoSistema pAcaoDoSistema) {
 
         acaoOrigem = pAcaoDoSistema;
 
     }
 
-    public AcaoExtendida(ItfAcaoDoSistema pAcaoDoSistema, String novoNome) {
+    public AcaoExtendida(ComoAcaoDoSistema pAcaoDoSistema, String novoNome) {
 
         this(pAcaoDoSistema);
         nomeInicialAcao = acaoOrigem.getNomeAcao();
@@ -162,14 +162,14 @@ public class AcaoExtendida implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfFabricaAcoes getEnumAcaoDoSistema() {
+    public ComoFabricaAcoes getEnumAcaoDoSistema() {
 
         return acaoOrigem.getEnumAcaoDoSistema();
 
     }
 
     @Override
-    public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
+    public void configurarPropriedadesBasicas(ComoAcaoDoSistema pAcaoDoSistema) {
 
         acaoOrigem.configurarPropriedadesBasicas(pAcaoDoSistema);
 
@@ -259,17 +259,17 @@ public class AcaoExtendida implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfAcaoController getComoController() {
+    public ComoAcaoController getComoController() {
         return acaoOrigem.getComoController();
     }
 
     @Override
-    public ItfAcaoSecundaria getComoSecundaria() {
+    public ComoAcaoSecundaria getComoSecundaria() {
         return acaoOrigem.getComoSecundaria();
     }
 
     @Override
-    public ItfAcaoControllerEntidade getComoControllerEntidade() {
+    public ComoAcaoControllerEntidade getComoControllerEntidade() {
         return acaoOrigem.getComoControllerEntidade();
     }
 
@@ -374,17 +374,17 @@ public class AcaoExtendida implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfBeanSimples getBeanSimplesPorNomeCampo(String pNomeCampo) {
+    public ComoEntidadeSimples getBeanSimplesPorNomeCampo(String pNomeCampo) {
         return acaoOrigem.getBeanSimplesPorNomeCampo(pNomeCampo);
     }
 
     @Override
-    public ItfBeanSimples getItemPorCaminhoCampo(ItfCaminhoCampo pCaminho) {
+    public ComoEntidadeSimples getItemPorCaminhoCampo(ItfCaminhoCampo pCaminho) {
         return acaoOrigem.getItemPorCaminhoCampo(pCaminho);
     }
 
     @Override
-    public List<ItfBeanSimples> getListaPorCaminhoCampo(ItfCaminhoCampo pCaminho) {
+    public List<ComoEntidadeSimples> getListaPorCaminhoCampo(ItfCaminhoCampo pCaminho) {
         return acaoOrigem.getListaPorCaminhoCampo(pCaminho);
     }
 
@@ -403,7 +403,7 @@ public class AcaoExtendida implements ItfAcaoDoSistema {
         return acaoOrigem.getNomeCampo(pInfocampo);
     }
 
-    public ItfAcaoDoSistema getAcaoOrigem() {
+    public ComoAcaoDoSistema getAcaoOrigem() {
         return acaoOrigem;
     }
 
@@ -437,12 +437,12 @@ public class AcaoExtendida implements ItfAcaoDoSistema {
     }
 
     @Override
-    public void adicionarJustificativaExecucaoAcao(ItfAcaoDoSistema pAcao, String pJustificativa) {
+    public void adicionarJustificativaExecucaoAcao(ComoAcaoDoSistema pAcao, String pJustificativa) {
         acaoOrigem.adicionarJustificativaExecucaoAcao(pAcao, pJustificativa);
     }
 
     @Override
-    public String getJustificativa(ItfAcaoDoSistema pAcao) {
+    public String getJustificativa(ComoAcaoDoSistema pAcao) {
         return acaoOrigem.getJustificativa(pAcao);
     }
 

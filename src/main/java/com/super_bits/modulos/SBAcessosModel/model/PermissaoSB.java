@@ -7,18 +7,16 @@ package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfPermissao.TIPO_AUTENTICACAO;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -34,6 +32,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import org.hibernate.annotations.GenericGenerator;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
 
 /**
  *
@@ -43,7 +43,7 @@ import org.hibernate.annotations.GenericGenerator;
  */
 @Entity
 @InfoObjetoSB(tags = {"Informações de Permissão"}, plural = "Informações de Permissão")
-public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serializable {
+public class PermissaoSB extends EntidadeSimplesORM implements ItfPermissao, Serializable {
 
     @Id
     @GenericGenerator(name = "geradorIdPermissao", strategy = "com.super_bits.modulos.SBAcessosModel.model.GeradorIdPermissao")
@@ -58,10 +58,10 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     private TIPO_AUTENTICACAO tipoAutenticacao;
 
     @Transient
-    private List<ItfUsuario> listaTodosUsuarios;
+    private List<ComoUsuario> listaTodosUsuarios;
 
     @Transient
-    private List<ItfGrupoUsuario> listaTodosGruposUsuarios;
+    private List<ComoGrupoUsuario> listaTodosGruposUsuarios;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "Permitido_Usuarios",
@@ -115,7 +115,7 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
 
     }
 
-    public PermissaoSB(ItfFabricaAcoes fabricaAcoes) {
+    public PermissaoSB(ComoFabricaAcoes fabricaAcoes) {
         this((AcaoDoSistema) fabricaAcoes.getRegistro());
     }
 
@@ -170,22 +170,22 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     }
 
     @Override
-    public List<ItfUsuario> getUsuariosPermitidos() {
+    public List<ComoUsuario> getUsuariosPermitidos() {
         return (List) usuariosPermitidos;
     }
 
     @Override
-    public List<ItfGrupoUsuario> getGruposPermitidos() {
+    public List<ComoGrupoUsuario> getGruposPermitidos() {
         return (List) gruposPermitidos;
     }
 
     @Override
-    public List<ItfUsuario> getUsuariosDisponiveis() {
+    public List<ComoUsuario> getUsuariosDisponiveis() {
         try {
             listaTodosUsuarios = (List) UtilSBPersistencia.getListaTodos(UsuarioSB.class
             );
 
-            List<ItfUsuario> usuariosDisponiveis = new ArrayList<>();
+            List<ComoUsuario> usuariosDisponiveis = new ArrayList<>();
             usuariosDisponiveis = listaTodosUsuarios;
 
             if (getUsuariosNegados()
@@ -208,22 +208,22 @@ public class PermissaoSB extends EntidadeSimples implements ItfPermissao, Serial
     }
 
     @Override
-    public List<ItfUsuario> getUsuariosNegados() {
+    public List<ComoUsuario> getUsuariosNegados() {
         return (List) usuariosNegados;
     }
 
     @Override
-    public List<ItfGrupoUsuario> getGruposNegados() {
+    public List<ComoGrupoUsuario> getGruposNegados() {
         return (List) gruposNegados;
     }
 
     @Override
-    public List<ItfGrupoUsuario> getGruposDisponiveis() {
+    public List<ComoGrupoUsuario> getGruposDisponiveis() {
         try {
             listaTodosGruposUsuarios = (List) UtilSBPersistencia.getListaTodos(GrupoUsuarioSB.class
             );
 
-            List<ItfGrupoUsuario> grupoUsuariosDisponiveis = new ArrayList<>();
+            List<ComoGrupoUsuario> grupoUsuariosDisponiveis = new ArrayList<>();
             grupoUsuariosDisponiveis = listaTodosGruposUsuarios;
 
             if (getGruposNegados()

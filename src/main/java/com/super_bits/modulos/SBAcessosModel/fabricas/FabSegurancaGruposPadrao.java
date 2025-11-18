@@ -6,13 +6,13 @@
 package com.super_bits.modulos.SBAcessosModel.fabricas;
 
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
 
 /**
  *
  * @author desenvolvedor
  */
-public enum FabSegurancaGruposPadrao implements ItfFabrica {
+public enum FabSegurancaGruposPadrao implements ComoFabrica {
 
     GRUPO_ADMINISTRADOR, GRUPO_USUARIOS, GRUPO_USUARIO_AVANCADO;
 

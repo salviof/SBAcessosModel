@@ -1,5 +1,5 @@
 @InfoModulos[NOMEDAAPLICACAO](modulo = FabModulo[[NOMEDAAPLICACAO]].ADMINISTRATIVO)
-public enum FabAcao[[NOMEDAFABRICA]] implements ItfFabricaAcoes {
+public enum FabAcao[[NOMEDAFABRICA]] implements ComoFabricaAcoes {
 
 null@InfoTipoAcaoGestaoEntidade(nomeAcao = " Gerenciar Grupos ", descricao = " Descrição não documentada " , icone = " fa fa-users "  
  , xhtmlDaAcao = "/resources/SBComp/seguranca/grupo.xhtml", precisaPermissao = false, codigoJira = " null" 
@@ -231,7 +231,7 @@ return acao.getComoControllerEntidade().getClasseRelacionada().getSimpleName().c
                 return (AcaoDoSistema) MapaAcoesSistema.getAcaoDoSistema(this);
             }
 
-            ItfAcaoDoSistema acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
+            ComoAcaoDoSistema acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
 
             return (AcaoDoSistema) acao;
         } catch (Throwable t) {

@@ -10,12 +10,12 @@ import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import config.ConfigPersistenciaTestesAcesso;
 import java.util.List;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
 
 /**
  *
@@ -74,14 +74,14 @@ public class AcessoSBTest extends TestCase {
         System.out.println("USUARIOS PERMITIDOS");
         System.out.println("#########");
         System.out.println("#########");
-        for (ItfUsuario teste : acessoSelecionado.getUsuariosPermitidos()) {
+        for (ComoUsuario teste : acessoSelecionado.getUsuariosPermitidos()) {
             System.out.println(teste.getNomeCurto());
         }
         System.out.println("#########");
         System.out.println("#########");
         System.out.println("#########");
         System.out.println("Lista de usuarios disponíveis");
-        for (ItfUsuario teste : acessoSelecionado.getUsuariosDisponiveis()) {
+        for (ComoUsuario teste : acessoSelecionado.getUsuariosDisponiveis()) {
             System.out.println(teste.getNomeCurto());
 
             acessoSelecionado.addUsuarioPermitido((UsuarioSB) teste);
@@ -90,14 +90,14 @@ public class AcessoSBTest extends TestCase {
         System.out.println("#########");
         System.out.println("#########");
         System.out.println("NOVOS USUARIOS PERMITIDOS");
-        for (ItfUsuario teste : acessoSelecionado.getUsuariosPermitidos()) {
+        for (ComoUsuario teste : acessoSelecionado.getUsuariosPermitidos()) {
             System.out.println(teste.getNomeCurto());
         }
         System.out.println("#########");
         System.out.println("#########");
         System.out.println("#########");
         System.out.println("Nova lista de usuarios disponíveis");
-        for (ItfUsuario teste : acessoSelecionado.getUsuariosDisponiveis()) {
+        for (ComoUsuario teste : acessoSelecionado.getUsuariosDisponiveis()) {
             System.out.println(teste.getNomeCurto());
         }
         UtilSBPersistencia.mergeRegistro(acessoSelecionado);

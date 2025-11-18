@@ -10,14 +10,14 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormCamposSomenteLeitura;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoFormulario;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 
 /**
  *
  * @author desenvolvedor
  */
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.COMUNICACAO)
-public enum FabAcaoComunicacaoPadrao implements ItfFabricaAcoes {
+public enum FabAcaoComunicacaoPadrao implements ComoFabricaAcoes {
 
     FALE_CONOSCO_MB_GERENCIAR,
     FALE_CONOSCO_FRM_MODAL_RESPONDER,

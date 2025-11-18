@@ -5,7 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.model.Ips;
 
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeORMNormal;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @InfoObjetoSB(tags = {"Ips"}, plural = "Ips")
-public class Ips extends EntidadeNormal {
+public class Ips extends EntidadeORMNormal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

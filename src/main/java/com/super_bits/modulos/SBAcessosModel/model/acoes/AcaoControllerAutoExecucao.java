@@ -6,15 +6,15 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerAutoExecucao;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerAutoExecucao;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.acoesAutomatizadas.FabTipoAutoExecucaoAcao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import javax.persistence.Transient;
 
-public class AcaoControllerAutoExecucao extends AcaoController implements ItfAcaoSecundaria, ItfAcaoControllerAutoExecucao {
+public class AcaoControllerAutoExecucao extends AcaoController implements ComoAcaoSecundaria, ComoAcaoControllerAutoExecucao {
 
     @Transient
     private AcaoGestaoEntidade acaoPrincipal;
@@ -31,7 +31,7 @@ public class AcaoControllerAutoExecucao extends AcaoController implements ItfAca
     }
 
     public AcaoControllerAutoExecucao(ItfAcaoGerenciarEntidade pAcaoPrincipal,
-            FabTipoAcaoSistemaGenerica pAcaoGenerica, ItfFabricaAcoes pFabAcao) {
+            FabTipoAcaoSistemaGenerica pAcaoGenerica, ComoFabricaAcoes pFabAcao) {
         super(pFabAcao);
         setAcaoPrincipal(pAcaoPrincipal);
         classeRelacionada = pAcaoPrincipal.getClasseRelacionada();

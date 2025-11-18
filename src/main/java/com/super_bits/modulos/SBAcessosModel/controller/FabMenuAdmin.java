@@ -7,23 +7,23 @@ package com.super_bits.modulos.SBAcessosModel.controller;
 
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabAcaoProjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
-import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
-import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfMenuSB;
 import org.coletivojava.fw.api.objetoNativo.view.menu.SessaoMenuSB;
 import java.util.ArrayList;
 import java.util.List;
 import org.coletivojava.fw.api.objetoNativo.view.menu.MenuSBFW;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoMenuSB;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
 
 /**
  *
  * @author SalvioF
  */
-public enum FabMenuAdmin implements ItfFabricaMenu {
+public enum FabMenuAdmin implements ComoFabricaMenu {
 
     ROOT;
 
     @Override
-    public List<ItfMenuSB> getTodosMenus() {
+    public List<ComoMenuSB> getTodosMenus() {
         return new ArrayList<>();
     }
 

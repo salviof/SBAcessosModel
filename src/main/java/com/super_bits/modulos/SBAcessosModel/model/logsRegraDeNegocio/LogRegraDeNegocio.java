@@ -6,7 +6,7 @@
 package com.super_bits.modulos.SBAcessosModel.model.logsRegraDeNegocio;
 
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
@@ -21,7 +21,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @InfoObjetoSB(tags = "Logs de Ações", plural = "Logs de ações")
-public class LogRegraDeNegocio extends EntidadeSimples {
+public class LogRegraDeNegocio extends EntidadeSimplesORM {
 
     @Id
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)

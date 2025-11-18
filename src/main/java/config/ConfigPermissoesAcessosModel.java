@@ -6,18 +6,22 @@
 package config;
 
 import com.super_bits.modulos.SBAcessosModel.ConfigPermissoesAcessoModelAbstrato;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfMenusDeSessao;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ErroDadosDeContatoUsuarioNaoEncontrado;
+import com.super_bits.modulosSB.SBCore.modulos.erp.FabTipoAgenteOrganizacao;
 
 import org.coletivojava.fw.api.objetoNativo.view.menu.MenusDaSessao;
 import org.coletivojava.fw.api.objetoNativo.view.menu.MenuSBFW;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.contato.ComoContatoHumano;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoMenusDeSessao;
 
 /**
  * \
  *
  * @author desenvolvedor
  */
-public class ConfigPermissoesAcessosModel extends ConfigPermissoesAcessoModelAbstrato {
+public abstract class ConfigPermissoesAcessosModel extends ConfigPermissoesAcessoModelAbstrato {
 
     private static Class[] getClasses() {
         Class[] classes = {};
@@ -29,7 +33,7 @@ public class ConfigPermissoesAcessosModel extends ConfigPermissoesAcessoModelAbs
     }
 
     @Override
-    public ItfMenusDeSessao definirMenu(ItfGrupoUsuario pGrupo) {
+    public ComoMenusDeSessao definirMenu(ComoGrupoUsuario pGrupo) {
         return new MenusDaSessao(new MenuSBFW());
     }
 

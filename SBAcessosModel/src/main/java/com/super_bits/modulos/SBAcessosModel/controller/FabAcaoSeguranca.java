@@ -12,13 +12,13 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoForm
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeNovoRegistro;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeVisualizar;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
 import java.util.List;
 
@@ -27,7 +27,7 @@ import java.util.List;
  * @author desenvolvedor
  */
 @InfoModulosSistemaSB(nomeDoModulo = "Seguranca", descricao = "Configurações de segurança do sistema")
-public enum FabAcaoSeguranca implements ItfFabricaAcoes {
+public enum FabAcaoSeguranca implements ComoFabricaAcoes {
 
     GRUPOS_GERENCIAR,
     GRUPO_ADICIONAR,
@@ -53,7 +53,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
 
     @Override
     public AcaoDoSistema getAcaoDoSistema() {
-        ItfAcaoDoSistema acao = null;
+        ComoAcaoDoSistema acao = null;
         switch (this) {
             case GRUPOS_GERENCIAR:
 
@@ -222,7 +222,7 @@ public enum FabAcaoSeguranca implements ItfFabricaAcoes {
     }
 
     @Override
-    public ItfAcaoDoSistema getRegistro() {
+    public ComoAcaoDoSistema getRegistro() {
         return getAcaoDoSistema();
     }
 

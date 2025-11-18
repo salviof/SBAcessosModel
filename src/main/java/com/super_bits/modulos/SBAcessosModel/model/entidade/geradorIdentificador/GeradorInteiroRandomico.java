@@ -5,7 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.model.entidade.geradorIdentificador;
 
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreNumeros;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
@@ -22,14 +22,14 @@ public class GeradorInteiroRandomico implements IdentifierGenerator {
     @Override
     public Serializable generate(SharedSessionContractImplementor ssci, Object pObj) throws HibernateException {
         try {
-            EntidadeSimples entidade = ((EntidadeSimples) pObj);
+            EntidadeSimplesORM entidade = ((EntidadeSimplesORM) pObj);
             boolean numeroGerado = false;
             EntityManager em = UtilSBPersistencia.getEntyManagerPadraoNovo();
             Long codigo = entidade.getId();
             while (!numeroGerado) {
                 Long novoCodigo = (long) UtilSBCoreNumeros.getNumeroRandomico(1000, Integer.MAX_VALUE);
                 Class classeEntidade = entidade.getClass();
-                EntidadeSimples entidadeExistente = (EntidadeSimples) UtilSBPersistencia.getRegistroByID(classeEntidade, novoCodigo, em);
+                EntidadeSimplesORM entidadeExistente = (EntidadeSimplesORM) UtilSBPersistencia.getRegistroByID(classeEntidade, novoCodigo, em);
                 if (entidadeExistente == null) {
                     codigo = novoCodigo;
                     numeroGerado = true;

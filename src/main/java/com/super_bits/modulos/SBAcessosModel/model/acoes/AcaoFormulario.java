@@ -5,23 +5,23 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringNomeArquivosEDiretorios;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.estadoFormulario.FabEstadoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCaminhoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.GrupoCampos;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.ItfCaminhoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.ItfGrupoCampos;
-import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ItfComponenteVisualSB;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
+import com.super_bits.modulosSB.SBCore.modulos.view.fabricasCompVisual.ComoComponenteVisualSB;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -33,7 +33,7 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     private String xhtml;
     @Transient
-    private ItfAcaoDoSistema acaoExectarFormulario;
+    private ComoAcaoDoSistema acaoExectarFormulario;
     @Transient
     private List<CaminhoCampoReflexao> campos;
 
@@ -67,13 +67,13 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     }
 
-    public AcaoFormulario(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao) {
+    public AcaoFormulario(FabTipoAcaoSistema ptipoAcao, ComoFabricaAcoes pAcao) {
         super(ptipoAcao, pAcao);
     }
 
     @Override
-    public ItfAcaoSecundaria getComoSecundaria() {
-        return (ItfAcaoSecundaria) this;
+    public ComoAcaoSecundaria getComoSecundaria() {
+        return (ComoAcaoSecundaria) this;
     }
 
     @Override
@@ -107,17 +107,17 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
     }
 
     @Override
-    public ItfComponenteVisualSB getComponenteFormularioPadrao() {
+    public ComoComponenteVisualSB getComponenteFormularioPadrao() {
         return getTipoAcaoGenerica().getComponentePadrao().getRegistro();
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoExectarFormulario() {
+    public ComoAcaoDoSistema getAcaoExectarFormulario() {
         return acaoExectarFormulario;
     }
 
     @Override
-    public void setAcaoExectarFormulario(ItfAcaoDoSistema acaoExectarFormulario) {
+    public void setAcaoExectarFormulario(ComoAcaoDoSistema acaoExectarFormulario) {
         this.acaoExectarFormulario = acaoExectarFormulario;
     }
 

@@ -7,7 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.model.FaleConosco;
 import com.super_bits.modulos.SBAcessosModel.controller.FabAcaoComunicacaoPadrao;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoAcaoComunicacao;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeORMNormal;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.ListenerEntidadePadrao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
@@ -34,7 +34,7 @@ import javax.validation.constraints.NotNull;
 @InfoObjetoSB(tags = {"Fale Conosco"}, icone = "fa fa-bullhorn", plural = "Mensagens Fale Conosco")
 @InfoAcaoComunicacao(acao = FabAcaoComunicacaoPadrao.FALE_CONOSCO_CAD_CTR_SALVAR_MEGE)
 @EntityListeners(ListenerEntidadePadrao.class)
-public class FaleConosco extends EntidadeNormal {
+public class FaleConosco extends EntidadeORMNormal {
 
     public FaleConosco() {
         super();

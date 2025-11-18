@@ -4,15 +4,15 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidade;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario;
 import com.super_bits.modulosSB.SBCore.InfoCampos.campo.CaminhoCampoReflexao;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.fabrica.ComoFabricaAcoes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +20,15 @@ import java.util.List;
  *
  * @author desenvolvedor
  */
-public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFormulario, ItfAcaoSecundaria {
+public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFormulario, ComoAcaoSecundaria {
 
-    private ItfAcaoDoSistema acaoPrincipal;
+    private ComoAcaoDoSistema acaoPrincipal;
     private List<CaminhoCampoReflexao> camposDoFormulario;
     private String xhtml=AcaoFormulario.VARIAVEIS_ACAO_DO_SISTEMA.VIEW_NAO_IMPLEMENTADA.toString();
-    private ItfAcaoDoSistema acaoExectarFormulario;
+    private ComoAcaoDoSistema acaoExectarFormulario;
     private List<CaminhoCampoReflexao> campos;
 
-    public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pFabricaAcao,String pXhtml) {
+    public AcaoFormularioEntidade(ItfAcaoGerenciarEntidade pAcaoPrincipal, ComoFabricaAcoes pFabricaAcao,String pXhtml) {
         super(pAcaoPrincipal.getClasseRelacionada(), FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao);
         xhtml = pXhtml;
         camposDoFormulario = new ArrayList<>();
@@ -41,7 +41,7 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
      * @param pFabricaAcao
      * @param pXhtml
      */
-    public AcaoFormularioEntidade(Class pclasse, ItfFabricaAcoes pFabricaAcao,String pXhtml) {
+    public AcaoFormularioEntidade(Class pclasse, ComoFabricaAcoes pFabricaAcao,String pXhtml) {
         super(pclasse ,FabTipoAcaoSistema.ACAO_ENTIDADE_FORMULARIO, pFabricaAcao);
         if (!this.getClass().isAssignableFrom(AcaoGestaoEntidade.class)){
             throw new UnsupportedOperationException("Este constructor só deve ser usado por uma acaoGestaoEntidade");
@@ -58,7 +58,7 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
     
 
 
-    public ItfAcaoDoSistema getAcaoPrincipal() {
+    public ComoAcaoDoSistema getAcaoPrincipal() {
         return acaoPrincipal;
     }
 
@@ -72,7 +72,7 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoExectarFormulario() {
+    public ComoAcaoDoSistema getAcaoExectarFormulario() {
         return acaoExectarFormulario;
     }
 
@@ -82,7 +82,7 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
     }
 
     @Override
-    public void setAcaoExectarFormulario(ItfAcaoDoSistema pAcaoExectarFormulario) {
+    public void setAcaoExectarFormulario(ComoAcaoDoSistema pAcaoExectarFormulario) {
         acaoExectarFormulario = pAcaoExectarFormulario;
     }
 

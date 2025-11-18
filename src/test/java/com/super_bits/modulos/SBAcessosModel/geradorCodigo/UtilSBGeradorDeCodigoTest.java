@@ -7,13 +7,13 @@ package com.super_bits.modulos.SBAcessosModel.geradorCodigo;
 
 import com.super_bits.modulos.SBAcessosModel.TesteAcessosModelPadraoTest;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
 import java.util.ArrayList;
 import java.util.List;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import org.junit.Test;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -21,7 +21,7 @@ import org.junit.Test;
  */
 public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadraoTest {
 
-    List<ItfAcaoDoSistema> ACOES_PARA_TESTE = new ArrayList<>();
+    List<ComoAcaoDoSistema> ACOES_PARA_TESTE = new ArrayList<>();
     List<EstruturaDeEntidade> LISTA_ESTRUTURA_DE_ENTIDADE = new ArrayList<>();
 
     EstruturaDeEntidade ESTRUTURA_DE_ENTIDADE1 = new EstruturaDeEntidade();
@@ -35,7 +35,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadraoTest {
     public void testMakeAnotacaoDaAcao() {
         try {
             System.out.println("Teste obtendo propriedades");
-            for (ItfAcaoDoSistema acao : ACOES_PARA_TESTE) {
+            for (ComoAcaoDoSistema acao : ACOES_PARA_TESTE) {
 
                 // String anotacaoDaAcao = UtilSBGeradorDeCodigo.makeAnotacaoDaAcao(acao);
                 System.out.println(acao.getNomeAcao());
@@ -56,7 +56,7 @@ public class UtilSBGeradorDeCodigoTest extends TesteAcessosModelPadraoTest {
     public void testMakeEnumFabricaDeAcoes() {
         try {
             System.out.println("Teste obtendo propriedades");
-            for (ItfAcaoDoSistema acao : ACOES_PARA_TESTE) {
+            for (ComoAcaoDoSistema acao : ACOES_PARA_TESTE) {
 
                 System.out.println(acao.getNomeAcao());
                 System.out.println(acao.getIconeAcao());

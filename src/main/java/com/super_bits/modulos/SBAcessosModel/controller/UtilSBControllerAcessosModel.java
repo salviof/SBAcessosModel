@@ -17,7 +17,6 @@ import com.super_bits.modulosSB.Persistencia.dao.ExecucaoComGestaoEntityManager;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,7 @@ import javax.persistence.FlushModeType;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import org.hibernate.CacheMode;
 import org.hibernate.Session;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -73,7 +73,7 @@ public class UtilSBControllerAcessosModel {
                 }
             });
             //Persistindo SubAções
-            for (ItfAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
+            for (ComoAcaoDoSistema acao : MapaAcoesSistema.getListaTodasAcoes()) {
                 AcaoDoSistema ac = (AcaoDoSistema) acao;
                 if (ac.isPrecisaPermissao()) {
                     //Verificando se a permissao já existe
@@ -148,7 +148,7 @@ public class UtilSBControllerAcessosModel {
 
     }
 
-    public static void adicionarPermissao(GrupoUsuarioSB pGrupo, ItfAcaoDoSistema pAcao) {
+    public static void adicionarPermissao(GrupoUsuarioSB pGrupo, ComoAcaoDoSistema pAcao) {
 
         new ExecucaoComGestaoEntityManager() {
             @Override

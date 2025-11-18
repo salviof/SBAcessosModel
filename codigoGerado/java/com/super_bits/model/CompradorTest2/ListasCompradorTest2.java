@@ -5,7 +5,7 @@ ENUM_TESTE;
 
 
     @Override
-    public List getLista(ItfBeanSimples entidade) {
+    public List getLista(ComoEntidadeSimples entidade) {
 
     }
 

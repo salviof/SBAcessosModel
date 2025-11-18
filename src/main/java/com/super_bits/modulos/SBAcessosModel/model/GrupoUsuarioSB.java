@@ -8,15 +8,13 @@ package com.super_bits.modulos.SBAcessosModel.model;
 import com.super_bits.modulos.SBAcessosModel.model.conversores.JpaConversorAcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.grupoUsuario.ListaGrupoUsuario;
 import com.super_bits.modulos.SBAcessosModel.model.grupoUsuario.ListasGrupoUsuario;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringSlugs;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuaioEditavel;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,6 +40,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeUsuaioEditavel;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
 
 /**
  *
@@ -51,7 +51,7 @@ import javax.validation.constraints.NotNull;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoGrupoUsuario")
 @InfoObjetoSB(tags = {"Grupos de Usuário"}, plural = "Grupos de Usuários", icone = "fa fa-users", permitidoAlterarObjetoDaFabrica = false)
-public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuaioEditavel {
+public class GrupoUsuarioSB extends EntidadeSimplesORM implements ComoEntidadeUsuaioEditavel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -91,7 +91,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuaioEdi
     private boolean tipoGrupoNativo;
 
     @Convert(converter = JpaConversorAcaoDoSistema.class)
-    private ItfFabricaAcoes paginaInicial;
+    private ComoFabricaAcoes paginaInicial;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "usuario_grupo",
@@ -128,7 +128,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuaioEdi
         modulos = new ArrayList<>();
     }
 
-    public void adcionaUsuario(ItfUsuario pUsuario) {
+    public void adcionaUsuario(ComoUsuario pUsuario) {
         usuarios.add((UsuarioSB) pUsuario);
     }
 
@@ -162,7 +162,7 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuaioEdi
     }
 
     @Override
-    public List<ItfUsuario> getUsuarios() {
+    public List<ComoUsuario> getUsuarios() {
         return (List) usuarios;
     }
 
@@ -176,11 +176,11 @@ public class GrupoUsuarioSB extends EntidadeSimples implements ItfGrupoUsuaioEdi
     }
 
     @Override
-    public ItfFabricaAcoes getPaginaInicial() {
+    public ComoFabricaAcoes getPaginaInicial() {
         return paginaInicial;
     }
 
-    public void setPaginaInicial(ItfFabricaAcoes paginaInicial) {
+    public void setPaginaInicial(ComoFabricaAcoes paginaInicial) {
         this.paginaInicial = paginaInicial;
     }
 

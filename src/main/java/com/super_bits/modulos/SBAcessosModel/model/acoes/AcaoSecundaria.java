@@ -6,11 +6,11 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -21,7 +21,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @InfoObjetoSB(tags = "Ação secundária", plural = "Ações secundarias")
-public class AcaoSecundaria extends AcaoDeEntidade implements ItfAcaoSecundaria {
+public class AcaoSecundaria extends AcaoDeEntidade implements ComoAcaoSecundaria {
 
     @Transient
     private AcaoGestaoEntidade acaoPrincipal;
@@ -32,12 +32,12 @@ public class AcaoSecundaria extends AcaoDeEntidade implements ItfAcaoSecundaria 
 
     }
 
-    public AcaoSecundaria(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ItfFabricaAcoes pFabricaAcao) {
+    public AcaoSecundaria(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ComoFabricaAcoes pFabricaAcao) {
         super(classeRelacionada, pTipoAcao, pFabricaAcao);
 
     }
 
-    public AcaoSecundaria(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ItfFabricaAcoes pFabricaAcao, FabTipoAcaoSistemaGenerica pFabricaAcaoGenerica) {
+    public AcaoSecundaria(Class classeRelacionada, FabTipoAcaoSistema pTipoAcao, ComoFabricaAcoes pFabricaAcao, FabTipoAcaoSistemaGenerica pFabricaAcaoGenerica) {
         super(classeRelacionada, pTipoAcao, pFabricaAcao, pFabricaAcaoGenerica);
 
     }

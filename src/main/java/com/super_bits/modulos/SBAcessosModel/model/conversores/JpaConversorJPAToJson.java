@@ -5,24 +5,24 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.conversores;
 
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanSimplesSomenteLeitura;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import javax.persistence.AttributeConverter;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimplesSomenteLeitura;
 
 /**
  *
  * @author desenvolvedor
  */
-public class JpaConversorJPAToJson implements AttributeConverter<String, ItfBeanSimplesSomenteLeitura> {
+public class JpaConversorJPAToJson implements AttributeConverter<String, ComoEntidadeSimplesSomenteLeitura> {
     //private static final ObjectMapper om = new ObjectMapper();
 
     @Override
-    public ItfBeanSimplesSomenteLeitura convertToDatabaseColumn(String attribute) {
+    public ComoEntidadeSimplesSomenteLeitura convertToDatabaseColumn(String attribute) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String convertToEntityAttribute(ItfBeanSimplesSomenteLeitura dbData) {
+    public String convertToEntityAttribute(ComoEntidadeSimplesSomenteLeitura dbData) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

@@ -4,9 +4,9 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.Controller.Interfaces.acoes.ComoAcaoController;
+import com.super_bits.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.Controller.TipoAcaoPadrao;
@@ -17,7 +17,7 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoForm
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoFormularioEntidadeNovoRegistro;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 
 /**
@@ -36,7 +36,7 @@ public abstract class UtilFabricaDeAcoes {
 
     }
 
-    public static String getNomeDominio(com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes pAcao) {
+    public static String getNomeDominio(com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes pAcao) {
 
         String nomeAcao = pAcao.toString();
         String[] partes = nomeAcao.split("_");
@@ -65,21 +65,21 @@ public abstract class UtilFabricaDeAcoes {
         return dominio;
     }
 
-    public static ItfAcaoGerenciarEntidade getAcaoEntidade(ItfAcaoDoSistema pAcao, Class pClasseRelacionada, String pXhtml) {
+    public static ItfAcaoGerenciarEntidade getAcaoEntidade(ComoAcaoDoSistema pAcao, Class pClasseRelacionada, String pXhtml) {
 
-        AcaoGestaoEntidade acaoGestaoEntidade = new AcaoGestaoEntidade((ItfFabricaAcoes) pAcao, pClasseRelacionada, pXhtml);
+        AcaoGestaoEntidade acaoGestaoEntidade = new AcaoGestaoEntidade((ComoFabricaAcoes) pAcao, pClasseRelacionada, pXhtml);
 
         return (ItfAcaoGerenciarEntidade) acaoGestaoEntidade;
 
     }
 
-    public static ItfAcaoSecundaria getAcaoSecundaria(FabTipoAcaoSistemaGenerica pTipoAcao, ItfAcaoGerenciarEntidade pAcaoPrincipal, ItfFabricaAcoes pAcao) {
+    public static ComoAcaoSecundaria getAcaoSecundaria(FabTipoAcaoSistemaGenerica pTipoAcao, ItfAcaoGerenciarEntidade pAcaoPrincipal, ComoFabricaAcoes pAcao) {
         AcaoDoSistema acaoBase = getAcaoDoSistema(pTipoAcao);
-        ItfAcaoDoSistema novaAcao;
+        ComoAcaoDoSistema novaAcao;
         String diretorioBaseEntidade = "/site/" + pAcaoPrincipal.getClasseRelacionada().getSimpleName().toLowerCase() + "/";
         String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(pAcaoPrincipal.getClasseRelacionada());
         ItfAcaoFormulario novaAcaoRefForm = new AcaoFormulario();
-        ItfAcaoController novaAcaoRefController = new AcaoController();
+        ComoAcaoController novaAcaoRefController = new AcaoController();
         switch (pTipoAcao) {
             case FORMULARIO_NOVO_REGISTRO:
                 novaAcao = new AcaoFormularioEntidadeNovoRegistro(pAcaoPrincipal);
@@ -115,7 +115,7 @@ public abstract class UtilFabricaDeAcoes {
                 novaAcao.setNome("Salvar " + nomeDoObjeto);
                 novaAcao.setDescricao("Salvar edição de um " + nomeDoObjeto + " no sistema");
                 novaAcao.setIcone("fa fa-save (alias)");
-                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController = (ComoAcaoController) novaAcao;
                 novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case SALVAR_NOVO:
@@ -124,7 +124,7 @@ public abstract class UtilFabricaDeAcoes {
                 novaAcao.setNome("Salvar " + nomeDoObjeto);
                 novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
                 novaAcao.setIcone("fa fa-save (alias)");
-                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController = (ComoAcaoController) novaAcao;
                 novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case SALVAR_MODO_MERGE:
@@ -133,7 +133,7 @@ public abstract class UtilFabricaDeAcoes {
                 novaAcao.setNome("Salvar " + nomeDoObjeto);
                 novaAcao.setDescricao("Salvar um novo " + nomeDoObjeto + " no sistema");
                 novaAcao.setIcone("fa fa-save (alias)");
-                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController = (ComoAcaoController) novaAcao;
                 novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case ATIVAR_DESATIVAR:
@@ -142,7 +142,7 @@ public abstract class UtilFabricaDeAcoes {
                 novaAcao.setNome("Alterar status " + nomeDoObjeto);
                 novaAcao.setDescricao("Alterar status do " + nomeDoObjeto + " no sistema");
                 novaAcao.setIcone("fa fa-retweet");
-                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController = (ComoAcaoController) novaAcao;
                 novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case ATIVAR:
@@ -151,7 +151,7 @@ public abstract class UtilFabricaDeAcoes {
                 novaAcao.setNome("Ativar " + nomeDoObjeto);
                 novaAcao.setDescricao("Ativar " + nomeDoObjeto + " no sistema");
                 novaAcao.setIcone("fa fa-check");
-                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController = (ComoAcaoController) novaAcao;
                 novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case DESATIVAR:
@@ -160,7 +160,7 @@ public abstract class UtilFabricaDeAcoes {
                 novaAcao.setNome("Desativar " + nomeDoObjeto);
                 novaAcao.setDescricao("Desativar " + nomeDoObjeto + " no sistema");
                 novaAcao.setIcone("fa fa-close");
-                novaAcaoRefController = (ItfAcaoController) novaAcao;
+                novaAcaoRefController = (ComoAcaoController) novaAcao;
                 novaAcaoRefController.setIdMetodo(UtilSBCoreReflexao.getMetodoByAcao(novaAcaoRefController));
                 break;
             case FORMULARIO_VISUALIZAR:
@@ -179,7 +179,7 @@ public abstract class UtilFabricaDeAcoes {
 
         }
 
-        return (ItfAcaoSecundaria) novaAcao;
+        return (ComoAcaoSecundaria) novaAcao;
 
     }
 

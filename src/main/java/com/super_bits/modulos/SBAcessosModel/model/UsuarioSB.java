@@ -5,18 +5,13 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeNormal;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeORMNormal;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.ListenerEntidadePadrao;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.LocalizacaoPostavel;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampoVerdadeiroOuFalso;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocal;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ItfLocalPostagem;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.contato.ItfBeanContatoSimples;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +34,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.contato.ComoContatoSimples;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ComoLocal;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ComoLocalPostagem;
 
 /**
  *
@@ -51,7 +51,7 @@ import javax.validation.constraints.NotNull;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoUsuario")
 @EntityListeners(ListenerEntidadePadrao.class)
-public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanContatoSimples, Serializable {
+public class UsuarioSB extends EntidadeORMNormal implements ComoUsuario, ComoContatoSimples, Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -210,12 +210,12 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanCont
     }
 
     @Override
-    public ItfGrupoUsuario getGrupo() {
+    public ComoGrupoUsuario getGrupo() {
         return grupo;
     }
 
     @Override
-    public void setGrupo(ItfGrupoUsuario grupo) {
+    public void setGrupo(ComoGrupoUsuario grupo) {
         this.grupo = (GrupoUsuarioSB) grupo;
     }
 
@@ -311,7 +311,7 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanCont
     }
 
     @Override
-    public List<ItfGrupoUsuario> getGruposAdicionais() {
+    public List<ComoGrupoUsuario> getGruposAdicionais() {
         return (List) gruposAdicionais;
     }
 
@@ -324,12 +324,12 @@ public class UsuarioSB extends EntidadeNormal implements ItfUsuario, ItfBeanCont
     }
 
     @Override
-    public ItfLocalPostagem getLocalizacao() {
+    public ComoLocalPostagem getLocalizacao() {
         return localizacao;
     }
 
     @Override
-    public void setLocalizacao(ItfLocal pLocal) {
+    public void setLocalizacao(ComoLocal pLocal) {
         setValorByTipoCampoEsperado(FabTipoAtributoObjeto.LC_LOCALIZACAO, pLocal);
     }
 

@@ -4,10 +4,10 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
-import com.super_bits.Controller.Interfaces.acoes.ItfAcaoDoSistema;
+import com.super_bits.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
-import com.super_bits.modulosSB.SBCore.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.fabrica.ComoFabricaAcoes;
 import com.super_bits.view.InfoPagina;
 
 /**
@@ -18,17 +18,17 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade {
 
     private InfoPagina infoPagina;
 
-    public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica,Class pClasse ,String pXhtml) {
+    public AcaoGestaoEntidade(ComoFabricaAcoes pFabrica,Class pClasse ,String pXhtml) {
         super(pClasse, pFabrica, pXhtml);
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.FORMULARIO_NOVO_REGISTRO;
     }
 
-    public ItfAcaoDoSistema criarAcaoSecundaria(FabTipoAcaoSistemaGenerica pAcaoGenerica) {
+    public ComoAcaoDoSistema criarAcaoSecundaria(FabTipoAcaoSistemaGenerica pAcaoGenerica) {
        
         if (true){
             throw  new UnsupportedOperationException("Aind não implementado");
         }
-        ItfAcaoDoSistema novaAcao=null;
+        ComoAcaoDoSistema novaAcao=null;
         String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(this.getClasseRelacionada());
         String diretorioFormulariosEntidade = "/site/" + this.getClass().getSimpleName();
         
@@ -37,7 +37,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade {
             
         }
         
-        return (ItfAcaoDoSistema) novaAcao;
+        return (ComoAcaoDoSistema) novaAcao;
     }
 
 }

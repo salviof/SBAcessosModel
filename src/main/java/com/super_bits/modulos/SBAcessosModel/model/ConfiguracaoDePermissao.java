@@ -5,7 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model;
 
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
  */
 @Entity
 @InfoObjetoSB(plural = "Configurações de Permissao", tags = {"Configuração de Permissão"})
-public class ConfiguracaoDePermissao extends EntidadeSimples {
+public class ConfiguracaoDePermissao extends EntidadeSimplesORM {
 
     @Id
     @InfoCampo(tipo = FabTipoAtributoObjeto.ID)

@@ -6,19 +6,17 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.anotacoes.InfoTipoAcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ItfBeanGenerico;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +26,8 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 import org.apache.commons.text.similarity.LongestCommonSubsequence;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoDominioEntidadeGenerico;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -41,14 +41,14 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     private boolean utilizarMesmoFormEditarInserir = true;
 
     @Transient
-    private List<ItfFabricaAcoes> enumAcoesVinculadas;
+    private List<ComoFabricaAcoes> enumAcoesVinculadas;
 
     public AcaoGestaoEntidade() {
         super();
 
     }
 
-    public AcaoGestaoEntidade(ItfFabricaAcoes pFabrica, Class pClasse) {
+    public AcaoGestaoEntidade(ComoFabricaAcoes pFabrica, Class pClasse) {
 
         super(pClasse, FabTipoAcaoSistema.ACAO_ENTIDADE_GERENCIAR, pFabrica);
         tipoAcaoGenerica = FabTipoAcaoSistemaGenerica.GERENCIAR_DOMINIO;
@@ -61,7 +61,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
         }
     }
 
-    public ItfAcaoDoSistema criarAcaoSecundaria(FabTipoAcaoSistemaGenerica pAcaoGenerica) {
+    public ComoAcaoDoSistema criarAcaoSecundaria(FabTipoAcaoSistemaGenerica pAcaoGenerica) {
 
         if (true) {
             throw new UnsupportedOperationException("Aind não implementado");
@@ -84,16 +84,16 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     }
 
     @Override
-    public void setAcoesVinculadas(List<ItfAcaoSecundaria> acoesVinculadas) {
+    public void setAcoesVinculadas(List<ComoAcaoSecundaria> acoesVinculadas) {
         throw new UnsupportedOperationException("As ações vinculadas serão injetas, este acesso não é permitido");
     }
 
     @Override
-    public List<ItfFabricaAcoes> getEnumAcoesVinculadas() {
+    public List<ComoFabricaAcoes> getEnumAcoesVinculadas() {
         return enumAcoesVinculadas;
     }
 
-    public void setEnumAcoesVinculadas(List<ItfFabricaAcoes> enumAcoesVinculadas) {
+    public void setEnumAcoesVinculadas(List<ComoFabricaAcoes> enumAcoesVinculadas) {
         this.enumAcoesVinculadas = enumAcoesVinculadas;
     }
 
@@ -103,9 +103,9 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     }
 
     @Override
-    public ItfAcaoDoSistema[] getAcoesVinculadasExcetoListarEnovoArray() {
+    public ComoAcaoDoSistema[] getAcoesVinculadasExcetoListarEnovoArray() {
 
-        ItfAcaoDoSistema[] acoesVinculadasExcetoListarEnovoArray = new ItfAcaoDoSistema[getAcoesVinculadasExcetoListarEnovo().size()];
+        ComoAcaoDoSistema[] acoesVinculadasExcetoListarEnovoArray = new ComoAcaoDoSistema[getAcoesVinculadasExcetoListarEnovo().size()];
         getAcoesVinculadasExcetoListarEnovo().toArray(acoesVinculadasExcetoListarEnovoArray);
 
         return acoesVinculadasExcetoListarEnovoArray;
@@ -133,27 +133,27 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoExectarFormulario() {
+    public ComoAcaoDoSistema getAcaoExectarFormulario() {
         return super.getAcaoExectarFormulario(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoController getAcaoRemover() {
+    public ComoAcaoController getAcaoRemover() {
         return ItfAcaoGerenciarEntidade.super.getAcaoRemover(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoControllerEntidade getAcaoSalvarMerge() {
+    public ComoAcaoControllerEntidade getAcaoSalvarMerge() {
         return ItfAcaoGerenciarEntidade.super.getAcaoSalvarMerge(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoControllerEntidade getAcaoSalvarNovo() {
+    public ComoAcaoControllerEntidade getAcaoSalvarNovo() {
         return ItfAcaoGerenciarEntidade.super.getAcaoSalvarNovo(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public ItfAcaoController getAcaoAlterarStatus() {
+    public ComoAcaoController getAcaoAlterarStatus() {
         return ItfAcaoGerenciarEntidade.super.getAcaoAlterarStatus(); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -183,26 +183,26 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     }
 
     @Override
-    public List<ItfAcaoSecundaria> getAcoesVinculadas() {
+    public List<ComoAcaoSecundaria> getAcoesVinculadas() {
         return ItfAcaoGerenciarEntidade.super.getAcoesVinculadas(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<ItfAcaoSecundaria> getAcoesVinculadasExcetoListarEnovo() {
+    public List<ComoAcaoSecundaria> getAcoesVinculadasExcetoListarEnovo() {
         return ItfAcaoGerenciarEntidade.super.getAcoesVinculadasExcetoListarEnovo(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     @Deprecated
-    public List<ItfAcaoSecundaria> getAcoesVinculadasDoContexto(ItfBeanGenerico pBean) {
-        List<ItfAcaoSecundaria> acoesAutorizadas = new ArrayList<>();
+    public List<ComoAcaoSecundaria> getAcoesVinculadasDoContexto(ComoDominioEntidadeGenerico pBean) {
+        List<ComoAcaoSecundaria> acoesAutorizadas = new ArrayList<>();
         try {
 
             getAcoesVinculadas().stream()
                     .filter(pAcao -> SBCore.getCentralDeSessao().getSessaoAtual().isAcessoPermitido(pAcao))
                     .forEach(acoesAutorizadas::add);
-            //if (pBean instanceof ItfBeanComStatus) {
-            //    ItfBeanComStatus beanComStatus = (ItfBeanComStatus) pBean;
+            //if (pBean instanceof ComoTemStatus) {
+            //    ComoTemStatus beanComStatus = (ComoTemStatus) pBean;
             //    acoesAutorizadas.stream().filter(acao -> !beanComStatus.getStatusEnum().isAcaoLiberada(acao))
             //            .forEach(acoesAutorizadas::remove);
             // }
@@ -219,12 +219,12 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     }
 
     @Override
-    public ItfAcaoDoSistema getAcaoCompativelEntidadeDivergente(ItfAcaoDoSistema pAcao, Class pEntidade) {
+    public ComoAcaoDoSistema getAcaoCompativelEntidadeDivergente(ComoAcaoDoSistema pAcao, Class pEntidade) {
         FabTipoAcaoSistemaGenerica tipoAcao = pAcao.getTipoAcaoGenerica();
         if (pAcao.isUmaAcaoDeEntidade() && pAcao.getComoAcaoDeEntidade().getClasseRelacionada().getSimpleName().equals(pEntidade.getSimpleName())) {
             return null;
         }
-        List<ItfAcaoDoSistema> acoesDoTipoDaEntidade = getAcoesVinculadasDesteTipoComEstaEntidade(tipoAcao, pEntidade);
+        List<ComoAcaoDoSistema> acoesDoTipoDaEntidade = getAcoesVinculadasDesteTipoComEstaEntidade(tipoAcao, pEntidade);
         if (acoesDoTipoDaEntidade.isEmpty()) {
             return null;
         }
@@ -233,9 +233,9 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
         }
 
         LongestCommonSubsequence calculoSimiliariedade = new LongestCommonSubsequence();
-        Comparator<ItfAcaoDoSistema> comparadorAcaoPorSimilariedade = new Comparator<ItfAcaoDoSistema>() {
+        Comparator<ComoAcaoDoSistema> comparadorAcaoPorSimilariedade = new Comparator<ComoAcaoDoSistema>() {
             @Override
-            public int compare(ItfAcaoDoSistema o1, ItfAcaoDoSistema o2) {
+            public int compare(ComoAcaoDoSistema o1, ComoAcaoDoSistema o2) {
                 int scoreUm = calculoSimiliariedade.apply(pAcao.getNome(), o1.getNome());
                 int scoreDois = calculoSimiliariedade.apply(pAcao.getNome(), o2.getNome());
                 if (scoreUm == scoreDois) {
@@ -253,11 +253,11 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
     }
 
     @Override
-    public ItfAcaoDoSistema getSubAcaoByString(String pString) {
+    public ComoAcaoDoSistema getSubAcaoByString(String pString) {
         try {
 
-            List<ItfAcaoSecundaria> acoesVinc = getAcoesVinculadas();
-            for (ItfAcaoDoSistema acao : acoesVinc) {
+            List<ComoAcaoSecundaria> acoesVinc = getAcoesVinculadas();
+            for (ComoAcaoDoSistema acao : acoesVinc) {
                 String nomeUrlDaAcao = UtilSBCoreStringFiltros.gerarUrlAmigavel(acao.getNomeAcao().toLowerCase());
 
                 if (nomeUrlDaAcao
@@ -266,7 +266,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
                     return acao;
                 }
             }
-            for (ItfAcaoDoSistema acao : acoesVinc) {
+            for (ComoAcaoDoSistema acao : acoesVinc) {
                 String textoReferencia = acao.getEnumAcaoDoSistema().toString().toLowerCase();
                 String textoParametro = pString.toLowerCase();
                 if (textoReferencia.contains(textoParametro)) {

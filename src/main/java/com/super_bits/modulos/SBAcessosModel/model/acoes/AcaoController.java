@@ -4,14 +4,14 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfParametroAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoParametroAcaoController;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfTipoComunicacao;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -34,7 +34,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @InfoObjetoSB(tags = {"Ação da cadamada de controller "}, plural = "Ações Controllers")
-public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
+public class AcaoController extends AcaoDoSistema implements ComoAcaoController {
 
     private Long idMetodo;
     private boolean temLogExecucao;
@@ -49,14 +49,14 @@ public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
     private ItfTipoComunicacao tipoComunicacao;
 
     @Transient
-    private List<ItfParametroAcaoController> parametros;
+    private List<ComoParametroAcaoController> parametros;
 
     @Deprecated
     public AcaoController() {
 
     }
 
-    public AcaoController(ItfFabricaAcoes pAcao) {
+    public AcaoController(ComoFabricaAcoes pAcao) {
         super(FabTipoAcaoSistema.ACAO_CONTROLLER, pAcao);
 
     }
@@ -78,7 +78,7 @@ public class AcaoController extends AcaoDoSistema implements ItfAcaoController {
     }
 
     @Override
-    public List<ItfParametroAcaoController> getParametros() {
+    public List<ComoParametroAcaoController> getParametros() {
         return parametros;
     }
 

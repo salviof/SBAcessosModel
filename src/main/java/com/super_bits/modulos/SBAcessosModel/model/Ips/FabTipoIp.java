@@ -4,13 +4,13 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.Ips;
 
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
 
 /**
  *
  * @author desenvolvedor
  */
-public enum FabTipoIp implements ItfFabrica {
+public enum FabTipoIp implements ComoFabrica {
 
     FAIXAIP, DNS;
 

@@ -7,16 +7,16 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
  * @author desenvolvedor
  */
 @InfoModulosTestes(modulo = FabModulosTestes.MODULO_TESTE)
-public enum FabTEste implements ItfFabricaAcoes {
+public enum FabTEste implements ComoFabricaAcoes {
 
     OBJETO_FRM_NOVO,
     OBJETO_MB_GERENCIAR,
@@ -45,8 +45,8 @@ public enum FabTEste implements ItfFabricaAcoes {
     }
 
     @Override
-    public ItfAcaoDoSistema getRegistro() {
-        ItfAcaoDoSistema acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
+    public ComoAcaoDoSistema getRegistro() {
+        ComoAcaoDoSistema acao = UtilFabricaDeAcoesAcessosModel.getNovaAcao(this);
         ItfAcaoFormularioEntidade acaoform = null;
         if (acao.isUmaAcaoFormulario()) {
             acaoform = (ItfAcaoFormularioEntidade) acao;

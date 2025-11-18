@@ -7,17 +7,17 @@ package com.super_bits.modulos.SBAcessosModel.controller;
 
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistemaNativo;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ItfFabricaModulo;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ComoFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoDaFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
-import com.super_bits.modulosSB.SBCore.modulos.view.menu.ItfFabricaMenu;
 import org.coletivojava.fw.utilCoreBase.UtilSBCoreGeradorDeIDSimples;
+import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
 
 /**
  *
  * @author desenvolvedor
  */
-public enum FabModulosSistemaSB implements ItfFabricaModulo {
+public enum FabModulosSistemaSB implements ComoFabricaModulo {
     @InfoObjetoDaFabrica()
     SEGURANCA,
     COMUNICACAO,
@@ -114,7 +114,7 @@ public enum FabModulosSistemaSB implements ItfFabricaModulo {
     }
 
     @Override
-    public ItfFabricaMenu getMenuPadrao() {
+    public ComoFabricaMenu getMenuPadrao() {
         switch (this) {
             case SEGURANCA:
                 break;

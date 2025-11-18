@@ -5,17 +5,16 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimples;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfParametroRequisicao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfTipoAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoController;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoControllerEntidade;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoDoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ItfAcaoSecundaria;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormularioEntidade;
@@ -24,7 +23,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilFabricaDeAcoesBasi
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.modulos.fabrica.ItfFabricaAcoes;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabTipoAtributoObjeto;
@@ -42,6 +41,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import org.hibernate.annotations.GenericGenerator;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**
  *
@@ -52,7 +52,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @DiscriminatorColumn(name = "tipoAcaoDB")
 @InfoObjetoSB(tags = {"Ação do Sistema"}, plural = "Ações do sistema")
-public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
+public class AcaoDoSistema extends EntidadeSimplesORM implements ComoAcaoDoSistema {
 
     @Enumerated(EnumType.STRING)
     private FabTipoAcaoSistema tipoAcao;
@@ -87,7 +87,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Transient
     private final List<ItfParametroRequisicao> parametroTela = new ArrayList<>();
     @Transient
-    private ItfFabricaAcoes enumAcao;
+    private ComoFabricaAcoes enumAcao;
 
     /**
      *
@@ -121,13 +121,13 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
         diretorioBaseArquivos = null;
     }
 
-    public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao, FabTipoAcaoSistemaGenerica pAcaoGenerica) {
+    public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ComoFabricaAcoes pAcao, FabTipoAcaoSistemaGenerica pAcaoGenerica) {
         this(ptipoAcao, pAcao);
         tipoAcaoGenerica = pAcaoGenerica;
 
     }
 
-    private String definePastaArquivosAcao(ItfFabricaAcoes pAcao) {
+    private String definePastaArquivosAcao(ComoFabricaAcoes pAcao) {
         modulo = UtilFabricaDeAcoesAcessosModel.getModuloByFabrica(pAcao);
         switch (SBCore.getCentralDeArquivos().getTipoEmpacotamento()) {
             case BIBLIOTECA_JAR:
@@ -165,7 +165,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     }
 
-    public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ItfFabricaAcoes pAcao) {
+    public AcaoDoSistema(FabTipoAcaoSistema ptipoAcao, ComoFabricaAcoes pAcao) {
 
         try {
             if (ptipoAcao == null || pAcao == null) {
@@ -189,7 +189,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     }
 
-    public void copiarDadosDaAcao(ItfAcaoDoSistema pAcaoOriginal) {
+    public void copiarDadosDaAcao(ComoAcaoDoSistema pAcaoOriginal) {
 
     }
 
@@ -267,7 +267,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public boolean isTemAcaoPrincipal() {
         try {
-            return ((ItfAcaoSecundaria) this).getAcaoPrincipal() != null;
+            return ((ComoAcaoSecundaria) this).getAcaoPrincipal() != null;
 
         } catch (Throwable t) {
             return false;
@@ -349,7 +349,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     @Override
     @Deprecated
-    public void configurarPropriedadesBasicas(ItfAcaoDoSistema pAcaoDoSistema) {
+    public void configurarPropriedadesBasicas(ComoAcaoDoSistema pAcaoDoSistema) {
         copiaDados(pAcaoDoSistema);
     }
 
@@ -391,7 +391,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     @Override
     public boolean isUmaAcaoController() {
         try {
-            ItfAcaoController teste = (ItfAcaoController) this;
+            ComoAcaoController teste = (ComoAcaoController) this;
         } catch (Throwable t) {
             return false;
         }
@@ -399,7 +399,7 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfFabricaAcoes getEnumAcaoDoSistema() {
+    public ComoFabricaAcoes getEnumAcaoDoSistema() {
         if (enumAcao == null) {
             enumAcao = SBCore.getFabricaByNOME_UNICO(nomeUnico);
         }
@@ -450,10 +450,10 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
 
     }
 
-    public ItfAcaoController getComoController() {
+    public ComoAcaoController getComoController() {
         try {
 
-            return (ItfAcaoController) this;
+            return (ComoAcaoController) this;
 
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação  " + this + " não é to tipo controller ", t);
@@ -463,9 +463,9 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfAcaoSecundaria getComoSecundaria() {
+    public ComoAcaoSecundaria getComoSecundaria() {
         try {
-            return (ItfAcaoSecundaria) this;
+            return (ComoAcaoSecundaria) this;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não é compativel com o Tipo Secudaria ", t);
             return null;
@@ -483,9 +483,9 @@ public class AcaoDoSistema extends EntidadeSimples implements ItfAcaoDoSistema {
     }
 
     @Override
-    public ItfAcaoControllerEntidade getComoControllerEntidade() {
+    public ComoAcaoControllerEntidade getComoControllerEntidade() {
         try {
-            return (ItfAcaoControllerEntidade) this;
+            return (ComoAcaoControllerEntidade) this;
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "A ação " + this + " não é compativel com o Tipo ControllerEntidade ", t);
             return null;
