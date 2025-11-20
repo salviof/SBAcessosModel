@@ -47,7 +47,7 @@ public enum FabAcaoPaginasDoSistema implements ComoFabricaAcoes {
     PAGINA_NATIVA_RECUPERACAO_SENHA_MB,
     @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_ACESSO_DINAMICO_VIA_TOKEN, entidade = TokenAcessoDinamico.class)
     PAGINA_NATIVA_TOKEN_DINAMICO_MB,
-    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_ACESSO_DINAMICO_VIA_TOKEN, entidade = TokenAcessoDinamico.class)
+    @InfoTipoAcaoFormulario(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_ACESSO_DINAMICO_VIA_TOKEN, entidade = TokenAcessoDinamico.class)
     PAGINA_NATIVA_TOKEN_DINAMICO_FRM_REDIRECIONAMENTO,
     @InfoTipoAcaoFormulario(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_RECUPERACAO_DE_SENHA_GERAR_SENHA)
     PAGINA_NATIVA_RECUPERACAO_SENHA_FRM_GERAR_NOVA_SENHA,
