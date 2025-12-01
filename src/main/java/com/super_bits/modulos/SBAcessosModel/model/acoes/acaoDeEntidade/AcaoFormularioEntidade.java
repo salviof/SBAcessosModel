@@ -6,7 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDeEntidade;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoFormulario;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringNomeArquivosEDiretorios;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringNomeArquivosEDiretorios;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.estadoFormulario.FabEstadoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
@@ -14,7 +14,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCaminhoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilCRCReflexaoCaminhoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.GrupoCampos;
@@ -109,7 +109,7 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
             grupos = new ArrayList<>();
         }
         if (grupos.isEmpty()) {
-            grupos = UtilSBCoreReflexaoCaminhoCampo.buildAgrupamentoCampos(campos);
+            grupos = UtilCRCReflexaoCaminhoCampo.buildAgrupamentoCampos(campos);
         }
         return (List) grupos;
     }
@@ -127,7 +127,7 @@ public class AcaoFormularioEntidade extends AcaoDeEntidade implements ItfAcaoFor
 
     @Override
     public String getPastaXhtml() {
-        return UtilSBCoreStringNomeArquivosEDiretorios.getDiretorioMenosXCasas(getXhtml(), 1);
+        return UtilCRCStringNomeArquivosEDiretorios.getDiretorioMenosXCasas(getXhtml(), 1);
     }
 
     @Override

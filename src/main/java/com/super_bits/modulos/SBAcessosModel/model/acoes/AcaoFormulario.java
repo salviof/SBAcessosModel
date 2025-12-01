@@ -4,13 +4,13 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringNomeArquivosEDiretorios;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringNomeArquivosEDiretorios;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.estadoFormulario.FabEstadoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCaminhoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilCRCReflexaoCaminhoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.GrupoCampos;
@@ -89,7 +89,7 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
 
     @Override
     public String getPastaXhtml() {
-        return UtilSBCoreStringNomeArquivosEDiretorios.getDiretorioMenosXCasas(getXhtml(), 1);
+        return UtilCRCStringNomeArquivosEDiretorios.getDiretorioMenosXCasas(getXhtml(), 1);
     }
 
     @Override
@@ -162,7 +162,7 @@ public class AcaoFormulario extends AcaoDoSistema implements ItfAcaoFormulario {
     @Override
     public List<ItfGrupoCampos> getGruposDeCampos() {
         if (grupos.isEmpty()) {
-            grupos = UtilSBCoreReflexaoCaminhoCampo.buildAgrupamentoCampos(campos);
+            grupos = UtilCRCReflexaoCaminhoCampo.buildAgrupamentoCampos(campos);
         }
         return (List) grupos;
     }

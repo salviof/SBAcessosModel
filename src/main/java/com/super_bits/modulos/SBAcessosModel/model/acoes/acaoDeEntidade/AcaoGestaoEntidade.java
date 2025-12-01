@@ -5,7 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
@@ -258,10 +258,10 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade implements ItfAca
 
             List<ComoAcaoSecundaria> acoesVinc = getAcoesVinculadas();
             for (ComoAcaoDoSistema acao : acoesVinc) {
-                String nomeUrlDaAcao = UtilSBCoreStringFiltros.gerarUrlAmigavel(acao.getNomeAcao().toLowerCase());
+                String nomeUrlDaAcao = UtilCRCStringFiltros.gerarUrlAmigavel(acao.getNomeAcao().toLowerCase());
 
                 if (nomeUrlDaAcao
-                        .equals(UtilSBCoreStringFiltros.gerarUrlAmigavel(pString.toLowerCase()))) {
+                        .equals(UtilCRCStringFiltros.gerarUrlAmigavel(pString.toLowerCase()))) {
                     //equals ou .endsWith se confiar na programação holística
                     return acao;
                 }

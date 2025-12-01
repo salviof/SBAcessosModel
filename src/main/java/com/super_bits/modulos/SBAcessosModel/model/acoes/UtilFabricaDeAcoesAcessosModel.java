@@ -9,11 +9,11 @@ import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoForm
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringBuscaTrecho;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoObjeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringBuscaTrecho;
 
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreSystemOut;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCSystemOut;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerAutoExecucao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.estadoFormulario.FabEstadoFormulario;
@@ -53,7 +53,7 @@ import static com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTip
 import static com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica.SELECAO_DE_ACAO;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroCaminhoCampoNaoExiste;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilSBCoreReflexaoCaminhoCampo;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.UtilCRCReflexaoCaminhoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.CaminhoCampoReflexao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campo.FabGruposPadrao;
@@ -68,7 +68,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
-import org.coletivojava.fw.utilCoreBase.UtilSBCoreStringEnumECaixaAlta;
+import org.coletivojava.fw.utilCoreBase.UtilCRCStringEnumECaixaAlta;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeNormal;
@@ -98,7 +98,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
      */
     public static ModuloAcaoSistema getModuloByFabrica(ComoFabricaAcoes pAcao) {
         try {
-            ComoFabricaModulo fabModulo = (ComoFabricaModulo) UtilSBCoreReflexao.getFabricaDaClasseByAnotacao(pAcao.getClass(), "modulo", true);
+            ComoFabricaModulo fabModulo = (ComoFabricaModulo) UtilCRCReflexao.getFabricaDaClasseByAnotacao(pAcao.getClass(), "modulo", true);
 
             ModuloAcaoSistema moduloDaAcao = (ModuloAcaoSistema) fabModulo.getModulo();
 
@@ -191,7 +191,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             //criando mapa de nomes
             Map<String, ComoFabricaAcoes> mapaDeAcoes = new HashMap<>();
             for (ComoFabricaAcoes acao : pAcao.getClass().getEnumConstants()) {
-                String inicioDoNome = UtilSBCoreStringBuscaTrecho.getStringAteEncontrarIsto(acao.toString(), "_MB");
+                String inicioDoNome = UtilCRCStringBuscaTrecho.getStringAteEncontrarIsto(acao.toString(), "_MB");
                 if (inicioDoNome != null) {
                     mapaDeAcoes.put(inicioDoNome, acao);
                 }
@@ -283,9 +283,9 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             case FORMULARIO_VISUALIZAR:
                 break;
             case FORMULARIO_LISTAR:
-                //       CaminhoCampoReflexao id = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse("id", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                //       CaminhoCampoReflexao id = UtilCRCReflexaoCampos.getCaminhoByStringRelativaEClasse("id", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
                 //       ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(id);
-                //      CaminhoCampoReflexao nome = UtilSBCoreReflexaoCampos.getCaminhoByStringRelativaEClasse("nome", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
+                //      CaminhoCampoReflexao nome = UtilCRCReflexaoCampos.getCaminhoByStringRelativaEClasse("nome", pAcao.getEnumAcaoDoSistema().getEntidadeDominio());
                 //     ((ItfAcaoFormularioEntidade) pAcao).getCampos().add(nome);
                 break;
 
@@ -309,7 +309,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
         } else if (pIconeFA != null && pIconeFA != FabIconeFontAwesome.ICONE_PERSONALIZADO) {
             pAcaoDoSistema.setIconeAcao(pIconeFA.getIcone().getTagHtml());
         } else if (pClasseEntidade != null) {
-            String iconeDaClasse = UtilSBCoreReflexaoObjeto.getIconeDoObjeto(pClasseEntidade);
+            String iconeDaClasse = UtilCRCReflexaoObjeto.getIconeDoObjeto(pClasseEntidade);
             if (iconeDaClasse != null) {
                 pAcaoDoSistema.setIconeAcao(iconeDaClasse);
             }
@@ -368,7 +368,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                         } catch (Throwable t) {
 
                         }
-                        CaminhoCampoReflexao caminhoCampo = UtilSBCoreReflexaoCaminhoCampo.getCaminhoByStringRelativaEClasse(cp, classeEntidade);
+                        CaminhoCampoReflexao caminhoCampo = UtilCRCReflexaoCaminhoCampo.getCaminhoByStringRelativaEClasse(cp, classeEntidade);
 
                         ((ItfAcaoFormularioEntidade) pAcaoDoSistema).getCampos().add(caminhoCampo);
 
@@ -386,7 +386,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             if (pAcaoDoSistema != null) {
                 nomeAcao = pAcaoDoSistema.getNomeUnico();
             }
-            UtilSBCoreSystemOut.exibirMensagemEmDestaque("CAMPO DE AÇÃO FORMULÁRIO NÃO ENCONTRADO NA AÇÃO" + nomeAcao);
+            UtilCRCSystemOut.exibirMensagemEmDestaque("CAMPO DE AÇÃO FORMULÁRIO NÃO ENCONTRADO NA AÇÃO" + nomeAcao);
 
         }
 
@@ -537,7 +537,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             }
 
             AcaoDoSistema novaAcao = null;
-            InfoObjetoSB infoObjeto = UtilSBCoreReflexaoObjeto.getAnotacaoInfoObjetoDaClasse(pAcao.getEntidadeDominio());
+            InfoObjetoSB infoObjeto = UtilCRCReflexaoObjeto.getAnotacaoInfoObjetoDaClasse(pAcao.getEntidadeDominio());
             String nomeDoObjeto = infoObjeto.tags()[0];
             ItfAcaoFormularioEntidadeSecundaria novaAcaoRefForm;
             boolean generoFeminino = infoObjeto.generoFeminino();
@@ -608,7 +608,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                     novaAcao = new AcaoFormEntidadeSec(pAcaoPrincipal, pAcao, pTipoAcaoGenerica);
                     novaAcaoRefForm = (ItfAcaoFormularioEntidadeSecundaria) novaAcao;
                     novaAcao.setNome(
-                            UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
+                            UtilCRCStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
                             + " " + nomeDoObjeto);
                     novaAcaoRefForm.setXhtml(FORMULARIO_PERSONALIZADO.getnomeXHTMLPadrao(novaAcao.getEnumAcaoDoSistema()));
 
@@ -683,14 +683,14 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 case CONTROLLER_PERSONALIZADO:
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.setNome(
-                            UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
+                            UtilCRCStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
                             + " " + nomeDoObjeto);
 
                     break;
                 case CONTROLLER_AUTO_EXECUCAO:
                     novaAcao = new AcaoControllerAutoExecucao(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.setNome(
-                            UtilSBCoreStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
+                            UtilCRCStringEnumECaixaAlta.getUltimaParteNomeEnumPrimeiraEmMaiusculo((Enum) novaAcao.getEnumAcaoDoSistema())
                             + " " + nomeDoObjeto);
                     break;
 

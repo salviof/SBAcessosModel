@@ -13,10 +13,10 @@ import com.super_bits.modulosSB.Persistencia.dao.RespostaComGestaoEntityManager;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Bairro;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreValidacao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
-import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilSBCoreArquivos;
+import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.UtilCRCArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.ManipulaArquivo.interfaces.ItfCentralDeArquivos;
 import com.super_bits.modulosSB.SBCore.modulos.TratamentoDeErros.ErroRegraDeNegocio;
 import com.super_bits.modulosSB.SBCore.modulos.geradorCodigo.model.EstruturaDeEntidade;
@@ -25,7 +25,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstancia
 import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimples;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoObjeto;
 import java.util.List;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ComoCidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.cep.ComoLocal;
@@ -44,7 +44,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         System.out.println("Falta implementar Validação de Atributos via InfoCampo e Validate");
 
         pEntidade.getCamposInstaciadosInvalidos().forEach((campo) -> {
-            UtilSBCoreValidacao.validacoesBasicas(campo, campo.getFabricaTipoAtributo());
+            UtilCRCValidacao.validacoesBasicas(campo, campo.getFabricaTipoAtributo());
         });
         return true;
     }
@@ -56,7 +56,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
     public void atualizarValoresDinamicos(ComoEntidadeSimples pObjeto) {
 
-        EstruturaDeEntidade est = MapaObjetosProjetoAtual.getEstruturaObjeto(UtilSBCoreReflexaoObjeto.getClassExtraindoProxy(pObjeto.getClass().getSimpleName()));
+        EstruturaDeEntidade est = MapaObjetosProjetoAtual.getEstruturaObjeto(UtilCRCReflexaoObjeto.getClassExtraindoProxy(pObjeto.getClass().getSimpleName()));
         if (est != null) {
             est.getCalculos().stream().forEach(calc -> {
                 try {
@@ -100,7 +100,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
         if (pObjeto.isTemCampoAnotado(FabTipoAtributoObjeto.LC_LOCALIZACAO)) {
             ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
             if (!cpLocalizacao.isUmCampoNaoInstanciado() && cpLocalizacao.getValor() != null) {
-                List<String> mensagensValidaca = UtilSBCoreValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(),
+                List<String> mensagensValidaca = UtilCRCValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(),
                         cpLocalizacao.getValorComoEntidadeSimples().getId() == null
                         || cpLocalizacao.getValorComoEntidadeSimples().getId() == null, false);
                 if (!mensagensValidaca.isEmpty()) {
@@ -138,7 +138,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
         if (pObjeto instanceof ComoEntidadeSimples) {
             if (validarTodosOsCampos) {
-                String mensagem = UtilSBCoreValidacao.getPrimeiraInconsistenciaDeValidacao((ComoEntidadeSimples) pObjeto);
+                String mensagem = UtilCRCValidacao.getPrimeiraInconsistenciaDeValidacao((ComoEntidadeSimples) pObjeto);
                 if (mensagem != null) {
                     throw new ErroRegraDeNegocio(mensagem);
 
@@ -159,23 +159,23 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                 throw new ErroRegraDeNegocio("Falha salvando objeto");
             }
             if (objetoCriado != null) {
-                if (UtilSBCoreArquivos.isArquivoExiste(imagemPequeno)) {
-                    if (UtilSBCoreArquivos.copiarArquivos(imagemPequeno, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
-                        UtilSBCoreArquivos.removerArquivoLocal(imagemPequeno);
+                if (UtilCRCArquivos.isArquivoExiste(imagemPequeno)) {
+                    if (UtilCRCArquivos.copiarArquivos(imagemPequeno, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
+                        UtilCRCArquivos.removerArquivoLocal(imagemPequeno);
                     }
                 }
-                if (UtilSBCoreArquivos.isArquivoExiste(imagemMedio)) {
-                    if (UtilSBCoreArquivos.copiarArquivos(imagemMedio, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
-                        UtilSBCoreArquivos.removerArquivoLocal(imagemMedio);
+                if (UtilCRCArquivos.isArquivoExiste(imagemMedio)) {
+                    if (UtilCRCArquivos.copiarArquivos(imagemMedio, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
+                        UtilCRCArquivos.removerArquivoLocal(imagemMedio);
                     } else {
                         throw new ErroRegraDeNegocio("Erro salvando imagem de referencia");
 
                     }
                 }
 
-                if (UtilSBCoreArquivos.isArquivoExiste(imagemGrande)) {
-                    if (UtilSBCoreArquivos.copiarArquivos(imagemGrande, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
-                        UtilSBCoreArquivos.removerArquivoLocal(imagemGrande);
+                if (UtilCRCArquivos.isArquivoExiste(imagemGrande)) {
+                    if (UtilCRCArquivos.copiarArquivos(imagemGrande, SBCore.getCentralDeArquivos().getEndrLocalImagem(objetoCriado, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual()))) {
+                        UtilCRCArquivos.removerArquivoLocal(imagemGrande);
                     }
                 }
 

@@ -4,7 +4,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
@@ -80,12 +80,12 @@ public class AcaoDeEntidade extends AcaoDoSistema implements ItfAcaoEntidade {
 
     @Override
     public String getNomeTipoObjetoClasseRelacionada() {
-        return UtilSBCoreReflexaoObjeto.getNomeObjeto(classeRelacionada);
+        return UtilCRCReflexaoObjeto.getNomeObjeto(classeRelacionada);
     }
 
     @Override
     public String getNomeTipoObjetoClasseRelacionadaPlural() {
-        return UtilSBCoreReflexaoObjeto.getNomeObjetoPlural(classeRelacionada);
+        return UtilCRCReflexaoObjeto.getNomeObjetoPlural(classeRelacionada);
     }
 
     @Override

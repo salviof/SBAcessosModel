@@ -10,7 +10,7 @@ import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistemaNativo;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ComoFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoDaFabrica;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
-import org.coletivojava.fw.utilCoreBase.UtilSBCoreGeradorDeIDSimples;
+import org.coletivojava.fw.utilCoreBase.UtilCRCGeradorDeIDSimples;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
 
 /**
@@ -103,7 +103,7 @@ public enum FabModulosSistemaSB implements ComoFabricaModulo {
 
         }
 
-        modulo.setId(UtilSBCoreGeradorDeIDSimples.gerarIdUnicoObejtoVinculadoAFabrica(modulo));
+        modulo.setId(UtilCRCGeradorDeIDSimples.gerarIdUnicoObejtoVinculadoAFabrica(modulo));
 
         return modulo;
     }

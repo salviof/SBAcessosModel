@@ -5,7 +5,7 @@
 package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade.AcaoGestaoEntidade;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoControllerAutoExecucao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoSecundaria;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -65,12 +65,12 @@ public class AcaoControllerAutoExecucao extends AcaoController implements ComoAc
 
     @Override
     public String getNomeTipoObjetoClasseRelacionada() {
-        return UtilSBCoreReflexaoObjeto.getNomeObjeto(classeRelacionada);
+        return UtilCRCReflexaoObjeto.getNomeObjeto(classeRelacionada);
     }
 
     @Override
     public String getNomeTipoObjetoClasseRelacionadaPlural() {
-        return UtilSBCoreReflexaoObjeto.getNomeObjetoPlural(classeRelacionada);
+        return UtilCRCReflexaoObjeto.getNomeObjetoPlural(classeRelacionada);
     }
 
     @Override

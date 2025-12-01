@@ -9,7 +9,7 @@ import com.super_bits.modulos.SBAcessosModel.model.conversores.JpaConversorAcaoD
 import com.super_bits.modulos.SBAcessosModel.model.grupoUsuario.ListaGrupoUsuario;
 import com.super_bits.modulos.SBAcessosModel.model.grupoUsuario.ListasGrupoUsuario;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringSlugs;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringSlugs;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
@@ -252,9 +252,9 @@ public class GrupoUsuarioSB extends EntidadeSimplesORM implements ComoEntidadeUs
                     return valor;
                 }
             }
-            return UtilSBCoreStringSlugs.gerarSlugSimples(getNome()) + "@" + UtilSBCoreStringSlugs.gerarSlugSimples(getModuloPrincipal().getNome());
+            return UtilCRCStringSlugs.gerarSlugSimples(getNome()) + "@" + UtilCRCStringSlugs.gerarSlugSimples(getModuloPrincipal().getNome());
         } catch (IllegalAccessException | IllegalArgumentException t) {
-            return UtilSBCoreStringSlugs.gerarSlugSimples(getNome()) + "@" + UtilSBCoreStringSlugs.gerarSlugSimples(getModuloPrincipal().getNome());
+            return UtilCRCStringSlugs.gerarSlugSimples(getNome()) + "@" + UtilCRCStringSlugs.gerarSlugSimples(getModuloPrincipal().getNome());
         }
     }
 

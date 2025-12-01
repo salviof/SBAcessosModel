@@ -15,10 +15,10 @@ import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.dao.consultaDinamica.ConsultaDinamicaDeEntidade;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreDataHora;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreListasObjeto;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexaoObjeto;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCDataHora;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCListasObjeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoObjeto;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.ConfigPermissaoSBCoreAbstrato;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
@@ -121,7 +121,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                     String msg2 = t.getMessage();
                     String nomeEntidadeNaoEncontrada = "Não detedminada";
                     try {
-                        Long id = Long.valueOf(UtilSBCoreStringFiltros.getNumericosDaString(msg));
+                        Long id = Long.valueOf(UtilCRCStringFiltros.getNumericosDaString(msg));
 
                         ComoAcaoDoSistema acaoEnt = MapaAcoesSistema.getAcaoDoSistemaById(id);
                         if (acaoEnt == null) {
@@ -409,7 +409,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
         TokenRecuperacaoSenha recuperacaoDeSenha = new TokenRecuperacaoSenha();
         recuperacaoDeSenha.setCodigo(UUID.randomUUID().toString().replace("-", "_"));
         recuperacaoDeSenha.setEmail(pUsuario.getEmail());
-        recuperacaoDeSenha.setValidade(UtilSBCoreDataHora.incrementaMinutos(new Date(), pMinutosValidade));
+        recuperacaoDeSenha.setValidade(UtilCRCDataHora.incrementaMinutos(new Date(), pMinutosValidade));
         return UtilSBPersistencia.mergeRegistro(recuperacaoDeSenha);
     }
 
@@ -424,14 +424,14 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
 
                 consultaToken.addcondicaoCampoIgualA("slugAcaoFormulario", pAcao.getRegistro().getNomeUnico());
                 consultaToken.addcondicaoCampoIgualA("codigoEntidade", String.valueOf(pItem.getId()));
-                consultaToken.addcondicaoCampoIgualA("nomeEntidadeDoAcesso", UtilSBCoreReflexaoObjeto.getClassExtraindoProxy(pItem.getClass().getSimpleName()).getSimpleName());
+                consultaToken.addcondicaoCampoIgualA("nomeEntidadeDoAcesso", UtilCRCReflexaoObjeto.getClassExtraindoProxy(pItem.getClass().getSimpleName()).getSimpleName());
                 if (pEmail != null) {
                     consultaToken.addcondicaoCampoIgualA("email", pEmail);
                 }
                 consultaToken.addCondicaoDataHoraMaiorOuIgualA("validade", new Date());
                 List<TokenAcessoDinamico> tokens = consultaToken.resultadoRegistros();
                 if (!tokens.isEmpty()) {
-                    UtilSBCoreListasObjeto.ordernarPorCampoReverso(tokens, "dataHoraCriacao");
+                    UtilCRCListasObjeto.ordernarPorCampoReverso(tokens, "dataHoraCriacao");
                     TokenAcessoDinamico ultimoToken = tokens.get(0);
                     Date agora = new Date();
                     Date validade = ultimoToken.getValidade();
@@ -445,7 +445,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                 token.setCodigo(UUID.randomUUID().toString().replace("-", "_"));
                 token.setDataHoraCriacao(new Date());
                 token.setEmail(pEmail);
-                token.setValidade(UtilSBCoreDataHora.incrementaDias(new Date(), 4));
+                token.setValidade(UtilCRCDataHora.incrementaDias(new Date(), 4));
                 token.setEntidadeDoAcesso(MapaObjetosProjetoAtual.getClasseDoObjetoByNome(pItem.getClass().getSimpleName()).getSimpleName());
                 token = UtilSBPersistencia.mergeRegistro(token);
                 return token;
@@ -472,7 +472,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
 
                 List<TokenAcessoDinamico> tokens = consultaToken.resultadoRegistros();
                 if (!tokens.isEmpty()) {
-                    UtilSBCoreListasObjeto.ordernarPorCampoReverso(tokens, "dataHoraCriacao");
+                    UtilCRCListasObjeto.ordernarPorCampoReverso(tokens, "dataHoraCriacao");
                     TokenAcessoDinamico ultimoToken = tokens.get(0);
                     Date agora = new Date();
                     Date validade = ultimoToken.getValidade();

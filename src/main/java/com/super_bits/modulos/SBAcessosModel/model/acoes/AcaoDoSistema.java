@@ -7,7 +7,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreStringFiltros;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
 
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfModuloAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfParametroRequisicao;
@@ -148,9 +148,9 @@ public class AcaoDoSistema extends EntidadeSimplesORM implements ComoAcaoDoSiste
                 nomePastaGestao = nomePastaGestao.toLowerCase();
                 if (modulo.isUmModuloNativo()) {
                     return "/site/modulos/"
-                            + UtilSBCoreStringFiltros.gerarUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + nomePastaGestao;
+                            + UtilCRCStringFiltros.gerarUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + nomePastaGestao;
                 } else {
-                    return "/site/" + UtilSBCoreStringFiltros.gerarUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + nomePastaGestao;
+                    return "/site/" + UtilCRCStringFiltros.gerarUrlAmigavel(modulo.getNome()).toLowerCase() + "/" + nomePastaGestao;
                 }
 
             case MOBILE_APP_ANDROID:

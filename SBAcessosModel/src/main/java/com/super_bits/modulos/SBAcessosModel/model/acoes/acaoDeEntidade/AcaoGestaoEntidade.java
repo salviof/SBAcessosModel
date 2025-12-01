@@ -6,7 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes.acaoDeEntidade;
 
 import com.super_bits.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreReflexao;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexao;
 import com.super_bits.modulosSB.SBCore.fabrica.ComoFabricaAcoes;
 import com.super_bits.view.InfoPagina;
 
@@ -29,7 +29,7 @@ public class AcaoGestaoEntidade extends AcaoFormularioEntidade {
             throw  new UnsupportedOperationException("Aind não implementado");
         }
         ComoAcaoDoSistema novaAcao=null;
-        String nomeDoObjeto = UtilSBCoreReflexao.getNomeDoObjeto(this.getClasseRelacionada());
+        String nomeDoObjeto = UtilCRCReflexao.getNomeDoObjeto(this.getClasseRelacionada());
         String diretorioFormulariosEntidade = "/site/" + this.getClass().getSimpleName();
         
     

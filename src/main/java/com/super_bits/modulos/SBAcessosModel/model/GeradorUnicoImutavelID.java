@@ -6,7 +6,7 @@
 package com.super_bits.modulos.SBAcessosModel.model;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
-import com.super_bits.modulosSB.SBCore.UtilGeral.UtilSBCoreGeradorDeID;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCGeradorDeID;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
 import java.io.Serializable;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
@@ -26,7 +26,7 @@ public class GeradorUnicoImutavelID implements IdentifierGenerator {
     public Serializable generate(SharedSessionContractImplementor ssci, Object obj) throws HibernateException {
         try {
 
-            return UtilSBCoreGeradorDeID.getIdentificadorUnicoNumerosLetras();
+            return UtilCRCGeradorDeID.getIdentificadorUnicoNumerosLetras();
 
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro determinando id para permissao", t);
