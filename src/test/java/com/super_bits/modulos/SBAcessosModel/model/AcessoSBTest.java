@@ -15,7 +15,7 @@ import java.util.List;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoUsuario;
 
 /**
  *

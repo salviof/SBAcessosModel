@@ -11,9 +11,9 @@ import com.super_bits.modulosSB.SBCore.modulos.erp.FabTipoAgenteOrganizacao;
 
 import org.coletivojava.fw.api.objetoNativo.view.menu.MenusDaSessao;
 import org.coletivojava.fw.api.objetoNativo.view.menu.MenuSBFW;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.contato.ComoContatoHumano;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.contato.ComoContatoHumano;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoMenusDeSessao;
 
 /**

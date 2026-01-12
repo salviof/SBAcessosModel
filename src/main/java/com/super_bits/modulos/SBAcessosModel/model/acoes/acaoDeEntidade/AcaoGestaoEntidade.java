@@ -26,7 +26,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 import org.apache.commons.text.similarity.LongestCommonSubsequence;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoDominioEntidadeGenerico;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoDominioEntidadeGenerico;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 
 /**

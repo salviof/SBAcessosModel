@@ -1,5 +1,6 @@
 package com.super_bits.modulos.SBAcessosModel;
 
+import com.google.common.collect.Lists;
 import com.super_bits.modulos.SBAcessosModel.controller.UtilSBControllerAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.ConfiguracaoDePermissao;
 import com.super_bits.modulos.SBAcessosModel.model.GrupoUsuarioSB;
@@ -39,10 +40,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoEntidadeSimplesSomenteLeitura;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoEntidadeSimplesSomenteLeitura;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ErroDadosDeContatoUsuarioNaoEncontrado;
+import com.super_bits.modulosSB.SBCore.modulos.erp.FabTipoAgenteOrganizacao;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.contato.ComoContatoHumano;
+import java.util.Optional;
 
 /*
 
@@ -500,6 +505,28 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
     @Override
     public boolean isObjetoPermitidoUsuario(ComoUsuario pUsuario, ComoEntidadeSimplesSomenteLeitura pObjeto) {
         return true;
+    }
+
+    @Override
+    public ComoContatoHumano getContatoDoUsuario(ComoUsuario pUsuairo) throws ErroDadosDeContatoUsuarioNaoEncontrado {
+        return (ComoContatoHumano) pUsuairo;
+    }
+    private static final List<FabTipoAgenteOrganizacao> tipos = Lists.newArrayList(FabTipoAgenteOrganizacao.values());
+
+    @Override
+    public FabTipoAgenteOrganizacao getTipoAgente(ComoUsuario pUsuario) {
+        if (pUsuario == null) {
+            return FabTipoAgenteOrganizacao.CONVIDADO;
+        }
+        if (pUsuario.getGrupo() == null || pUsuario.getGrupo().getNome() == null) {
+            return FabTipoAgenteOrganizacao.CONVIDADO;
+        }
+        String nomegrupo = pUsuario.getGrupo().getNome().toLowerCase();
+        Optional<FabTipoAgenteOrganizacao> grupoSemanticaSimilar = tipos.stream().filter(tp -> nomegrupo.contains(tp.name().toString().toLowerCase())).findFirst();
+        if (grupoSemanticaSimilar.isPresent()) {
+            return grupoSemanticaSimilar.get();
+        }
+        return FabTipoAgenteOrganizacao.PUBLICO;
     }
 
 }

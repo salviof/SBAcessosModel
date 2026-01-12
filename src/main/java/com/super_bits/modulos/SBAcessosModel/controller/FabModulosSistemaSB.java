@@ -9,7 +9,7 @@ import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistemaNativo;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.modulo.ComoFabricaModulo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoDaFabrica;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.icones.FabIconeFontAwesome;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.icones.FabIconeFontAwesome;
 import org.coletivojava.fw.utilCoreBase.UtilCRCGeradorDeIDSimples;
 import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
 

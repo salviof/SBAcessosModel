@@ -32,8 +32,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import org.hibernate.annotations.GenericGenerator;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoGrupoUsuario;
-import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.Interfaces.basico.ComoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoGrupoUsuario;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoUsuario;
 
 /**
  *
