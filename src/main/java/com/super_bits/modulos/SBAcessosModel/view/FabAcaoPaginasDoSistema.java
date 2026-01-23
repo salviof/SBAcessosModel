@@ -62,7 +62,7 @@ public enum FabAcaoPaginasDoSistema implements ComoFabricaAcoes {
     PAGINA_NATIVA_RESTFUL_RESP_MB_GESTAO,
     @InfoTipoAcaoGestaoEntidade(iconeFonteAnsowame = FabIconeFontAwesome.SISTEMA_ENGRENAGEM, precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_API_JSON_WEB_VIEW)
     PAGINA_NATIVA_JSON_WEBVIEW_MB_GESTAO,
-    @InfoTipoAcaoGestaoEntidade(iconeFonteAnsowame = FabIconeFontAwesome.SISTEMA_ENGRENAGEM, precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_API_JSON_WEB_VIEW)
+    @InfoTipoAcaoGestaoEntidade(iconeFonteAnsowame = FabIconeFontAwesome.SISTEMA_ENGRENAGEM, precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_API_JSON_WEB_CONTROLLER)
     PAGINA_NATIVA_JSON_WEBCONTROLLER_MB_GESTAO,
     @InfoTipoAcaoController(icone = "fa fa-laptop", nomeAcao = "registrar")
     PAGINA_NATIVA_JSON_WEBVIEW_CTR_REGISTRAR_DISPOSITIVO,
