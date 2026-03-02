@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.model.acoes;
 
 import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeSimplesORM;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCStringFiltros;
 
@@ -42,6 +43,8 @@ import javax.persistence.Transient;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import org.hibernate.annotations.GenericGenerator;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabrica;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 
 /**
  *
@@ -510,6 +513,47 @@ public class AcaoDoSistema extends EntidadeSimplesORM implements ComoAcaoDoSiste
     @Override
     public String getIcone() {
         return getIconeAcao();
+    }
+
+    public String[] getParametroEstaticoIdentificadoresUnicos() {
+        return parametroEstaticoIdentificadoresUnicos;
+    }
+
+    public void setParametroEstaticoIdentificadoresUnicos(String[] parametroEstaticoIdentificadoresUnicos) {
+        this.parametroEstaticoIdentificadoresUnicos = parametroEstaticoIdentificadoresUnicos;
+    }
+
+    @Transient
+    private ComoFabrica[] fabricasValorEstatico;
+    @Transient
+    private String[] parametroEstaticoIdentificadoresUnicos = new String[]{};
+
+    public ComoFabrica[] getValorEstaticoParametro() {
+        if (fabricasValorEstatico != null) {
+            return fabricasValorEstatico;
+        }
+        if (parametroEstaticoIdentificadoresUnicos.length == 0) {
+            fabricasValorEstatico = new ComoFabrica[]{};
+            return fabricasValorEstatico;
+        }
+
+        if (!MapaObjetosProjetoAtual.isObjetosConfigurados()) {
+            return new ComoFabrica[]{};
+        }
+        try {
+            ComoFabrica[] fabricas = new ComoFabrica[parametroEstaticoIdentificadoresUnicos.length];
+            int i = 0;
+            for (String fab : parametroEstaticoIdentificadoresUnicos) {
+                fabricas[i] = CarameloCode.getFabricaObjetoEstatico(fab);
+                i++;
+            }
+            fabricasValorEstatico = fabricas;
+        } catch (Throwable t) {
+
+        }
+
+        return fabricasValorEstatico;
+
     }
 
 }

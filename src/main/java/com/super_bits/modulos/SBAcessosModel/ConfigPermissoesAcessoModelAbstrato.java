@@ -47,6 +47,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoA
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ErroDadosDeContatoUsuarioNaoEncontrado;
 import com.super_bits.modulosSB.SBCore.modulos.erp.FabTipoAgenteOrganizacao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.contato.ComoContatoHumano;
+import java.util.Objects;
 import java.util.Optional;
 
 /*
@@ -192,23 +193,26 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
 
     }
 
+    private ConfiguracaoDePermissao getConfiguracao() {
+        ConfiguracaoDePermissao configPermissao = null;
+        configPermissao = (ConfiguracaoDePermissao) UtilSBPersistencia.getRegistroByID(ConfiguracaoDePermissao.class, 0l);
+        return configPermissao;
+    }
+
     private boolean houveAlteracoes() {
         try {
             ConfiguracaoDePermissao configPermissao = null;
-            if (SBCore.isEmModoDesenvolvimento()) {
-                configPermissao = (ConfiguracaoDePermissao) UtilSBPersistencia.getRegistroByID(ConfiguracaoDePermissao.class, 0l);
-                if (configPermissao == null) {
-                    return true;
-                }
-                if (configPermissao.getUltimaVersaoBanco() == null) {
-                    return true;
-                }
-                return !configPermissao.getUltimaVersaoBanco().equals(SBPersistencia.getDevOps().getHashBancoGerado());
 
-            } else {
-
-                return false;
+            configPermissao = getConfiguracao();
+            if (configPermissao == null) {
+                return true;
             }
+            if (configPermissao.getUltimaVersaoBanco() == null) {
+                return true;
+            }
+            System.out.println("COMPARANDO BANCOS: " + configPermissao.getUltimaVersaoBanco() + " VS " + SBPersistencia.getDevOps().getHashBancoGerado());
+            return !configPermissao.getUltimaVersaoBanco().equals(SBPersistencia.getDevOps().getHashBancoGerado());
+
         } catch (Throwable t) {
             SBCore.RelatarErro(FabErro.SOLICITAR_REPARO, "Erro detectando se ouve alterações no banco", t);
             return true;
@@ -223,20 +227,21 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
                     PERMISSOES_CRIADAS = true;
                     return true;
                 } else {
-
+                    System.out.println("####################################");
+                    System.out.println("As permissões serão recriadas!!!");
+                    System.out.println("####################################");
                     PERMISSOES_CRIADAS = UtilSBControllerAcessosModel.criarPermissoesDeAcao();
                     if (PERMISSOES_CRIADAS) {
 
-                        ConfiguracaoDePermissao permissaoAtual = (ConfiguracaoDePermissao) UtilSBPersistencia.getRegistroByID(ConfiguracaoDePermissao.class, 0l);
+                        ConfiguracaoDePermissao permissaoAtual = getConfiguracao();
                         if (permissaoAtual == null) {
                             permissaoAtual = new ConfiguracaoDePermissao();
                         }
-                        if (permissaoAtual.getUltimaVersaoBanco() != null) {
-                            if (!permissaoAtual.getUltimaVersaoBanco().equals(SBPersistencia.getDevOps().getHashBancoGerado())) {
-                                permissaoAtual.setUltimaVersaoBanco(SBPersistencia.getDevOps().getHashBancoGerado());
-                                if (UtilSBPersistencia.mergeRegistro(permissaoAtual) == null) {
-                                    throw new UnsupportedOperationException("Erro Persistindo nova versão do banco em tabela de configuracao");
-                                }
+
+                        if (permissaoAtual.getUltimaVersaoBanco() == null || !permissaoAtual.getUltimaVersaoBanco().equals(SBPersistencia.getDevOps().getHashBancoGerado())) {
+                            permissaoAtual.setUltimaVersaoBanco(SBPersistencia.getDevOps().getHashBancoGerado());
+                            if (UtilSBPersistencia.mergeRegistro(permissaoAtual) == null) {
+                                throw new UnsupportedOperationException("Erro Persistindo nova versão do banco em tabela de configuracao");
                             }
                         }
 
@@ -363,7 +368,7 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
             }
 
             for (ComoUsuario usuario : pAcesso.getUsuariosNegados()) {
-                if (usuario.getId() == pUsuario.getId()) {
+                if (Objects.equals(usuario.getId(), pUsuario.getId())) {
                     System.out.println("Acesso negado de:" + pUsuario.getNome() + "registro usuario encontrado:" + usuario.getId());
                     return false;
                 }
@@ -371,10 +376,10 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
             for (ComoGrupoUsuario grupo : pAcesso.getGruposNegados()) {
 
                 for (ComoUsuario user : grupo.getUsuarios()) {
-                    if (pUsuario.getGrupo().getId() == pUsuario.getGrupo().getId()) {
+                    if (Objects.equals(pUsuario.getGrupo().getId(), pUsuario.getGrupo().getId())) {
                         return false;
                     }
-                    if (user.getId() == pUsuario.getId()) {
+                    if (Objects.equals(user.getId(), pUsuario.getId())) {
                         return false;
                     }
                 }
@@ -383,18 +388,18 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
             System.out.println("Listando permitidos");
             for (ComoUsuario usuario : pAcesso.getUsuariosPermitidos()) {
                 System.out.println("permitido:" + usuario.getNome() + pAcesso.getAcao());
-                if (usuario.getId() == pUsuario.getId()) {
+                if (Objects.equals(usuario.getId(), pUsuario.getId())) {
                     return true;
                 }
             }
 
             for (ComoGrupoUsuario grupo : pAcesso.getGruposPermitidos()) {
-                if (pUsuario.getGrupo().getId() == grupo.getId()) {
+                if (Objects.equals(pUsuario.getGrupo().getId(), grupo.getId())) {
                     return true;
                 }
 
                 for (ComoUsuario user : grupo.getUsuarios()) {
-                    if (user.getId() == pUsuario.getId()) {
+                    if (Objects.equals(user.getId(), pUsuario.getId())) {
                         return true;
                     }
                 }

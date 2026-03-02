@@ -266,6 +266,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
             grupo.configurarSomenteLeitura(pAnotacaoSomenteLeitura);
         }
 
+        pAcao.setParametroEstaticoIdentificadoresUnicos(pAnotacaoFormulario.valoresParametroEstatico());
         configurarValorIconeAnotacao(pAcao, pAnotacaoFormulario.icone(), pAnotacaoFormulario.iconeFonteAnsowame(), null);
         configurarValorFormularioAnotacao(pAcao, pAnotacaoFormulario.xhtmlDaAcao());
         configurarValorJiraConfluenceAnotacao(pAcao, pAnotacaoFormulario.codigoJira());
@@ -408,8 +409,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
         switch (tipoAcaoBase) {
             case FORMULARIO:
-                InfoTipoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoTipoAcaoFormulario.class
-                );
+                InfoTipoAcaoFormulario anotacaoFormulario = campo.getAnnotation(InfoTipoAcaoFormulario.class);
 
                 if (anotacaoFormulario != null) {
                     if (!anotacaoFormulario.entidade().equals(void.class
