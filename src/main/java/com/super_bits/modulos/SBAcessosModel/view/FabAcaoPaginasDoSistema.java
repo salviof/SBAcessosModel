@@ -6,6 +6,7 @@ package com.super_bits.modulos.SBAcessosModel.view;
 
 import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.controller.InfoModulosSistemaSB;
+import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.UtilFabricaDeAcoesAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.tokens.TokenAcesso;
@@ -25,8 +26,10 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoA
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.PAGINAS_DO_SISTEMA)
 public enum FabAcaoPaginasDoSistema implements ComoFabricaAcoes {
 
-    @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_HOME, icone = "fa fa-heart-o", precisaPermissao = false)
+    @InfoTipoAcaoGestaoEntidade(xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_HOME, icone = "fa fa-heart-o", precisaPermissao = false, entidade = UsuarioSB.class)
     PAGINA_NATIVA_HOME_MB_PADRAO,
+    @InfoTipoAcaoFormulario(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_LOGIN, entidade = UsuarioSB.class)
+    PAGINA_NATIVA_HOME_FRM_LOGIN_PADRAO,
     @InfoTipoAcaoGestaoEntidade(icone = "fa fa-lock", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_ACESSO_NEGADO)
     PAGINA_NATIVA_ACESSO_NEGADO_MB_PADRAO,
     @InfoTipoAcaoGestaoEntidade(icone = "fa fa-lock",
@@ -36,8 +39,6 @@ public enum FabAcaoPaginasDoSistema implements ComoFabricaAcoes {
     PAGINA_NATIVA_ACESSO_NEGADO_FRM_SUB_FORM,
     @InfoTipoAcaoGestaoEntidade(iconeFonteAnsowame = FabIconeFontAwesome.REG_ATUALIZAR, precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_SESSAO_EXPIROU)
     PAGINA_NATIVA_VIEW_EXPIROU_MB_PADRAO,
-    @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_LOGIN)
-    PAGINA_NATIVA_LOGIN_MB_PADRAO,
     @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_RECUPERACAO_DE_SENHA, entidade = TokenAcesso.class)
     PAGINA_NATIVA_RECUPERACAO_SENHA_MB,
     @InfoTipoAcaoGestaoEntidade(icone = "fa fa-key", precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_ACESSO_DINAMICO_VIA_TOKEN, entidade = TokenAcessoDinamico.class)
