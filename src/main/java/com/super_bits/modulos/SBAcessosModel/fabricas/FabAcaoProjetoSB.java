@@ -18,7 +18,6 @@ import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
  * @author desenvolvedor
  */
 @InfoModulosSistemaSB(modulo = FabModulosSistemaSB.PAGINAS_DO_SISTEMA)
-@Deprecated
 public enum FabAcaoProjetoSB implements ComoFabricaAcoes {
 
     /**
