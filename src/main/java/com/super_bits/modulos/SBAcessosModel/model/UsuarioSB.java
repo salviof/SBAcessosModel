@@ -47,7 +47,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.cep.ComoL
  * @author Salvio
  */
 @Entity
-@InfoObjetoSB(tags = {"Usuário"}, plural = "Usuários", icone = "fa fa-user")
+@InfoObjetoSB(tags = {"Usuário "}, plural = "Usuários", icone = "fa fa-user")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipoUsuario")
 @EntityListeners(ListenerEntidadePadrao.class)

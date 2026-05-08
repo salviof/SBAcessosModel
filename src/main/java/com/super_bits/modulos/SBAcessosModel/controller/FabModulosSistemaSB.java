@@ -18,6 +18,7 @@ import com.super_bits.modulosSB.SBCore.modulos.view.menu.ComoFabricaMenu;
  * @author desenvolvedor
  */
 public enum FabModulosSistemaSB implements ComoFabricaModulo {
+
     @InfoObjetoDaFabrica()
     SEGURANCA,
     COMUNICACAO,
@@ -33,7 +34,7 @@ public enum FabModulosSistemaSB implements ComoFabricaModulo {
     @Override
     public ModuloAcaoSistema getModulo() {
 
-        ModuloAcaoSistemaNativo modulo = new ModuloAcaoSistemaNativo();
+        ModuloAcaoSistema modulo = new ModuloAcaoSistema();
         modulo.setUmModuloNativo(true);
         modulo.setEnumVinculado(this);
         switch (this) {

@@ -6,8 +6,8 @@ package config;
 
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoProjeto;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
-import config.ConfigPermissoesAcessosModel;
 
 /**
  *
@@ -17,6 +17,7 @@ public class ConfiguradorCoreSBAcessosModelTestes extends ConfiguradorCoreDeProj
 
     public ConfiguradorCoreSBAcessosModelTestes() {
         setIgnorarConfiguracaoPermissoes(false);
+
     }
 
     @Override
@@ -24,7 +25,7 @@ public class ConfiguradorCoreSBAcessosModelTestes extends ConfiguradorCoreDeProj
         pConfig.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
         pConfig.setFabricaDeAcoes(new Class[]{FabAcoesSBAcessosModelTestes.class});
         pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);
-
+        pConfig.setTipoProjeto(FabTipoProjeto.MODEL);
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package config;
 
+import com.super_bits.modulos.SBAcessosModel.controller.FabModulosSistemaSB;
 import com.super_bits.modulos.SBAcessosModel.fabricas.FabSegurancaGruposPadrao;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.ItfConfigSBPersistencia;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
@@ -55,7 +56,8 @@ public class ConfigPersistenciaTestesAcesso implements ItfConfigSBPersistencia {
 
     @Override
     public Class<? extends ComoFabrica>[] fabricasRegistrosIniciais() {
-        return new Class[]{FabSegurancaGruposPadrao.class};
+        return new Class[]{ //FabModulosSistemaSB.class, FabSegurancaGruposPadrao.class
+        };
     }
 
 }

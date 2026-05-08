@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel;
 
+import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
 import config.ConfiguradorCoreSBAcessosModelTestes;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import org.junit.Test;
 import testesFW.TesteJunitSBPersistencia;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import config.ConfigPersistenciaTestesAcesso;
 
 /**
  *
@@ -26,7 +28,7 @@ public class TesteAcessosModelPadraoTest extends TesteJunitSBPersistencia {
     @Override
     protected void configAmbienteDesevolvimento() {
         SBCore.configurar(new ConfiguradorCoreSBAcessosModelTestes(), SBCore.ESTADO_APP.DESENVOLVIMENTO);
-
+        SBPersistencia.configuraJPA(new ConfigPersistenciaTestesAcesso());
     }
 
     @Test
@@ -39,6 +41,7 @@ public class TesteAcessosModelPadraoTest extends TesteJunitSBPersistencia {
             assertTrue("Tipo ação não encontrada para teste" + tipoAcao.name(), accaoDoTipo.isPresent());
 
         }
+        gerarCodigoModelProjeto();
 
     }
 

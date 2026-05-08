@@ -99,6 +99,10 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
         if (pObjeto.isTemCampoAnotado(FabTipoAtributoObjeto.LC_LOCALIZACAO)) {
             ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
+            // TODO BUG-> A CONFIGURAÇÃO OBRIGATÓRIO NÃO ESTÁ SENDO DEFINIDA CORRETAMENTE, RETONANDO SEMPRE TRUE
+            if (cpLocalizacao.isObrigatorio()) {
+                // throw new ErroRegraDeNegocio("O Endereço é obrigatório ");
+            }
             if (!cpLocalizacao.isUmCampoNaoInstanciado() && cpLocalizacao.getValor() != null) {
                 List<String> mensagensValidaca = UtilCRCValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(),
                         cpLocalizacao.getValorComoEntidadeSimples().getId() == null
