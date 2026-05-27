@@ -12,6 +12,7 @@ import com.super_bits.modulosSB.Persistencia.dao.ItfRespostaComExecucaoDeRegraDe
 import com.super_bits.modulosSB.Persistencia.dao.RespostaComGestaoEntityManager;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Bairro;
+import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Localizacao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
@@ -101,15 +102,18 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             ItfCampoInstanciado cpLocalizacao = pObjeto.getCampoInstanciadoByAnotacao(FabTipoAtributoObjeto.LC_LOCALIZACAO);
             // TODO BUG-> A CONFIGURAÇÃO OBRIGATÓRIO NÃO ESTÁ SENDO DEFINIDA CORRETAMENTE, RETONANDO SEMPRE TRUE
             if (cpLocalizacao.isObrigatorio()) {
-                // throw new ErroRegraDeNegocio("O Endereço é obrigatório ");
+                throw new ErroRegraDeNegocio("O Endereço é obrigatório ");
             }
             if (!cpLocalizacao.isUmCampoNaoInstanciado() && cpLocalizacao.getValor() != null) {
                 List<String> mensagensValidaca = UtilCRCValidacao.gerarMensagensValidacao(cpLocalizacao, cpLocalizacao.getValor(),
                         cpLocalizacao.getValorComoEntidadeSimples().getId() == null
                         || cpLocalizacao.getValorComoEntidadeSimples().getId() == null, false);
                 if (!mensagensValidaca.isEmpty()) {
-                    throw new ErroRegraDeNegocio("Endereço inválido: " + mensagensValidaca.get(0));
 
+                    if (!cpLocalizacao.isObrigatorio()) {
+                        cpLocalizacao.setValor(null);
+                        throw new ErroRegraDeNegocio("Endereço inválido: " + mensagensValidaca.get(0));
+                    }
                 } else {
 
                     Bairro b = (Bairro) cpLocalizacao.getComoCampoLocalizacao().getBairro();
