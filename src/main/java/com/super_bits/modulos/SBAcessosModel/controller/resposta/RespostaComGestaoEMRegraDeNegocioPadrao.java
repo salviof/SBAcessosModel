@@ -12,7 +12,7 @@ import com.super_bits.modulosSB.Persistencia.dao.ItfRespostaComExecucaoDeRegraDe
 import com.super_bits.modulosSB.Persistencia.dao.RespostaComGestaoEntityManager;
 import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Bairro;
-import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Localizacao;
+import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
@@ -27,9 +27,14 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.MapaObjetosProjetoAtual;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoEntidadeSimples;
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoObjeto;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.ErroChamadaController;
+import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import java.util.List;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.cep.ComoCidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.cep.ComoLocal;
+import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ComoEntidadeGenerica;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -40,6 +45,8 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
     private final ComoEntidadeSimples entidadePrincipalAssociada;
     private boolean executouAcoesFinais = false;
+    private Map<ComoFabricaAcoes, ComoEntidadeGenerica> acoesFinaisSucesso = new HashMap<>();
+    private Map<ComoFabricaAcoes, ComoEntidadeGenerica> acoesFinaisFalha = new HashMap<>();
 
     public boolean validarAtributos(ComoEntidadeSimples pEntidade) {
         System.out.println("Falta implementar Validação de Atributos via InfoCampo e Validate");
@@ -48,6 +55,41 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             UtilCRCValidacao.validacoesBasicas(campo, campo.getFabricaTipoAtributo());
         });
         return true;
+    }
+
+    public void executarGatilhosFinais() {
+
+        if (isSucesso()) {
+            for (ComoFabricaAcoes acaoGatilho : acoesFinaisSucesso.keySet()) {
+                ItfRespostaAcaoDoSistema resp;
+                try {
+                    resp = CarameloCode.getServicoController().getResposta(acaoGatilho, acoesFinaisSucesso.get(acaoGatilho));
+                    if (!resp.isSucesso()) {
+                        addAlerta(resp.getMensagens().get(0).getMenssagem());
+                    }
+                } catch (ErroChamadaController ex) {
+                    addAlerta("Falha disparanado gatilho de ação: " + acaoGatilho.getRegistro().getNomeAcao());
+                }
+
+            }
+        } else {
+            for (ComoFabricaAcoes acaoFalha : acoesFinaisFalha.keySet()) {
+                ItfRespostaAcaoDoSistema resp;
+                try {
+                    resp = CarameloCode.getServicoController().getResposta(acaoFalha, acoesFinaisSucesso.get(acaoFalha));
+                    if (!resp.isSucesso()) {
+                        addAlerta(resp.getMensagens().get(0).getMenssagem());
+                    }
+                } catch (ErroChamadaController ex) {
+                    addAlerta("Falha disparanado gatilho de ação: " + acaoFalha.getRegistro().getNomeAcao());
+                }
+
+            }
+        }
+    }
+
+    public void adicionarGatilhoExecucaoFinalComSucesso(ComoFabricaAcoes acao, ComoEntidadeGenerica pEntidade) {
+        acoesFinaisSucesso.put(acao, pEntidade);
     }
 
     @Override
@@ -310,6 +352,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
             } else {
                 reverterAcoesFinais();
             }
+            executarGatilhosFinais();
         }
     }
 
