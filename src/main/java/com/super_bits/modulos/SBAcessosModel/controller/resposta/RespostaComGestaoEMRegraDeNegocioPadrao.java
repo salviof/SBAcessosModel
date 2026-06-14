@@ -5,6 +5,7 @@
  */
 package com.super_bits.modulos.SBAcessosModel.controller.resposta;
 
+import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.logsRegraDeNegocio.LogsAcoesExecutadas;
 import com.super_bits.modulosSB.Persistencia.dao.ErroEmBancoDeDados;
@@ -334,7 +335,11 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
                     LogsAcoesExecutadas logAlteracoes = new LogsAcoesExecutadas();
                     logAlteracoes.setAcaoExecutada((AcaoDoSistema) getAcaoVinculada());
-
+                    if (CarameloCode.getServicoSessao().getSessaoAtual().isIdentificado()) {
+                        if (CarameloCode.getUsuarioLogado() instanceof UsuarioSB) {
+                            logAlteracoes.setUsuarioResponsavel((UsuarioSB) CarameloCode.getUsuarioLogado());
+                        }
+                    }
                     if (getAcaoVinculada().getComoController().isPrecisaJustificativa()) {
                         String justificativa = entidadePrincipalAssociada.getJustificativa(getAcaoVinculada());
                         if (justificativa == null) {
@@ -344,6 +349,15 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                     }
                     if (isSucesso()) {
                         super.atualizarEntidade(logAlteracoes);
+                    }
+                }
+                if (isSucesso()) {
+                    try {
+                        if (getRetorno() == null || getRetorno() instanceof ComoEntidadeSimples) {
+                            CarameloCode.getServicoComunicacao().dispararNotificacaoAcaoSucesso(getAcaoVinculada(), (ComoEntidadeSimples) getRetorno());
+                        }
+                    } catch (Throwable t) {
+                        CarameloCode.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha executando notificacoes", t);
                     }
                 }
                 if (isSucesso()) {
