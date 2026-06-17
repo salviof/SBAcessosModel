@@ -8,6 +8,7 @@ package com.super_bits.modulos.SBAcessosModel.model;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.EntidadeORMNormal;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.ListenerEntidadePadrao;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.LocalizacaoPostavel;
+import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCGravatar;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampo;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoCampoVerdadeiroOuFalso;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
@@ -113,7 +114,7 @@ public class UsuarioSB extends EntidadeORMNormal implements ComoUsuario, ComoCon
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.REG_DATAINSERCAO, label = "Data/Hora Inserção", descricao = "Data e hora de inserção do perfil do usuário")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dataHoraInsersao;
+    private Date dataHoraInsersao = new Date();
 
     @InfoCampo(tipo = FabTipoAtributoObjeto.REG_USUARIO_INSERCAO, label = "Usuário Inserção", descricao = "Usuário que fez a inserção de outro na base de dados")
     @ManyToOne(targetEntity = UsuarioSB.class)
@@ -241,7 +242,7 @@ public class UsuarioSB extends EntidadeORMNormal implements ComoUsuario, ComoCon
     @Override
     @Deprecated
     public Date getDataCadastro() {
-        return dataCadastro;
+        return dataHoraInsersao;
     }
 
     public void setGrupo(GrupoUsuarioSB grupo) {
@@ -341,6 +342,17 @@ public class UsuarioSB extends EntidadeORMNormal implements ComoUsuario, ComoCon
     @Override
     public String getTelefonePrincipal() {
         return getTelefone();
+    }
+
+    @Override
+    public String getImgPequena() {
+        if (!isTemImagemPequenaAdicionada() && getEmail() != null & getEmail().contains("@")) {
+
+            return UtilCRCGravatar.getGravatarUrl(getEmail(), 40);
+
+        } else {
+            return super.getImgPequena();
+        }
     }
 
 }
