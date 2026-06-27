@@ -99,4 +99,9 @@ public class TokenAcesso extends EntidadeSimples implements ItfTokenRecuperacaoE
         this.dataHoraCriacao = dataHoraCriacao;
     }
 
+    @Override
+    public String getToken() {
+        return getCodigo();
+    }
+
 }

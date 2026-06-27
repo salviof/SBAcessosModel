@@ -6,6 +6,7 @@
 package config;
 
 import com.super_bits.modulos.SBAcessosModel.ConfigPermissoesAcessoModelAbstrato;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.token.ComoTokenAcessoBasico;
 
 import org.coletivojava.fw.api.objetoNativo.view.menu.MenusDaSessao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoGrupoUsuario;

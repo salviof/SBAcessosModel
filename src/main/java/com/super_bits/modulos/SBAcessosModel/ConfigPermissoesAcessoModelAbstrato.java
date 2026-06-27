@@ -1,5 +1,6 @@
 package com.super_bits.modulos.SBAcessosModel;
 
+import br.org.coletivoJava.fw.projetos.fw.api.model.tokenacesso.CPTokenAcesso;
 import com.google.common.collect.Lists;
 import com.super_bits.modulos.SBAcessosModel.controller.UtilSBControllerAcessosModel;
 import com.super_bits.modulos.SBAcessosModel.model.ConfiguracaoDePermissao;
@@ -8,6 +9,7 @@ import com.super_bits.modulos.SBAcessosModel.model.ModuloAcaoSistema;
 import com.super_bits.modulos.SBAcessosModel.model.PermissaoSB;
 import com.super_bits.modulos.SBAcessosModel.model.UsuarioSB;
 import com.super_bits.modulos.SBAcessosModel.model.acoes.AcaoDoSistema;
+import com.super_bits.modulos.SBAcessosModel.model.tokens.TokenAcesso;
 import com.super_bits.modulos.SBAcessosModel.model.tokens.tokenLoginDinamico.TokenAcessoDinamico;
 import com.super_bits.modulos.SBAcessosModel.model.tokens.tokenRecuperacaoDeSenha.TokenRecuperacaoSenha;
 import com.super_bits.modulosSB.Persistencia.ConfigGeral.SBPersistencia;
@@ -45,6 +47,7 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoGrupo
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoUsuario;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ErroDadosDeContatoUsuarioNaoEncontrado;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.token.ComoTokenAcessoBasico;
 import com.super_bits.modulosSB.SBCore.modulos.erp.FabTipoAgenteOrganizacao;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.contato.ComoContatoHumano;
 import java.util.Objects;
@@ -532,6 +535,23 @@ public abstract class ConfigPermissoesAcessoModelAbstrato extends ConfigPermissa
             return grupoSemanticaSimilar.get();
         }
         return FabTipoAgenteOrganizacao.PUBLICO;
+    }
+
+    @Override
+    public ComoTokenAcessoBasico getTokenAcessoEntreSistemas(String pToken) {
+        EntityManager em = UtilSBPersistencia.getEMDoContexto();
+        try {
+            ConsultaDinamicaDeEntidade novaconsulta = new ConsultaDinamicaDeEntidade(TokenAcesso.class, em);
+            novaconsulta.addcondicaoCampoIgualA(CPTokenAcesso.codigo, pToken);
+            List<TokenAcesso> token = novaconsulta.gerarResultados();
+            if (token != null) {
+                return token.get(0);
+            }
+
+        } finally {
+            UtilSBPersistencia.fecharEM(em);
+        }
+        return null;
     }
 
 }
