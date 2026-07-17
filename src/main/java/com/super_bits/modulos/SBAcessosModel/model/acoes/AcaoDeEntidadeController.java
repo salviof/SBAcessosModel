@@ -12,7 +12,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoP
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistemaGenerica;
-import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfTipoComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComoTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.campoInstanciado.ItfCampoInstanciado;
@@ -124,12 +124,12 @@ public class AcaoDeEntidadeController extends AcaoSecundaria implements ComoAcao
     }
 
     @Override
-    public void setTipoComunicacao(ItfTipoComunicacao pTipoComunicacao) {
+    public void setTipoComunicacao(ComoTipoComunicacao pTipoComunicacao) {
         acaoControllerVinculado.setTipoComunicacao(pTipoComunicacao);
     }
 
     @Override
-    public ItfTipoComunicacao getTipoComunicacao() {
+    public ComoTipoComunicacao getTipoComunicacao() {
         return acaoControllerVinculado.getTipoComunicacao();
     }
 

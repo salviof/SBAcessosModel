@@ -10,7 +10,7 @@ import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoP
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoGerenciarEntidade;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.UtilSBController;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.fabricas.FabTipoAcaoSistema;
-import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ItfTipoComunicacao;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComoTipoComunicacao;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.InfoCampos.anotacoes.InfoObjetoSB;
 import java.lang.reflect.Method;
@@ -46,7 +46,7 @@ public class AcaoController extends AcaoDoSistema implements ComoAcaoController 
     private String campoJustificativa;
     private String xhtmlModalVinculado;
     @Transient
-    private ItfTipoComunicacao tipoComunicacao;
+    private ComoTipoComunicacao tipoComunicacao;
 
     @Transient
     private List<ComoParametroAcaoController> parametros;
@@ -123,6 +123,9 @@ public class AcaoController extends AcaoDoSistema implements ComoAcaoController 
         if (precisaComunicacao) {
             return precisaComunicacao;
         }
+        if (getTipoComunicacao().getFabTipoComunicacao() == null) {
+            return false;
+        }
         switch (getTipoComunicacao().getFabTipoComunicacao()) {
 
             case PERSONALIZADA:
@@ -153,7 +156,7 @@ public class AcaoController extends AcaoDoSistema implements ComoAcaoController 
     }
 
     @Override
-    public ItfTipoComunicacao getTipoComunicacao() {
+    public ComoTipoComunicacao getTipoComunicacao() {
         return tipoComunicacao;
     }
 
@@ -170,7 +173,7 @@ public class AcaoController extends AcaoDoSistema implements ComoAcaoController 
     }
 
     @Override
-    public void setTipoComunicacao(ItfTipoComunicacao pTipoComunicacao) {
+    public void setTipoComunicacao(ComoTipoComunicacao pTipoComunicacao) {
         tipoComunicacao = pTipoComunicacao;
     }
 
