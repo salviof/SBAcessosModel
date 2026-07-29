@@ -34,6 +34,7 @@ import java.util.List;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.cep.ComoCidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.cep.ComoLocal;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ComoEntidadeGenerica;
+import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroRegistrandoDialogo;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -354,7 +355,12 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                 if (isSucesso()) {
                     try {
                         if (getRetorno() == null || getRetorno() instanceof ComoEntidadeSimples) {
-                            CarameloCode.getServicoComunicacao().dispararNotificacaoAcaoSucesso(getAcaoVinculada(), (ComoEntidadeSimples) getRetorno());
+                            try {
+                                CarameloCode.getServicoComunicacao().dispararNotificacaoAcaoSucesso(getAcaoVinculada(), (ComoEntidadeSimples) getRetorno());
+                            } catch (ErroRegistrandoDialogo pErro) {
+                                addAlerta("Houveram falhas executando notificações automáticas de ação de sistema" + pErro.getMessage());
+                            }
+
                         }
                     } catch (Throwable t) {
                         CarameloCode.RelatarErro(FabErro.SOLICITAR_REPARO, "Falha executando notificacoes", t);
