@@ -15,6 +15,7 @@ import com.super_bits.modulosSB.Persistencia.dao.UtilSBPersistencia;
 import com.super_bits.modulosSB.Persistencia.registro.persistidos.modulos.CEP.Bairro;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.CarameloCode;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.SBCore;
+import com.super_bits.modulosSB.SBCore.UtilGeral.MapaAcoesSistema;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCValidacao;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.ItfRespostaAcaoDoSistema;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.permissoes.ItfAcaoFormulario;
@@ -29,12 +30,15 @@ import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.ComoEntid
 import org.coletivojava.fw.api.tratamentoErros.FabErro;
 import com.super_bits.modulosSB.SBCore.UtilGeral.UtilCRCReflexaoObjeto;
 import com.super_bits.modulosSB.SBCore.modulos.Controller.ErroChamadaController;
+import com.super_bits.modulosSB.SBCore.modulos.Controller.Interfaces.acoes.ComoAcaoDoSistema;
+import com.super_bits.modulosSB.SBCore.modulos.comunicacao.ComoNotificacaoRegistrada;
 import com.super_bits.modulosSB.SBCore.modulos.fabrica.ComoFabricaAcoes;
 import java.util.List;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.cep.ComoCidade;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.entidade.basico.cep.ComoLocal;
 import com.super_bits.modulosSB.SBCore.modulos.objetos.registro.ComoEntidadeGenerica;
 import com.super_bits.modulosSB.SBCore.modulos.servicosCore.ErroRegistrandoDialogo;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +52,8 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
     private final ComoEntidadeSimples entidadePrincipalAssociada;
     private boolean executouAcoesFinais = false;
     private Map<ComoFabricaAcoes, ComoEntidadeGenerica> acoesFinaisSucesso = new HashMap<>();
+    private List<ComoNotificacaoRegistrada> notificacoesFinaisSucesso = new ArrayList<>();
+
     private Map<ComoFabricaAcoes, ComoEntidadeGenerica> acoesFinaisFalha = new HashMap<>();
 
     public boolean validarAtributos(ComoEntidadeSimples pEntidade) {
@@ -74,6 +80,29 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
                 }
 
             }
+            if (!notificacoesFinaisSucesso.isEmpty()) {
+
+                //TODO mover para CarameloCode.getServicoComunicacao()
+                ComoAcaoDoSistema acaoREgistroNotificacao = MapaAcoesSistema.getAcaoDoSistemaByNomeUnico("FabAcaoNotificacaoPadraoSB.NOTIFICACAO_CTR_REGISTRAR_NOTIFICACAO");
+                if (acaoREgistroNotificacao != null) {
+                    for (ComoNotificacaoRegistrada ntf : notificacoesFinaisSucesso) {
+                        ItfRespostaAcaoDoSistema resp;
+
+                        ComoFabricaAcoes acaoGatilho = acaoREgistroNotificacao.getEnumAcaoDoSistema();
+                        try {
+                            resp = CarameloCode.getServicoController().getResposta(acaoGatilho, ntf);
+                            if (!resp.isSucesso()) {
+                                addAlerta(resp.getMensagens().get(0).getMenssagem());
+                            }
+                        } catch (ErroChamadaController ex) {
+                            addAlerta("Falha disparanado gatilho de ação: " + acaoGatilho.getRegistro().getNomeAcao());
+                        }
+                    }
+                } else {
+                    addAlerta("Falha disparanado gatilho de ação, o módulo com implementação para NOTIFICACAO_CTR_REGISTRAR_NOTIFICACAO, não foi encontrado");
+                }
+
+            }
         } else {
             for (ComoFabricaAcoes acaoFalha : acoesFinaisFalha.keySet()) {
                 ItfRespostaAcaoDoSistema resp;
@@ -92,6 +121,22 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
     public void adicionarGatilhoExecucaoFinalComSucesso(ComoFabricaAcoes acao, ComoEntidadeGenerica pEntidade) {
         acoesFinaisSucesso.put(acao, pEntidade);
+    }
+
+    public void adicionarNotificacoesSucesso(ComoNotificacaoRegistrada... pNotificacoes) {
+        if (pNotificacoes == null || pNotificacoes.length == 0) {
+            return;
+        }
+        for (ComoNotificacaoRegistrada ntf : pNotificacoes) {
+            if (ntf.getTipoNotificacao() != null) {
+                //Evita tipos de notificações duplicadas
+                if (!notificacoesFinaisSucesso.stream()
+                        .filter(n -> n.getTipoNotificacao().equals(ntf.getTipoNotificacao())).findAny().isPresent()) {
+                    notificacoesFinaisSucesso.add(ntf);
+                }
+
+            }
+        }
     }
 
     @Override
@@ -202,7 +247,7 @@ public abstract class RespostaComGestaoEMRegraDeNegocioPadrao extends RespostaCo
 
         if (umNovoRegistro) {
 
-            String imagemPequeno = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_PEQUENA, SBCore.getCentralDeSessao().getSessaoAtual());;
+            String imagemPequeno = SBCore.getServicoArquivosDeEntidade().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_PEQUENA, SBCore.getCentralDeSessao().getSessaoAtual());;
             String imagemMedio = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_MEDIA, SBCore.getCentralDeSessao().getSessaoAtual());;
             String imagemGrande = SBCore.getCentralDeArquivos().getEndrLocalImagem(pObjeto, FabTipoAtributoObjeto.IMG_GRANDE, SBCore.getCentralDeSessao().getSessaoAtual());;
 
