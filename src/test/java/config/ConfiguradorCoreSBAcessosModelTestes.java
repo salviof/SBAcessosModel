@@ -4,10 +4,10 @@
  */
 package config;
 
+import com.super_bits.modulosSB.SBCore.ConfigGeral.ComoContextoExecCustomizavel;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ConfiguradorCoreDeProjetoJarAbstrato;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.ControleDeSessaoPadrao;
 import com.super_bits.modulosSB.SBCore.ConfigGeral.FabTipoProjeto;
-import com.super_bits.modulosSB.SBCore.ConfigGeral.ItfConfiguracaoCoreCustomizavel;
 
 /**
  *
@@ -21,7 +21,7 @@ public class ConfiguradorCoreSBAcessosModelTestes extends ConfiguradorCoreDeProj
     }
 
     @Override
-    public void defineFabricasDeACao(ItfConfiguracaoCoreCustomizavel pConfig) {
+    public void defineFabricasDeACao(ComoContextoExecCustomizavel pConfig) {
         pConfig.setClasseConfigPermissao(ConfigPermissoesAcessosModel.class);
         pConfig.setFabricaDeAcoes(new Class[]{FabAcoesSBAcessosModelTestes.class});
         pConfig.setControleDeSessao(ControleDeSessaoPadrao.class);

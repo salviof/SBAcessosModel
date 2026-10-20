@@ -70,7 +70,6 @@ public enum FabAcaoPaginasDoSistema implements ComoFabricaAcoes {
     @InfoTipoAcaoGestaoEntidade(precisaPermissao = false, xhtmlDaAcao = FabAcaoPaginasDoSistema.FORMULARIO_API_JSON_WEB_VIEW, icone = "fa fa-link")
     PAGINA_NATIVA_LINK_RAPIDO_MB_GESTAO;
 
-    ;
     public final static String FORMULARIO_API_JSON_WEB_VIEW = "/resources/json-webview/jsonwebview.xhtml";
     public final static String FORMULARIO_HOME = "/site/home.xhtml";
     public final static String FORMULARIO_PARAMETRO_URL_INVALIDO = "/resources/SBComp/SBSystemPages/parametroURLInvalido.xhtml";

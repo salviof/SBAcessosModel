@@ -29,7 +29,7 @@ public class ProjetoAtual extends EntidadeSimples {
     }
 
     public String getNomeCliente() {
-        return SBCore.getInfoAplicacao().getCliente();
+        return SBCore.getContextoExecucao().getCliente();
     }
 
 }
