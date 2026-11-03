@@ -47,7 +47,7 @@ public enum FabAcaoProjetoSB implements ComoFabricaAcoes {
             nomeAcao = "Visualizar Tabela", icone = "fa fa-bars")
     PROJETO_FRM_VISUALIZAR_TABELA,
     @InfoTipoAcaoFormulario(xhtmlDaAcao = "/resources/SBComp/projeto/visaoGeral.xhtml",
-            nomeAcao = "Visão geral", icone = "fa fa-bars")
+            nomeAcao = "Visão geral Projeto Atual", icone = "fa fa-bars")
     PROJETO_FRM_VISAO_GERAL;
 
     @Override
