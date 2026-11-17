@@ -520,6 +520,7 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
                 return acao;
             }
         }
+
         FabTipoAcaoSistemaGenerica pTipoAcaoGenerica = getTipoAcaoByNome(pAcao);
 
         ComoFabricaAcoes fabricaDadoPrincipal = getAcaoPrincipalDoDominio(pAcao);
@@ -637,6 +638,9 @@ public abstract class UtilFabricaDeAcoesAcessosModel {
 
                     break;
                 case CONTROLLER_ATIVAR_DESATIVAR:
+                    if (pAcaoPrincipal == null) {
+                        System.out.println("Ctch");
+                    }
                     novaAcao = new AcaoDeEntidadeController(pAcaoPrincipal, pTipoAcaoGenerica, pAcao);
                     novaAcao.configurarPropriedadesBasicas(novaAcao);
                     novaAcao.setNome("Alterar status " + nomeDoObjeto);
